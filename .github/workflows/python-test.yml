@@ -6,11 +6,11 @@ name: Test Python 3.8 - Ubuntu Latest
 on:
   push:
     branches: 
-      - master
+      - main
       - develop
   pull_request:
     branches:
-      - master
+      - main
       - develop
 jobs:
   test:
