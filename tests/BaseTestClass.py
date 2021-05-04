@@ -16,3 +16,6 @@ class BaseNetCmTestClass(unittest.TestCase):
 
     def test_has_from_dict(self):
         self.assertTrue(hasattr(self.TEST_CLASS, "__dict__"))
+
+if __name__ == "__main__":
+    unittest.main()
