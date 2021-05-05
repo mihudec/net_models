@@ -1,7 +1,7 @@
 import sys
 import pathlib
 import unittest
-from netcm.models.BaseModels import BaseNetCmModel
+from netcm.models.BaseModels import BaseNetCmModel, VendorIndependentBaseModel
 
 
 class BaseNetCmTestClass(unittest.TestCase):
@@ -16,6 +16,11 @@ class BaseNetCmTestClass(unittest.TestCase):
 
     def test_has_from_dict(self):
         self.assertTrue(hasattr(self.TEST_CLASS, "__dict__"))
+
+
+class BaseVendorIndependentTest(BaseNetCmTestClass):
+
+    TEST_CLASS = VendorIndependentBaseModel
 
 if __name__ == "__main__":
     unittest.main()

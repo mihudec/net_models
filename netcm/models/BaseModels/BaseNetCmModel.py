@@ -5,4 +5,8 @@ class BaseNetCmModel(BaseModel):
     """Base Network Config Model Class
 
     """
-    pass
+
+class VendorIndependentBaseModel(BaseNetCmModel):
+    """Vendor Independent Base Model Class
+
+    """

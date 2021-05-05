@@ -1,1 +1,1 @@
-from netcm.models.BaseModels.BaseNetCmModel import BaseNetCmModel
+from netcm.models.BaseModels.BaseNetCmModel import BaseNetCmModel, VendorIndependentBaseModel
