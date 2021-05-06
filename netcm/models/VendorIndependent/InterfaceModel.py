@@ -6,11 +6,8 @@ from netcm.fields import *
 from netcm.validators import*
 
 import ipaddress
-from typing import (
-    Literal,
-    List,
-    Optional
-)
+from typing import (List, Optional)
+from typing_extensions import (Literal)
 
 from pydantic import (
     root_validator,

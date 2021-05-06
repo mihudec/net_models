@@ -2,7 +2,8 @@ from pydantic import validator, root_validator
 from netcm.models.BaseModels import VendorIndependentBaseModel
 from netcm.fields import *
 from netcm.validators import *
-from typing import (Optional, Literal, List)
+from typing import (List, Optional)
+from typing_extensions import (Literal)
 
 class InterfaceIPv4Address(VendorIndependentBaseModel):
 
