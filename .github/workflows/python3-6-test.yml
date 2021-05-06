@@ -30,7 +30,7 @@ jobs:
         pip install flake8 pytest
         if [ -f tests/test-requirements.txt ]; then pip install -r tests/test-requirements.txt; fi
 
-     name: Test Everything
+    - name: Test Everything
       run: |
         python -m unittest discover -s ./tests -p "test_*.py"
 
