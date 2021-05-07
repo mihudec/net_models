@@ -1,6 +1,5 @@
 import ipaddress
-from typing import OrderedDict # >= Python 3.7.2
-from collections import OrderedDict as CollectionOrderedDict # > Python 3.9
+from collections import OrderedDict
 from netcm.utils import get_interface_index
 
 def ipv4_is_assignable(address: ipaddress.IPv4Interface) -> ipaddress.IPv4Interface:
@@ -15,4 +14,4 @@ def ipv4_is_assignable(address: ipaddress.IPv4Interface) -> ipaddress.IPv4Interf
 
 
 def sort_interface_dict(interfaces: OrderedDict):
-    return CollectionOrderedDict(sorted(interfaces.items(), key=lambda x: get_interface_index(x[0])))
+    return OrderedDict(sorted(interfaces.items(), key=lambda x: get_interface_index(x[0])))
