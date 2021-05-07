@@ -22,5 +22,5 @@ class BaseVendorIndependentTest(BaseNetCmTestClass):
 
     TEST_CLASS = VendorIndependentBaseModel
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

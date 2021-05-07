@@ -1,27 +1,25 @@
 import unittest
 from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
-from netcm.models.VendorIndependent.InterfaceModel import InterfaceModel
+from netcm.models.VendorIndependent.InterfaceModel import InterfaceModel, InterfaceContainerModel
 from netcm.models.VendorIndependent.L2InterfaceModels import *
 from netcm.models.VendorIndependent.L3InterfaceModels import *
 from pydantic.error_wrappers import ValidationError
 
 
 class TestInterfaceSpanningTreeConfig(BaseVendorIndependentTest):
-
     TEST_CLASS = InterfaceSpanningTreeConfig
 
 
 class TestInterfaceSwitchportModel(BaseVendorIndependentTest):
-
     TEST_CLASS = InterfaceSwitchportModel
 
     def test_valid_trunk_01(self):
         test_payload = {
             "mode": "trunk",
-            "tagged_vlans": [10,20,30,40],
+            "tagged_vlans": [10, 20, 30, 40],
             "untagged_vlan": 1
         }
-        test_obj = InterfaceSwitchportModel(**test_payload)
+        test_obj = self.TEST_CLASS(**test_payload)
         self.assertTrue(
             all([hasattr(test_obj, x) for x in test_payload.keys()])
         )
@@ -29,23 +27,33 @@ class TestInterfaceSwitchportModel(BaseVendorIndependentTest):
     def test_invalid_trunk_01(self):
         test_payload = {
             "mode": "trunk",
-            "tagged_vlans": [1,2,3,4]
+            "tagged_vlans": [1, 2, 3, 4]
         }
-        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Vlan 1 cannot be tagged if untagged_vlan is None."):
-            InterfaceSwitchportModel(**test_payload)
+        with self.assertRaisesRegex(expected_exception=ValidationError,
+                                    expected_regex=r"Vlan 1 cannot be tagged if untagged_vlan is None."):
+            test_obj = self.TEST_CLASS(**test_payload)
 
     def test_invalid_trunk_02(self):
         test_payload = {
             "mode": "trunk",
-            "tagged_vlans": [1,2,3,4],
+            "tagged_vlans": [1, 2, 3, 4],
             "untagged_vlan": 2
         }
-        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Vlan \d+ cannot be both tagged and untagged."):
-            InterfaceSwitchportModel(**test_payload)
+        with self.assertRaisesRegex(expected_exception=ValidationError,
+                                    expected_regex=r"Vlan \d+ cannot be both tagged and untagged."):
+            test_obj = self.TEST_CLASS(**test_payload)
+
+    def test_posponed_validation_01(self):
+        test_obj = InterfaceSwitchportModel.construct()
+        test_obj.mode = "trunk"
+        test_obj.tagged_vlans = [10, 11, 12]
+        try:
+            test_obj.check()
+        except ValidationError as e:
+            self.fail(f"{repr(e)}")
 
 
 class TestInterfaceIPv4Address(BaseVendorIndependentTest):
-
     TEST_CLASS = InterfaceIPv4Address
 
     def test_valid_01(self):
@@ -63,10 +71,9 @@ class TestInterfaceIPv4Address(BaseVendorIndependentTest):
         }
         with self.assertRaisesRegex(ValidationError, expected_regex=r"Invalid IPv4 Interface Address: 192.168.1.0/24"):
             test_obj = self.TEST_CLASS(**test_payload)
-        
+
 
 class TestInterfaceIPv6Address(BaseVendorIndependentTest):
-
     TEST_CLASS = InterfaceIPv6Address
 
     def test_valid_01(self):
@@ -80,7 +87,6 @@ class TestInterfaceIPv6Address(BaseVendorIndependentTest):
 
 
 class TestInterfaceIPv4Container(BaseVendorIndependentTest):
-
     TEST_CLASS = InterfaceIPv4Container
 
     def test_valid_01(self):
@@ -95,25 +101,94 @@ class TestInterfaceIPv4Container(BaseVendorIndependentTest):
         except Exception as e:
             self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
 
+    def test_valid_02(self):
+        test_payload = {}
+        try:
+            test_obj = self.TEST_CLASS(**test_payload)
+        except Exception as e:
+            self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
+
+
+    def test_multiple_primary(self):
+        test_payload = {
+            "addresses": [
+                {"address": "192.168.1.1/24"},
+                {"address": "10.0.0.1/24"}
+            ]
+        }
+        with self.assertRaisesRegex(ValidationError, expected_regex="Multiple 'primary addresses' found, only one allowed."):
+            test_obj = self.TEST_CLASS(**test_payload)
+
+    def test_with_overlapping(self):
+        test_payload = {
+            "addresses": [
+                {"address": "192.168.1.1/24"},
+                {"address": "192.168.1.2/24"}
+            ]
+        }
+        with self.assertRaisesRegex(ValidationError, expected_regex="Address 192.168.1.2/24 overlaps with 192.168.1.1/24"):
+            test_obj = self.TEST_CLASS(**test_payload)
+
 
 class TestInterfaceIPv6Container(BaseVendorIndependentTest):
-
     TEST_CLASS = InterfaceIPv6Container
 
 
-class TestRouteportAbstractModel(BaseVendorIndependentTest):
-
+class TestRouteportModel(BaseVendorIndependentTest):
     TEST_CLASS = InterfaceRouteportModel
-    
 
-class TestInterfaceAbstractModel(BaseVendorIndependentTest):
 
+class TestInterfaceModel(BaseVendorIndependentTest):
     TEST_CLASS = InterfaceModel
 
     def test_has_name(self):
-        test_obj = InterfaceModel(name="Vl1")
+        test_obj = self.TEST_CLASS(name="Vl1")
         self.assertTrue(hasattr(test_obj, "name"))
 
 
-if __name__ == "__main__":
+class TestInterfaceContainerModel(BaseVendorIndependentTest):
+    TEST_CLASS = InterfaceContainerModel
+
+    def test_create_01(self):
+        test_payload = {
+            "interfaces": {
+                "Loopback1": {
+                    "name": "Loopback1",
+                    "l3_port": {
+                        "ipv4": {
+                            "addresses": [
+                                {
+                                    "address": "192.168.1.1/32"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Loopback0": {
+                    "name": "Loopback0",
+                    "l3_port": {
+                        "ipv4": {
+                            "addresses": [
+                                {
+                                    "address": "192.168.1.1/32"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "GigabitEthernet1/0/1.2": {
+                    "name": "GigabitEthernet1/0/1.2",
+                    "l2_port": {
+                        "mode": "trunk"
+                    }
+                }
+            }
+        }
+        try:
+            test_obj = self.TEST_CLASS(**test_payload)
+        except Exception as e:
+            self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
+
+
+if __name__ == '__main__':
     unittest.main()

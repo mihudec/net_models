@@ -15,7 +15,7 @@ class InterfaceSpanningTreeConfig(VendorIndependentBaseModel):
 
 class InterfaceSwitchportModel(VendorIndependentBaseModel):
 
-    _modelname = "switchport_abstract_model"
+    _modelname = "switchport_model"
     _identifiers = []
     _children = {InterfaceSpanningTreeConfig: "stp"}
 
