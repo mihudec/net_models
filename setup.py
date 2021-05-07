@@ -8,9 +8,9 @@ with open("requirements.txt", "r") as fs:
 setup(
     name="netcm",
     packages=find_packages(include=["netcm"]),
-    # package_dir={
-    #     "": "netcm"
-    # },
+    package_dir={
+        "": "netcm"
+    },
     version=VERSION,
     author="Miroslav Hudec <http://github.com/mihudec>",
     description="Network Config Models",
