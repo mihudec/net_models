@@ -6,9 +6,8 @@ from netcm.fields import *
 from netcm.validators import*
 
 import ipaddress
-from typing import (List, Optional, Dict)
+from typing import (List, Optional, Dict, OrderedDict)
 from typing_extensions import (Literal)
-from collections import OrderedDict
 from pydantic import (
     root_validator,
     conint,
