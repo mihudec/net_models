@@ -6,7 +6,7 @@ from netcm.fields import *
 from netcm.validators import*
 
 import ipaddress
-from typing import (List, Optional, Dict, OrderedDict)
+from typing import (List, Optional, Dict)
 from typing_extensions import (Literal)
 from pydantic import (
     root_validator,
@@ -55,6 +55,6 @@ class InterfaceModel(VendorIndependentBaseModel):
 
 class InterfaceContainerModel(VendorIndependentBaseModel):
 
-    interfaces: OrderedDict[interface_name, InterfaceModel]
+    interfaces: Dict[interface_name, InterfaceModel] # Actually collections.OrderedDict, because Python 3.6
 
     _sort_interfaces = validator("interfaces", allow_reuse=True)(sort_interface_dict)

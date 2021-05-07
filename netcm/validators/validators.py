@@ -1,6 +1,6 @@
 import ipaddress
-from typing import OrderedDict
-from collections import OrderedDict as CollectionOrderedDict
+from typing import OrderedDict # >= Python 3.7.2
+from collections import OrderedDict as CollectionOrderedDict # > Python 3.9
 from netcm.utils import get_interface_index
 
 def ipv4_is_assignable(address: ipaddress.IPv4Interface) -> ipaddress.IPv4Interface:
