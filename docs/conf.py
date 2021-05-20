@@ -13,6 +13,7 @@
 import pathlib
 import sys
 ROOT_DIR = pathlib.Path(__file__).parent.parent.absolute()
+print(ROOT_DIR)
 sys.path.insert(0, ROOT_DIR)
 
 
