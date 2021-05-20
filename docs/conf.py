@@ -12,7 +12,8 @@
 #
 import pathlib
 import sys
-sys.path.insert(0, pathlib.Path(__file__).parent.parent)
+ROOT_DIR = pathlib.Path(__file__).parent.parent.absolute()
+sys.path.insert(0, ROOT_DIR)
 
 
 # -- Project information -----------------------------------------------------
