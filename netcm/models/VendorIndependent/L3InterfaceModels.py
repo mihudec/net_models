@@ -1,6 +1,7 @@
 from pydantic import validator, root_validator
 from netcm.models.BaseModels import VendorIndependentBaseModel
-from netcm.fields import *
+from netcm.models.VendorIndependent.SharedModels import AuthBase
+from netcm.models.Fields import *
 from netcm.validators import *
 from typing import (List, Optional)
 from typing_extensions import (Literal)
@@ -34,10 +35,10 @@ class InterfaceIPv4Container(VendorIndependentBaseModel):
     _modelname = "interface_ipv4_container"
 
     addresses: Optional[List[InterfaceIPv4Address]]
-    unnumbered: Optional[interface_name]
+    unnumbered: Optional[GENERIC_INTERFACE_NAME]
     dhcp_client: Optional[InterfaceDhcpClientConfig]
 
-    @root_validator
+    @root_validator(allow_reuse=True)
     def validate_non_overlapping(cls, values):
         addresses = values.get("addresses")
         if addresses is None:
@@ -50,7 +51,7 @@ class InterfaceIPv4Container(VendorIndependentBaseModel):
                     raise AssertionError(f"Address {str(other_address.address)} overlaps with {str(address.address)}")
         return values
 
-    @root_validator
+    @root_validator(allow_reuse=True)
     def validate_single_primary(cls, values):
         addresses = values.get("addresses")
         if addresses is None:
@@ -71,6 +72,49 @@ class InterfaceIPv6Container(VendorIndependentBaseModel):
     addresses: Optional[List[InterfaceIPv6Address]]
 
 
+class InterfaceOspfConfig(VendorIndependentBaseModel):
+
+    _modelname = "interface_ospf_config"
+
+    network_type: Optional[str]
+    cost: Optional[int]
+    priority: Optional[int]
+    process_id: Optional[int]
+    area: Optional[int]
+
+    @root_validator(allow_reuse=True)
+    def validate_process_and_area(cls, values):
+        if values.get("process_id") and not values.get("area"):
+            raise AssertionError("When 'process_id' is set, 'area' is required.")
+        elif not values.get("process_id") and values.get("area"):
+            raise AssertionError("When 'area' is set, 'process_id' is required.")
+        return values
+
+
+class IsisMetricField(VendorIndependentBaseModel):
+
+    _modelname = "isis_metric_field"
+
+    level: Literal["level-1", "level-2"]
+    metric: int
+
+
+class IsisInterfaceAuthentication(AuthBase):
+
+    mode: Optional[str]
+    keychain: Optional[str]
+
+class InterfaceIsisConfig(VendorIndependentBaseModel):
+
+    _modelname = "interface_isis_config"
+
+    network_type: Optional[str]
+    circuit_type: Optional[str]
+    process_id: Optional[int]
+    authentication: Optional[IsisInterfaceAuthentication]
+    metric: Optional[List[IsisMetricField]]
+
+
 class InterfaceRouteportModel(VendorIndependentBaseModel):
 
     _modelname = "routeport_model"
@@ -79,3 +123,5 @@ class InterfaceRouteportModel(VendorIndependentBaseModel):
     ipv4: Optional[InterfaceIPv4Container]
     ipv6: Optional[InterfaceIPv6Container]
     vrf: Optional[str]
+    ospf_config: Optional[InterfaceOspfConfig]
+    isis_config: Optional[InterfaceIsisConfig]

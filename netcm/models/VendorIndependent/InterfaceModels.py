@@ -1,19 +1,10 @@
-from pydantic.class_validators import validator
+import ipaddress
 from netcm.models.BaseModels import VendorIndependentBaseModel
 from netcm.models.VendorIndependent.L2InterfaceModels import *
 from netcm.models.VendorIndependent.L3InterfaceModels import *
-from netcm.fields import *
-from netcm.validators import*
-
-import ipaddress
-from typing import (List, Optional, Dict)
-from typing_extensions import (Literal)
-from pydantic import (
-    root_validator,
-    conint,
-    constr
-)
-
+from pydantic.typing import (List, Optional, Dict, Literal)
+from pydantic import root_validator, validator, conint, constr
+from netcm.validators import *
 
 
 class InterfaceLagMemberConfig(VendorIndependentBaseModel):
@@ -39,7 +30,7 @@ class InterfaceModel(VendorIndependentBaseModel):
     l3_port: Optional[InterfaceRouteportModel]
     lag_member: Optional[InterfaceLagMemberConfig]
 
-    @root_validator
+    @root_validator(allow_reuse=True)
     def generate_tags(cls, values):
         if values.get("l2_port"):
             if "l2" not in values["tags"]:
@@ -55,6 +46,6 @@ class InterfaceModel(VendorIndependentBaseModel):
 
 class InterfaceContainerModel(VendorIndependentBaseModel):
 
-    interfaces: Dict[interface_name, InterfaceModel] # Actually collections.OrderedDict, because Python 3.6
+    interfaces: Dict[GENERIC_INTERFACE_NAME, InterfaceModel] # Actually collections.OrderedDict, because Python 3.6
 
     _sort_interfaces = validator("interfaces", allow_reuse=True)(sort_interface_dict)

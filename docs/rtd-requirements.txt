@@ -1,0 +1,6 @@
+typing-extensions
+pydantic
+diffsync
+sphinx
+sphinx-rtd-theme
+autodoc_pydantic

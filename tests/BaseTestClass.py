@@ -8,19 +8,20 @@ class BaseNetCmTestClass(unittest.TestCase):
 
     TEST_CLASS = BaseNetCmModel
 
-    def test_subclases_basemodel(self):
+    def test_subclasses_basemodel(self):
         self.assertTrue(issubclass(self.TEST_CLASS, BaseNetCmModel))
 
     def test_has_dict_method(self):
         self.assertTrue(hasattr(self.TEST_CLASS, "__dict__"))
 
-    def test_has_from_dict(self):
-        self.assertTrue(hasattr(self.TEST_CLASS, "__dict__"))
+    def test_has_validators(self):
+        self.assertTrue(hasattr(self.TEST_CLASS, "__validators__"))
 
 
 class BaseVendorIndependentTest(BaseNetCmTestClass):
 
     TEST_CLASS = VendorIndependentBaseModel
+
 
 if __name__ == '__main__':
     unittest.main()

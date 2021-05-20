@@ -11,7 +11,13 @@ class BaseNetCmModel(BaseModel):
         if validation_error:
             raise validation_error
 
+
 class VendorIndependentBaseModel(BaseNetCmModel):
     """Vendor Independent Base Model Class
 
     """
+
+    @classmethod
+    def __get_validators__(cls) -> 'CallableGenerator':
+        print(f"Calling validators on {cls.__name__}")
+        return super().__get_validators__()
