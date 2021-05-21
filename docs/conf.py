@@ -13,7 +13,10 @@
 import pathlib
 import sys
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.absolute()
-print(ROOT_DIR)
+print(f"ROOT-DIR: {ROOT_DIR}")
+print("Listing contents of ROOT_DIR...")
+for i in ROOT_DIR.iterdir():
+    print(i)
 sys.path.insert(0, ROOT_DIR)
 
 
