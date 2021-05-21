@@ -17,7 +17,7 @@ print(f"ROOT-DIR: {ROOT_DIR}")
 print("Listing contents of ROOT_DIR...")
 for i in ROOT_DIR.iterdir():
     print(i)
-sys.path.insert(0, ROOT_DIR)
+sys.path.insert(0, str(ROOT_DIR))
 
 
 # -- Project information -----------------------------------------------------
