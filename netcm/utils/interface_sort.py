@@ -1,4 +1,5 @@
 from netcm.utils import get_logger
+from netcm.utils.common import split_interface
 import re
 from typing import List, Union
 LOGGER = get_logger(name="NetCm-InterfaceSort")
@@ -14,18 +15,7 @@ INTERFACE_TYPE_WEIGHT_MAP = {
 INTEFACE_TYPE_DEFAULT_WEIGHT = 50
 INTEFACE_TYPE_MAX_WEIGHT = 255
 
-def split_interface(interface_name: str) -> Union[List[str], None]:
-    pattern = re.compile(pattern=r"(?P<type>[A-z]{2,}(?:[A-z\-])*)(?P<numbers>\d+(?:\/\d+)*(?:\:\d+)?(?:\.\d+)?)")
-    try:
-        match = re.match(pattern=pattern, string=interface_name)
-    except TypeError as e:
-        LOGGER.error("Expected string or bytes-like object, cannot match on '{}'".format(type(interface_name)))
-        return (None, None)
-    if match:
-        return [match.group("type"), match.group("numbers")]
-    else:
-        LOGGER.error("Given interface {} did not match parsing pattern.".format(interface_name))
-        return (None, None)
+
 
 def extract_numbers(text: str, max_length: int = 6) -> Union[List[int], None]:
 

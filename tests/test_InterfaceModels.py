@@ -1,10 +1,14 @@
 import collections
 import unittest
 import json
+import yaml
 from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
-from netcm.models.VendorIndependent.InterfaceModels import InterfaceModel, InterfaceContainerModel
-from netcm.models.VendorIndependent.L2InterfaceModels import *
-from netcm.models.VendorIndependent.L3InterfaceModels import *
+from netcm.models.interfaces.vi import (
+    InterfaceModel,
+    InterfaceContainerModel
+)
+from netcm.models.interfaces.vi.L2InterfaceModels import *
+from netcm.models.interfaces.vi.L3InterfaceModels import *
 from pydantic.error_wrappers import ValidationError
 
 
@@ -167,9 +171,56 @@ class TestRouteportModel(BaseVendorIndependentTest):
 class TestInterfaceModel(BaseVendorIndependentTest):
     TEST_CLASS = InterfaceModel
 
-    def test_has_name(self):
-        test_obj = self.TEST_CLASS(name="Vl1")
-        self.assertTrue(hasattr(test_obj, "name"))
+    def test_valid_interface_names(self):
+        test_cases = [
+            {
+                "test_name": "Loopback0",
+                "data": {
+                    "name": "Loopback0",
+                },
+                "result": "Loopback0"
+            },
+            {
+                "test_name": "lo0",
+                "data": {
+                    "name": "lo0",
+                },
+                "result": "Loopback0"
+            },
+            {
+                "test_name": "GigabitEthernet1/0/1",
+                "data": {
+                    "name": "GigabitEthernet1/0/1",
+                },
+                "result": "GigabitEthernet1/0/1"
+            },
+            {
+                "test_name": "gi1/0/1",
+                "data": {
+                    "name": "gi1/0/1",
+                },
+                "result": "GigabitEthernet1/0/1"
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(msg=test_case["test_name"]):
+                want = test_case["result"]
+                have = self.TEST_CLASS(**test_case["data"]).name
+                self.assertEqual(want, have)
+
+    def test_to_json(self):
+        test_obj = self.TEST_CLASS(name="Vlan1")
+        want = {"name": "Vlan1", "tags": ["virtual"]}
+        output = test_obj.json(exclude_none=True)
+        have = json.loads(output)
+        self.assertEqual(want, have)
+
+    def test_to_yaml(self):
+        test_obj = self.TEST_CLASS(name="GigabitEthernet1/0/1", tags=["physical"], l2_port=InterfaceSwitchportModel(mode="access"))
+        want = {"name": "GigabitEthernet1/0/1", "tags": ["l2", "physical"], "l2_port": {"mode": "access"}}
+        output = test_obj.yaml(exclude_none=True)
+        have = yaml.safe_load(output)
+        self.assertEqual(want, have)
 
 
 class TestInterfaceContainerModel(BaseVendorIndependentTest):

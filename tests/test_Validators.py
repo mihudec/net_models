@@ -89,6 +89,22 @@ class TestExpandVlanRange(TestValidatorBase):
 
 
 
+class TestNormalizeInterfaceName(TestValidatorBase):
+
+    def test_common_testcase(self):
+        test_cases = [
+            {
+                "test_name": "Test-Ethernet-01",
+                "data": {
+                    "interface_name": "ethernet0/1"
+                },
+                "result": "Ethernet0/1"
+            }
+        ]
+        super().test_common_testcase(test_cases=test_cases, test_func=normalize_interface_name)
+
+
+
 del TestValidatorBase
 
 if __name__ == '__main__':

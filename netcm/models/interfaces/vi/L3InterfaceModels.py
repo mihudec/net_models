@@ -35,7 +35,7 @@ class InterfaceIPv4Container(VendorIndependentBaseModel):
     _modelname = "interface_ipv4_container"
 
     addresses: Optional[List[InterfaceIPv4Address]]
-    unnumbered: Optional[GENERIC_INTERFACE_NAME]
+    unnumbered: Optional[INTERFACE_NAME]
     dhcp_client: Optional[InterfaceDhcpClientConfig]
 
     @root_validator(allow_reuse=True)

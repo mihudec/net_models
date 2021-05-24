@@ -3,7 +3,7 @@ from pydantic.typing import Optional, Union, List, Literal
 from pydantic import conint
 from netcm.models.BaseModels import VendorIndependentBaseModel
 from netcm.models.VendorIndependent.SharedModels import KeyBase, AuthBase
-from netcm.models.Fields import GENERIC_OBJECT_NAME, GENERIC_INTERFACE_NAME, VRF_NAME
+from netcm.models.Fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME
 
 
 class ServerPropertiesBase(VendorIndependentBaseModel):
@@ -46,7 +46,7 @@ class TacacsServer(AaaServer):
 
 class AaaServerGroup(VendorIndependentBaseModel):
 
-    source_interface: Optional[GENERIC_INTERFACE_NAME]
+    source_interface: Optional[BASE_INTERFACE_NAME]
     vrf: Optional[VRF_NAME]
 
 

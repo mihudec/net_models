@@ -1,6 +1,6 @@
 Interface Models
 ################
 
-.. automodule:: netcm.models.VendorIndependent.InterfaceModels
+.. automodule:: netcm.models.interfaces.vi.InterfaceModels
    :members:
    :undoc-members:

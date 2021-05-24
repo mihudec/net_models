@@ -4,3 +4,4 @@ diffsync
 sphinx
 sphinx-rtd-theme
 autodoc_pydantic
+# sphinx-autodoc-typehints

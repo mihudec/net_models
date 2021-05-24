@@ -1,9 +1,6 @@
 import unittest
 from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
 from netcm.models.VendorIndependent.VlanModel import VlanModel
-from netcm.models.VendorIndependent.L2InterfaceModels import *
-from netcm.models.VendorIndependent.L3InterfaceModels import *
-from pydantic.error_wrappers import ValidationError
 
 
 class TestVlanModel(BaseVendorIndependentTest):
@@ -18,3 +15,6 @@ class TestVlanModel(BaseVendorIndependentTest):
         self.assertTrue(
             all([hasattr(test_obj, x) for x in test_payload.keys()])
         )
+
+if __name__ == '__main__':
+    unittest.main()

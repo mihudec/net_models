@@ -1,7 +1,9 @@
 import ipaddress
 from collections import OrderedDict
-from netcm.utils import get_interface_index, get_logger
+from netcm.utils import get_interface_index, get_logger, split_interface
 from pydantic.typing import List, Union
+from netcm.utils import INTERFACE_NAMES
+
 
 LOGGER = get_logger(name="NetCm-Validators")
 
@@ -69,3 +71,21 @@ def expand_vlan_range(vlan_range: Union[List[int], str]) -> List[int]:
     except Exception as e:
         raise
     return vlan_list
+
+
+def normalize_interface_name(interface_name: str) -> str:
+    interface_type, interface_num = split_interface(interface_name=interface_name)
+    match_found = False
+    if interface_type in INTERFACE_NAMES.keys():
+        match_found = True
+        return interface_name
+    for full_name, shorts in INTERFACE_NAMES.items():
+        for short in shorts:
+            if interface_type.lower().startswith(short.lower()):
+                match_found = True
+                interface_name = full_name + interface_num
+    if not match_found:
+        msg = f"Given interface name does not comply with valid interface names. Given: {interface_name}, Expected: {list(INTERFACE_NAMES.keys())}"
+        LOGGER.error(msg=msg)
+        raise AssertionError(msg)
+    return interface_name

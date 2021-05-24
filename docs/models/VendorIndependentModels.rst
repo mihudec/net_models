@@ -1,10 +1,9 @@
-***********************************
-Vendor Independent Interface Models
-***********************************
+******************
+Vendor Independent
+******************
 
 .. toctree::
    :maxdepth: 2
-   :caption: Vendor Independent Models:
 
    ./L2InterfaceModels
    ./L3InterfaceModels

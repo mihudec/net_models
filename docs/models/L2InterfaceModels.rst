@@ -1,6 +1,6 @@
 L2 Interface Models
 ###################
 
-.. automodule:: netcm.models.VendorIndependent.L2InterfaceModels
+.. automodule:: netcm.models.interfaces.vi.L2InterfaceModels
    :members:
    :undoc-members:

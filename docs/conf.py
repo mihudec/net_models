@@ -13,10 +13,6 @@
 import pathlib
 import sys
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.absolute()
-print(f"ROOT-DIR: {ROOT_DIR}")
-print("Listing contents of ROOT_DIR...")
-for i in ROOT_DIR.iterdir():
-    print(i)
 sys.path.insert(0, str(ROOT_DIR))
 
 
@@ -37,6 +33,7 @@ release = '0.0.1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    # 'sphinx_autodoc_typehints',
     'sphinxcontrib.autodoc_pydantic',
 ]
 
@@ -70,3 +67,4 @@ html_static_path = ['_static']
 # }
 
 add_module_names = False
+# typehints_fully_qualified = False
