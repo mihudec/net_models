@@ -1,16 +1,24 @@
 import ipaddress
 from pydantic.typing import Optional, Union, List, Literal
-from pydantic import conint
+from pydantic import conint, root_validator
 from netcm.models.BaseModels import VendorIndependentBaseModel
-from netcm.models.VendorIndependent.SharedModels import KeyBase, AuthBase
+from netcm.models.BaseModels.SharedModels import KeyBase, AuthBase
 from netcm.models.Fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME
 
 
 class ServerPropertiesBase(VendorIndependentBaseModel):
 
     server: Union[ipaddress.IPv4Address, ipaddress.IPv6Address]
-    vrf: Optional[VRF_NAME]
+    address_version: Optional[Literal["ipv4", "ipv6"]]
 
+    @root_validator(allow_reuse=True)
+    def generate_address_version(cls, values):
+        if not values.get("address_version"):
+            if isinstance(values.get("server"), ipaddress.IPv4Address):
+                values["address_version"] = "ipv4"
+            elif isinstance(values.get("server"), ipaddress.IPv6Address):
+                values["address_version"] = "ipv6"
+        return values
 
 
 class NtpServer(ServerPropertiesBase):
@@ -22,7 +30,7 @@ class NtpServer(ServerPropertiesBase):
 
 class LoggingServer(ServerPropertiesBase):
 
-    procol: Optional[Literal["tcp", "udp"]]
+    protocol: Optional[Literal["tcp", "udp"]]
     port: Optional[int]
 
 
@@ -36,7 +44,7 @@ class AaaServer(ServerPropertiesBase):
 
 class RadiusServer(AaaServer):
 
-    pass
+    retransmit: Optional[conint(ge=1)]
 
 
 class TacacsServer(AaaServer):
@@ -46,6 +54,7 @@ class TacacsServer(AaaServer):
 
 class AaaServerGroup(VendorIndependentBaseModel):
 
+    name: GENERIC_OBJECT_NAME
     source_interface: Optional[BASE_INTERFACE_NAME]
     vrf: Optional[VRF_NAME]
 

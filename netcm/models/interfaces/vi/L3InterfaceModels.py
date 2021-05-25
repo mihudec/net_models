@@ -1,6 +1,6 @@
 from pydantic import validator, root_validator
 from netcm.models.BaseModels import VendorIndependentBaseModel
-from netcm.models.VendorIndependent.SharedModels import AuthBase
+from netcm.models.BaseModels.SharedModels import AuthBase
 from netcm.models.Fields import *
 from netcm.validators import *
 from typing import (List, Optional)
