@@ -23,7 +23,7 @@ class ServerPropertiesBase(VendorIndependentBaseModel):
 
 class NtpServer(ServerPropertiesBase):
 
-    source_interface: Optional[str]
+    src_interface: Optional[str]
     key: Optional[str]
     prefer: Optional[bool]
 
@@ -55,7 +55,7 @@ class TacacsServer(AaaServer):
 class AaaServerGroup(VendorIndependentBaseModel):
 
     name: GENERIC_OBJECT_NAME
-    source_interface: Optional[BASE_INTERFACE_NAME]
+    src_interface: Optional[BASE_INTERFACE_NAME]
     vrf: Optional[VRF_NAME]
 
 

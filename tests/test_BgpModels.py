@@ -1,46 +1,163 @@
 import unittest
 from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
 from netcm.models.routing.vi.BgpModels import *
+from pydantic import ValidationError
 
+class TestViBgpBase(BaseVendorIndependentTest):
 
-class TestBgpTimers(BaseVendorIndependentTest):
+    RESOURCE_DIR = BaseVendorIndependentTest.RESOURCE_DIR.joinpath("routing").joinpath("vi")
+
+class TestBgpTimers(TestViBgpBase):
 
     TEST_CLASS = BgpTimers
 
 
-class TestBgpFallOver(BaseVendorIndependentTest):
+class TestBgpFallOver(TestViBgpBase):
 
     TEST_CLASS = BgpFallOver
 
 
-class TestBgpNeighborBase(BaseVendorIndependentTest):
+class TestBgpNeighborBase(TestViBgpBase):
 
     TEST_CLASS = BgpNeighborBase
 
 
-class TestBgpPeerGroup(BaseVendorIndependentTest):
+class TestBgpPeerGroup(TestViBgpBase):
 
     TEST_CLASS = BgpPeerGroup
 
 
-class TestBgpNeighbor(BaseVendorIndependentTest):
+class TestBgpNeighbor(TestViBgpBase):
 
     TEST_CLASS = BgpNeighbor
 
+    def test_empty_neighbor(self):
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Neighbor needs `address` specified, unless there is at least 'name'."):
+            test_obj = self.TEST_CLASS.parse_obj({})
 
-class TestBgpRedistributeEntry(BaseVendorIndependentTest):
+
+class TestBgpRedistributeEntry(TestViBgpBase):
 
     TEST_CLASS = BgpRedistributeEntry
 
 
-class TestBgpAddressFamily(BaseVendorIndependentTest):
+class TestBgpAddressFamily(TestViBgpBase):
 
     TEST_CLASS = BgpAddressFamily
 
 
-class TestRoutingBgpProcess(BaseVendorIndependentTest):
+class TestRoutingBgpProcess(TestViBgpBase):
 
     TEST_CLASS = RoutingBgpProcess
+
+    def test_existing_peer_group(self):
+        data = {
+            "asn": 64496,
+            "neighbors": [
+                {
+                    "name": "Router-01",
+                    "address": "192.0.2.1",
+                    "peer_group": "PG-01"
+                }
+            ],
+            "peer_groups": [
+                {
+                    "name": "PG-01",
+                    "asn": 64496
+                }
+            ]
+        }
+        test_obj = self.TEST_CLASS.parse_obj(data)
+
+
+    def test_global_missing_address(self):
+        data = {
+            "asn": 64496,
+            "neighbors": [
+                {
+                    "name": "Router-01"
+                }
+            ]
+        }
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Global BGP Neighbors must have either 'address', or both \['name', 'dest_interface'\]"):
+            test_obj = self.TEST_CLASS.parse_obj(data)
+
+    def test_global_missing_peer_groups(self):
+        data = {
+            "asn": 64496,
+            "neighbors": [
+                {
+                    "name": "Router-01",
+                    "address": "192.0.2.1",
+                    "peer_group": "PG-01"
+                }
+            ]
+        }
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"'peer_groups' is undefined."):
+            test_obj = self.TEST_CLASS.parse_obj(data)
+
+    def test_global_missing_peer_group(self):
+        data = {
+            "asn": 64496,
+            "neighbors": [
+                {
+                    "name": "Router-01",
+                    "address": "192.0.2.1",
+                    "peer_group": "PG-01"
+                }
+            ],
+            "peer_groups": [
+                {
+                    "name": "PG-02"
+                }
+            ]
+        }
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Can not find 'peer_group' PG-01."):
+            test_obj = self.TEST_CLASS.parse_obj(data)
+
+    def test_missing_asn(self):
+        data = {
+            "asn": 64496,
+            "neighbors": [
+                {
+                    "name": "Router-01",
+                    "address": "192.0.2.1",
+                }
+            ]
+        }
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Global BGP Neighbor must have either 'asn' or 'peer_group' \(with 'asn' set\)."):
+            test_obj = self.TEST_CLASS.parse_obj(data)
+
+    def test_missing_asn_peer_group(self):
+        data = {
+            "asn": 64496,
+            "neighbors": [
+                {
+                    "name": "Router-01",
+                    "address": "192.0.2.1",
+                    "peer_group": "PG-01"
+                }
+            ],
+            "peer_groups": [
+                {
+                    "name": "PG-01"
+                }
+            ]
+        }
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Neither neighbor nor its 'peer_group' have 'asn' defined."):
+            test_obj = self.TEST_CLASS.parse_obj(data)
+
+    def test_duplicate_peer_groups(self):
+        data = {
+            "asn": 64496,
+            "peer_groups": [
+                {"name": "PG-01"},
+                {"name": "PG-01"}
+            ]
+        }
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Found duplicate 'name's"):
+            test_obj = self.TEST_CLASS.parse_obj(data)
+
 
 
 

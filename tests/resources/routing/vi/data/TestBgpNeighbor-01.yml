@@ -1,0 +1,4 @@
+name: Neighbor-01
+address: 192.0.2.1
+src_interface: Loopback0
+peer_group: PG-01

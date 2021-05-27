@@ -25,8 +25,7 @@ class TestNtpServer(VendorIndependentServerTest):
                 "test_name": "Test-01",
                 "payload": {
                     "server": "10.0.0.1",
-                    "source_interface": "Loopback0",
-                    "vrf": "MGMT"
+                    "src_interface": "Loopback0"
                 }
             }
         ]

@@ -1,8 +1,10 @@
 from netcm.models.BaseModels import VendorIndependentBaseModel
+from netcm.models.BaseModels.SharedModels import KeyBase
 from netcm.models.routing import RoutingProtocolBase
 from netcm.models.Fields import *
+from netcm.validators import validate_unique_name_field
 from pydantic.typing import Optional, List, Union, Literal
-from pydantic import root_validator, Field
+from pydantic import validator, root_validator, Field
 import ipaddress
 
 class BgpTimers(VendorIndependentBaseModel):
@@ -45,12 +47,16 @@ class BgpNeighborBase(VendorIndependentBaseModel):
     description: Optional[str]
     """Neighbor description"""
     version: Optional[conint(le=4, ge=4)]
+    key: Optional[KeyBase]
     src_interface: Optional[INTERFACE_NAME]
     """Update source"""
     next_hop_self: Optional[bool]
     """Set NextHop to self"""
     rr_client: Optional[bool]
     """Route Reflector Client"""
+    # TODO: Be more specific
+    send_community: Optional[str]
+    """Send Community"""
 
 class BgpPeerGroup(BgpNeighborBase):
     """
@@ -66,15 +72,16 @@ class BgpNeighbor(BgpNeighborBase):
     # TODO: Unfinished
 
     address: Optional[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]
-    peer_group: Optional[BgpPeerGroup]
+    peer_group: Optional[GENERIC_OBJECT_NAME]
+    """Name of the peer-group"""
     dest_interface: Optional[INTERFACE_NAME]
     """Might be used when referencing neighbor by name rather than address"""
 
     @root_validator
     def check_if_address_needed(cls, values: dict) -> dict:
-        if not all([values.get(x) for x in ["name", "dst_interface"]]):
+        if not all([values.get(x) for x in ["name"]]):
             if not values.get("address"):
-                msg = "Neighbor needs address specified, unless there is both 'name' and 'dst_interface'"
+                msg = "Neighbor needs `address` specified, unless there is at least 'name'."
                 raise AssertionError(msg)
 
         return values
@@ -100,18 +107,76 @@ class BgpAddressFamily(VendorIndependentBaseModel):
     """Address family sub-type"""
     vrf: Optional[VRF_NAME]
     """Name of the VRF"""
-    neighbors: List[BgpNeighbor]
+    neighbors: Optional[List[BgpNeighbor]]
     """List of :py:class:`BgpNeighbor` in this Address Family"""
-    peer_groups: List[BgpPeerGroup]
+    peer_groups: Optional[List[BgpPeerGroup]]
     """List of :py:class:`BgpPeerGroup` in this Address Family"""
-    redistribute: List[BgpRedistributeEntry]
+    redistribute: Optional[List[BgpRedistributeEntry]]
 
 
 class RoutingBgpProcess(RoutingProtocolBase):
     # TODO: Unfinished
     asn: ASN
     """Autonomous System Number"""
-    neighbors: List[BgpNeighbor]
+    neighbors: Optional[List[BgpNeighbor]]
     """List of :py:class:`BgpNeighbor` objects"""
-    peer_groups: List[BgpPeerGroup]
+    peer_groups: Optional[List[BgpPeerGroup]]
     address_families: Optional[List[BgpAddressFamily]]
+    # TODO: Be more specific
+    router_id: Optional[str]
+    # TODO: Be more specific
+    cluster_id: Optional[str]
+    use_default_af: Optional[bool]
+    """
+    if ``False`` than no `bgp default ipv4-unicast`
+    """
+    use_hostname_for_description: Optional[bool]
+
+    _validate_peergroups_unique_name = validator('peer_groups', allow_reuse=True)(validate_unique_name_field)
+
+    @classmethod
+    def _assert_peer_group_exists(cls, neighbor: BgpNeighbor, peer_groups: List[BgpPeerGroup]) -> None:
+        if not neighbor.peer_group:
+            pass
+        else:
+            if peer_groups is None:
+                msg = f"'peer_groups' is undefined."
+                raise AssertionError(msg)
+            candidate_peer_groups = [x for x in peer_groups if x.name == neighbor.peer_group]
+            if len(candidate_peer_groups) == 1:
+                pass
+            else:
+                msg = f"Can not find 'peer_group' {neighbor.peer_group}."
+                raise AssertionError(msg)
+
+
+    # Validate Global Neighbors
+    @root_validator
+    def validate_global_neighbors(cls, values):
+        neighbors = values.get("neighbors")
+        peer_groups = values.get("peer_groups")
+        if neighbors:
+            for neighbor in neighbors:
+                if not neighbor.address:
+                    if not all([neighbor.name, neighbor.dest_interface]):
+                        msg = f"Global BGP Neighbors must have either 'address', or both ['name', 'dest_interface']"
+                        raise AssertionError(msg)
+                if neighbor.peer_group:
+                    cls._assert_peer_group_exists(neighbor=neighbor, peer_groups=peer_groups)
+
+
+                if not neighbor.asn:
+                    if not neighbor.peer_group:
+                        msg = f"Global BGP Neighbor must have either 'asn' or 'peer_group' (with 'asn' set)."
+                        raise AssertionError(msg)
+                    else:
+                        cls._assert_peer_group_exists(neighbor=neighbor, peer_groups=peer_groups)
+                        peer_group = [x for x in peer_groups if x.name == neighbor.peer_group][0]
+                        if not peer_group.asn:
+                            msg = "Neither neighbor nor its 'peer_group' have 'asn' defined."
+                            raise AssertionError(msg)
+
+
+        return values
+
+

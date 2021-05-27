@@ -1,5 +1,5 @@
 from netcm.models.BaseModels import VendorIndependentBaseModel
-from netcm.models.VendorIndependent.SharedModels import AuthBase
+from netcm.models.BaseModels.SharedModels import AuthBase
 from netcm.models.Fields import GENERIC_OBJECT_NAME
 from pydantic.typing import Optional, List, Union, Literal
 from pydantic import root_validator

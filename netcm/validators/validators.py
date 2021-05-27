@@ -3,6 +3,7 @@ from collections import OrderedDict
 from netcm.utils import get_interface_index, get_logger, split_interface
 from pydantic.typing import List, Union
 from netcm.utils import INTERFACE_NAMES
+from netcm.models.BaseModels import BaseNetCmModel
 
 
 LOGGER = get_logger(name="NetCm-Validators")
@@ -89,3 +90,11 @@ def normalize_interface_name(interface_name: str) -> str:
         LOGGER.error(msg=msg)
         raise AssertionError(msg)
     return interface_name
+
+def validate_unique_name_field(value: List[BaseNetCmModel]):
+    names = set([x.name for x in value])
+    if len(names) != len(value):
+        msg = f"Found duplicate 'name's."
+        LOGGER.error(msg=msg)
+        raise AssertionError(msg)
+    return value

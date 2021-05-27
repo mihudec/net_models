@@ -1,11 +1,14 @@
 # from diffsync import DiffSyncModel
 import yaml
-from pydantic import BaseModel, validate_model
+from pydantic import BaseModel, validate_model, Extra
 from netcm.utils.CustomYamlDumper import CustomYamlDumper
 
 
 class BaseNetCmModel(BaseModel):
     """Base Network Config Model Class"""
+
+    class Config:
+        extra = Extra.forbid
 
     def check(self):
         *_, validation_error = validate_model(self.__class__, self.__dict__)
