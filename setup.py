@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 
 with open("requirements.txt", "r") as fs:
     reqs = [r for r in fs.read().splitlines() if (len(r) > 0 and not r.startswith("#"))]
 
 setup(
     name="netcm",
-    packages=find_packages(include=["netcm"]),
+    packages=find_packages(),
     version=VERSION,
     author="Miroslav Hudec <http://github.com/mihudec>",
     description="Network Config Models",
