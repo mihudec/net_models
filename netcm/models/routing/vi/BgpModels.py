@@ -57,6 +57,7 @@ class BgpNeighborBase(VendorIndependentBaseModel):
     # TODO: Be more specific
     send_community: Optional[str]
     """Send Community"""
+    ha_mode: Optional[Literal["sso"]]
 
 class BgpPeerGroup(BgpNeighborBase):
     """
@@ -86,6 +87,9 @@ class BgpNeighbor(BgpNeighborBase):
 
         return values
 
+class BgpNetwork(VendorIndependentBaseModel):
+
+    network: ipaddress.IPv4Network
 
 
 class BgpRedistributeEntry(VendorIndependentBaseModel):
@@ -97,6 +101,12 @@ class BgpRedistributeEntry(VendorIndependentBaseModel):
     route_map: Optional[GENERIC_OBJECT_NAME]
     """Name of the route-map"""
     metric: Optional[str]
+
+
+class BgpImportPath(VendorIndependentBaseModel):
+
+    limit: Optional[int]
+    selection: Optional[str]
 
 
 class BgpAddressFamily(VendorIndependentBaseModel):
@@ -111,7 +121,11 @@ class BgpAddressFamily(VendorIndependentBaseModel):
     """List of :py:class:`BgpNeighbor` in this Address Family"""
     peer_groups: Optional[List[BgpPeerGroup]]
     """List of :py:class:`BgpPeerGroup` in this Address Family"""
+    networks: Optional[List[BgpNetwork]]
     redistribute: Optional[List[BgpRedistributeEntry]]
+    import_path: Optional[BgpImportPath]
+    additional_paths: Optional[Literal["install"]]
+
 
 
 class RoutingBgpProcess(RoutingProtocolBase):
@@ -121,16 +135,18 @@ class RoutingBgpProcess(RoutingProtocolBase):
     neighbors: Optional[List[BgpNeighbor]]
     """List of :py:class:`BgpNeighbor` objects"""
     peer_groups: Optional[List[BgpPeerGroup]]
+    networks: Optional[List[BgpNetwork]]
     address_families: Optional[List[BgpAddressFamily]]
     # TODO: Be more specific
     router_id: Optional[str]
     # TODO: Be more specific
     cluster_id: Optional[str]
     use_default_af: Optional[bool]
+    log_neighbor_changes: Optional[bool]
     """
     if ``False`` than no `bgp default ipv4-unicast`
     """
-    use_hostname_for_description: Optional[bool]
+    use_name_for_description: Optional[bool]
 
     _validate_peergroups_unique_name = validator('peer_groups', allow_reuse=True)(validate_unique_name_field)
 
