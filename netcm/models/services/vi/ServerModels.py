@@ -6,10 +6,54 @@ from netcm.models.BaseModels.SharedModels import KeyBase, AuthBase
 from netcm.models.Fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME
 
 
-class ServerPropertiesBase(VendorIndependentBaseModel):
+class ServerBase(VendorIndependentBaseModel):
+
+    pass
+
+
+class ServerPropertiesBase(ServerBase):
 
     server: Union[ipaddress.IPv4Address, ipaddress.IPv6Address]
+    src_interface: Optional[BASE_INTERFACE_NAME]
+    vrf: Optional[VRF_NAME]
+
+
+class NtpKey(KeyBase):
+
+    key_id: int
+    method: Literal["md5"]
+    trusted: Optional[bool]
+
+
+class NtpServer(ServerPropertiesBase):
+
+    key_id: Optional[int]
+    prefer: Optional[bool]
+
+
+class NtpConfig(VendorIndependentBaseModel):
+
+    authenticate: Optional[bool]
+    servers: Optional[List[NtpServer]]
+    peers: Optional[List[NtpServer]]
+    keys: Optional[List[NtpKey]]
+    src_interface: Optional[BASE_INTERFACE_NAME]
+
+
+class LoggingServer(ServerPropertiesBase):
+
+    protocol: Optional[Literal["tcp", "udp"]]
+    port: Optional[int]
+
+
+class AaaServer(ServerBase):
+
+    name: GENERIC_OBJECT_NAME
+    server: Union[ipaddress.IPv4Address, ipaddress.IPv6Address]
     address_version: Optional[Literal["ipv4", "ipv6"]]
+    timeout: Optional[conint(ge=1)]
+    key: Optional[KeyBase]
+    single_connection: Optional[bool]
 
     @root_validator(allow_reuse=True)
     def generate_address_version(cls, values):
@@ -19,27 +63,6 @@ class ServerPropertiesBase(VendorIndependentBaseModel):
             elif isinstance(values.get("server"), ipaddress.IPv6Address):
                 values["address_version"] = "ipv6"
         return values
-
-
-class NtpServer(ServerPropertiesBase):
-
-    src_interface: Optional[str]
-    key: Optional[str]
-    prefer: Optional[bool]
-
-
-class LoggingServer(ServerPropertiesBase):
-
-    protocol: Optional[Literal["tcp", "udp"]]
-    port: Optional[int]
-
-
-class AaaServer(ServerPropertiesBase):
-
-    name: GENERIC_OBJECT_NAME
-    timeout: Optional[conint(ge=1)]
-    key: Optional[KeyBase]
-    single_connection: Optional[bool]
 
 
 class RadiusServer(AaaServer):
@@ -52,7 +75,7 @@ class TacacsServer(AaaServer):
     pass
 
 
-class AaaServerGroup(VendorIndependentBaseModel):
+class AaaServerGroup(ServerBase):
 
     name: GENERIC_OBJECT_NAME
     src_interface: Optional[BASE_INTERFACE_NAME]
@@ -67,3 +90,4 @@ class RadiusServerGroup(AaaServerGroup):
 class TacacsServerGroup(AaaServerGroup):
 
     servers: List[TacacsServer]
+

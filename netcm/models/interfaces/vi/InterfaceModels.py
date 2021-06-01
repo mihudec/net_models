@@ -17,6 +17,23 @@ class InterfaceLagMemberConfig(VendorIndependentBaseModel):
     mode: Literal["active", "pasive", "desirable", "auto", "on"]
 
 
+class InterfaceLldpConfig(VendorIndependentBaseModel):
+
+    transmit: Optional[bool]
+    receive: Optional[bool]
+
+
+class InterfaceCdpConfig(VendorIndependentBaseModel):
+
+    enabled: bool
+
+
+class InterfaceDiscoveryProtocols(VendorIndependentBaseModel):
+
+    cdp: Optional[InterfaceCdpConfig]
+    lldp: Optional[InterfaceLldpConfig]
+
+
 class InterfaceModel(VendorIndependentBaseModel):
 
     _modelname = "interface_model"
@@ -30,6 +47,7 @@ class InterfaceModel(VendorIndependentBaseModel):
     l2_port: Optional[InterfaceSwitchportModel]
     l3_port: Optional[InterfaceRouteportModel]
     lag_member: Optional[InterfaceLagMemberConfig]
+    discovery_protocols: Optional[InterfaceDiscoveryProtocols]
 
     @root_validator(allow_reuse=True)
     def generate_tags(cls, values):

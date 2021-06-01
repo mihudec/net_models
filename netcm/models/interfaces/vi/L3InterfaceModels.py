@@ -91,6 +91,11 @@ class InterfaceOspfConfig(VendorIndependentBaseModel):
         return values
 
 
+class InterfaceBfdConfig(VendorIndependentBaseModel):
+
+    template: GENERIC_OBJECT_NAME
+
+
 class IsisMetricField(VendorIndependentBaseModel):
 
     _modelname = "isis_metric_field"
@@ -123,5 +128,6 @@ class InterfaceRouteportModel(VendorIndependentBaseModel):
     ipv4: Optional[InterfaceIPv4Container]
     ipv6: Optional[InterfaceIPv6Container]
     vrf: Optional[str]
-    ospf_config: Optional[InterfaceOspfConfig]
-    isis_config: Optional[InterfaceIsisConfig]
+    ospf: Optional[InterfaceOspfConfig]
+    isis: Optional[InterfaceIsisConfig]
+    bfd: Optional[InterfaceBfdConfig]

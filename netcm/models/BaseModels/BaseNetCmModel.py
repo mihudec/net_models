@@ -1,5 +1,6 @@
 # from diffsync import DiffSyncModel
 import yaml
+import json
 from pydantic import BaseModel, validate_model, Extra
 from netcm.utils.CustomYamlDumper import CustomYamlDumper
 
@@ -18,6 +19,9 @@ class BaseNetCmModel(BaseModel):
     def yaml(self, indent: int = 2, **kwargs):
         data_dict = self.dict(**kwargs)
         return yaml.dump(data=data_dict, Dumper=CustomYamlDumper, indent=indent)
+
+    def serial_dict(self, **kwargs):
+        return json.loads(self.json(**kwargs))
 
 
 class VendorIndependentBaseModel(BaseNetCmModel):

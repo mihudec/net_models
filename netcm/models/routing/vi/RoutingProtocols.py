@@ -1,22 +1,41 @@
 from netcm.models.BaseModels import VendorIndependentBaseModel
 from netcm.models.BaseModels.SharedModels import AuthBase
 from netcm.models.Fields import GENERIC_OBJECT_NAME
+from netcm.utils.get_logger import get_logger
 from pydantic.typing import Optional, List, Union, Literal
 from pydantic import root_validator
 import ipaddress
 
+LOGGER = get_logger(name="NetCm-RoutingProtocols")
+
 def validate_asn_is_defined(values):
     return values
+
+class BfdAuthentication(AuthBase):
+
+    method: Literal["md5","meticulous-md5","meticulous-sha-1","sha-1"]
+    keychain: GENERIC_OBJECT_NAME
 
 class BfdTemplate(VendorIndependentBaseModel):
 
     # TODO: Unfinished
     name: GENERIC_OBJECT_NAME
     type: Literal["single-hop", "multi-hop"]
-    min_rx: int
-    min_tx: int
+    min_rx: Optional[int]
+    min_tx: Optional[int]
+    both: Optional[int]
+    microseconds: Optional[bool]
     multiplier: int
+    authentication: Optional[BfdAuthentication]
 
+    @root_validator
+    def validate_timers(cls, values):
+        if values.get("min_tx") is not None and values.get("min_rx") is not None:
+            if values.get("both") is not None:
+                msg = "If 'min-tx and 'min-rx' are specified, 'both' must be None"
+                LOGGER.error(msg=msg)
+                raise AssertionError(msg)
+        return values
 
 class RoutingProtocolBase(VendorIndependentBaseModel):
 
