@@ -29,7 +29,7 @@ def get_logger(name, verbosity=4, handle=["stderr"], with_threads=False):
     formatter = logging.Formatter(formatter_string)
     stdout_handler = logging.StreamHandler(sys.stdout)
     stderr_handler = logging.StreamHandler(sys.stderr)
-    file_handler = logging.FileHandler(logfile_path)
+    file_handler = logging.FileHandler(logfile_path, delay=True)
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.DEBUG)
 

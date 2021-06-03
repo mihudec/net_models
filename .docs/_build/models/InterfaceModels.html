@@ -1,0 +1,1529 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Interface Models &mdash; netcm 0.1.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/autodoc_pydantic.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="VLAN Models" href="VlanModel.html" />
+    <link rel="prev" title="L3 Interface Models" href="L3InterfaceModels.html" />
+    <link href="../_static/styles.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> netcm
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Models.html">Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BaseModels.html">BaseModels</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="VendorIndependentModels.html">Vendor Independent</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="L2InterfaceModels.html">L2 Interface Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="L3InterfaceModels.html">L3 Interface Models</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Interface Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VlanModel.html">VLAN Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerModels.html">Server Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RoutingProtocols.html">Routing Protocol Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">netcm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="Models.html">Models</a> &raquo;</li>
+        
+          <li><a href="VendorIndependentModels.html">Vendor Independent</a> &raquo;</li>
+        
+      <li>Interface Models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/models/InterfaceModels.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-netcm.models.interfaces.vi.InterfaceModels">
+<span id="interface-models"></span><h1>Interface Models<a class="headerlink" href="#module-netcm.models.interfaces.vi.InterfaceModels" title="Permalink to this headline">¶</a></h1>
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">InterfaceCdpConfig</span></span><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceCdpConfig&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Enabled&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;enabled&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig.enabled" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig.enabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enabled</span> <span class="pre">(bool)</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig.enabled">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig.enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">InterfaceContainerModel</span></span><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceContainerModel&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;interfaces&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Interfaces&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;patternProperties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceModel&quot;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;interfaces&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;InterfaceSpanningTreeConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceSpanningTreeConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;link_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Link Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;point-to-point&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;shared&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;portfast&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Portfast&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;edge&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;network&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;disable&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;trunk&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;bpduguard&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Bpduguard&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;root_guard&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Root Guard&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;loop_guard&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Loop Guard&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceSwitchportModel&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceSwitchportModel&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Model for switched interfaces&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;access&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;trunk&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;dynamic auto&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;dynamic desirable&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;dot1q-tunnel&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;private-vlan host&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;private-vlan promiscuous&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;untagged_vlan&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Untagged Vlan&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="nt">&quot;maximum&quot;</span><span class="p">:</span> <span class="mi">4095</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;allowed_vlans&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Allowed Vlans&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="nt">&quot;maximum&quot;</span><span class="p">:</span> <span class="mi">4095</span>
+                     <span class="p">}</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;all&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;none&quot;</span>
+                     <span class="p">],</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encapsulation&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encapsulation&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;dot1q&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;isl&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;negotiate&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;negotiation&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Negotiation&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;stp&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceSpanningTreeConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv4Address&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv4Address&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4interface&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;secondary&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Secondary&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;address&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceDhcpClientConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceDhcpClientConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Enabled&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv4Container&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv4Container&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Addresses&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv4Address&quot;</span>
+               <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;unnumbered&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Unnumbered&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;dhcp_client&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceDhcpClientConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv6Address&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv6Address&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6interface&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;address&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv6Container&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv6Container&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Addresses&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv6Address&quot;</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceOspfConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceOspfConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;network_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;cost&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Cost&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Priority&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;process_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Process Id&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;area&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Area&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;IsisInterfaceAuthentication&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;IsisInterfaceAuthentication&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;keychain&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Keychain&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;IsisMetricField&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;IsisMetricField&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;level-1&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;level-2&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Metric&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;level&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIsisConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIsisConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;network_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;circuit_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Circuit Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;process_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Process Id&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;authentication&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/IsisInterfaceAuthentication&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Metric&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/IsisMetricField&quot;</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceBfdConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceBfdConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;template&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Template&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;template&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceRouteportModel&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceRouteportModel&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;ipv4&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv4Container&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv6Container&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;ospf&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceOspfConfig&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;isis&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIsisConfig&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;bfd&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceBfdConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceLagMemberConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceLagMemberConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Group&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;protocol&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Protocol&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;lacp&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;pagp&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;pasive&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;desirable&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;on&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;group&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;protocol&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mode&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceCdpConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceCdpConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Enabled&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;enabled&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceLldpConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceLldpConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;transmit&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Transmit&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;receive&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Receive&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceDiscoveryProtocols&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceDiscoveryProtocols&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;cdp&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceCdpConfig&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;lldp&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceLldpConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceModel&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceModel&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Tags&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="p">[],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+               <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;l2_port&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceSwitchportModel&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;l3_port&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceRouteportModel&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;lag_member&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceLagMemberConfig&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;discovery_protocols&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceDiscoveryProtocols&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;name&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel.interfaces" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel.interfaces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interfaces</span> <span class="pre">(Dict[netcm.models.Fields.Fields.ConstrainedStrValue,</span> <span class="pre">netcm.models.interfaces.vi.InterfaceModels.InterfaceModel])</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Validators</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sort_interface_dict</span></code> » <a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel.interfaces" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel.interfaces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interfaces</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel.interfaces">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">interfaces</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel"><span class="pre">netcm.models.interfaces.vi.InterfaceModels.InterfaceModel</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceContainerModel.interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Validated by</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sort_interface_dict</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">InterfaceDiscoveryProtocols</span></span><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceDiscoveryProtocols&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;cdp&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceCdpConfig&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;lldp&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceLldpConfig&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;InterfaceCdpConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceCdpConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Enabled&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;enabled&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceLldpConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceLldpConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;transmit&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Transmit&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;receive&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Receive&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.cdp" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.cdp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cdp</span> <span class="pre">(Optional[netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.lldp" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.lldp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lldp</span> <span class="pre">(Optional[netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.cdp">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">cdp</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig"><span class="pre">netcm.models.interfaces.vi.InterfaceModels.InterfaceCdpConfig</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.cdp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.lldp">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">lldp</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig"><span class="pre">netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols.lldp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">InterfaceLagMemberConfig</span></span><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceLagMemberConfig&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Group&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;protocol&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Protocol&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;lacp&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pagp&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pasive&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;desirable&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;on&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;group&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;protocol&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;mode&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.group" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group</span> <span class="pre">(netcm.models.interfaces.vi.InterfaceModels.ConstrainedIntValue)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.protocol" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.protocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">protocol</span> <span class="pre">(Literal[lacp,</span> <span class="pre">pagp])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.mode" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span> <span class="pre">(Literal[active,</span> <span class="pre">pasive,</span> <span class="pre">desirable,</span> <span class="pre">auto,</span> <span class="pre">on])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.group">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">group</span></span><em class="property"><span class="pre">:</span> <span class="pre">netcm.models.interfaces.vi.InterfaceModels.ConstrainedIntValue</span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.group" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>minimum</strong> = 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.mode">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">mode</span></span><em class="property"><span class="pre">:</span> <span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">active</span><span class="p"><span class="pre">,</span> </span><span class="pre">pasive</span><span class="p"><span class="pre">,</span> </span><span class="pre">desirable</span><span class="p"><span class="pre">,</span> </span><span class="pre">auto</span><span class="p"><span class="pre">,</span> </span><span class="pre">on</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.protocol">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="pre">:</span> <span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">lacp</span><span class="p"><span class="pre">,</span> </span><span class="pre">pagp</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig.protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">InterfaceLldpConfig</span></span><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceLldpConfig&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;transmit&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Transmit&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;receive&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Receive&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.transmit" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.transmit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transmit</span> <span class="pre">(Optional[bool])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.receive" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.receive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">receive</span> <span class="pre">(Optional[bool])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.receive">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">receive</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.receive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.transmit">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">transmit</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLldpConfig.transmit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">InterfaceModel</span></span><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceModel&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Tags&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="p">[],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;l2_port&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceSwitchportModel&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;l3_port&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceRouteportModel&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;lag_member&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceLagMemberConfig&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;discovery_protocols&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceDiscoveryProtocols&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;name&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;InterfaceSpanningTreeConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceSpanningTreeConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;link_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Link Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;point-to-point&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;shared&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;portfast&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Portfast&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;edge&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;network&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;disable&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;trunk&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;bpduguard&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Bpduguard&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;root_guard&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Root Guard&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;loop_guard&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Loop Guard&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceSwitchportModel&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceSwitchportModel&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Model for switched interfaces&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;access&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;trunk&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;dynamic auto&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;dynamic desirable&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;dot1q-tunnel&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;private-vlan host&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;private-vlan promiscuous&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;untagged_vlan&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Untagged Vlan&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="nt">&quot;maximum&quot;</span><span class="p">:</span> <span class="mi">4095</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;allowed_vlans&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Allowed Vlans&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="nt">&quot;maximum&quot;</span><span class="p">:</span> <span class="mi">4095</span>
+                     <span class="p">}</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;all&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;none&quot;</span>
+                     <span class="p">],</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encapsulation&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encapsulation&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;dot1q&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;isl&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;negotiate&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;negotiation&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Negotiation&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;stp&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceSpanningTreeConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv4Address&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv4Address&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4interface&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;secondary&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Secondary&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;address&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceDhcpClientConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceDhcpClientConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Enabled&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv4Container&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv4Container&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Addresses&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv4Address&quot;</span>
+               <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;unnumbered&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Unnumbered&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;dhcp_client&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceDhcpClientConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv6Address&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv6Address&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6interface&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;address&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIPv6Container&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIPv6Container&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Addresses&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv6Address&quot;</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceOspfConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceOspfConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;network_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;cost&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Cost&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Priority&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;process_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Process Id&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;area&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Area&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;IsisInterfaceAuthentication&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;IsisInterfaceAuthentication&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;keychain&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Keychain&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;IsisMetricField&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;IsisMetricField&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;level-1&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;level-2&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Metric&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;level&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metric&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceIsisConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceIsisConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;network_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;circuit_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Circuit Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;process_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Process Id&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;authentication&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/IsisInterfaceAuthentication&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Metric&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/IsisMetricField&quot;</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceBfdConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceBfdConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;template&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Template&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;template&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceRouteportModel&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceRouteportModel&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;ipv4&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv4Container&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIPv6Container&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;ospf&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceOspfConfig&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;isis&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceIsisConfig&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;bfd&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceBfdConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceLagMemberConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceLagMemberConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Group&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;protocol&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Protocol&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;lacp&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;pagp&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;pasive&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;desirable&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;on&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;group&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;protocol&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mode&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceCdpConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceCdpConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Enabled&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;enabled&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceLldpConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceLldpConfig&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;transmit&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Transmit&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;receive&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Receive&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InterfaceDiscoveryProtocols&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;InterfaceDiscoveryProtocols&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;cdp&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceCdpConfig&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;lldp&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/InterfaceLldpConfig&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.tags" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tags</span> <span class="pre">(List[netcm.models.interfaces.vi.InterfaceModels.ConstrainedStrValue])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.name" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(netcm.models.Fields.Fields.ConstrainedStrValue)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.description" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.description"><code class="xref py py-obj docutils literal notranslate"><span class="pre">description</span> <span class="pre">(Optional[str])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l2_port" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l2_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l2_port</span> <span class="pre">(Optional[netcm.models.interfaces.vi.L2InterfaceModels.InterfaceSwitchportModel])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l3_port" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l3_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l3_port</span> <span class="pre">(Optional[netcm.models.interfaces.vi.L3InterfaceModels.InterfaceRouteportModel])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.lag_member" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.lag_member"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lag_member</span> <span class="pre">(Optional[netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.discovery_protocols" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.discovery_protocols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">discovery_protocols</span> <span class="pre">(Optional[netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols])</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Validators</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_duplicates_and_sort</span></code> » <a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.tags" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tags</span></code></a></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_interface_name</span></code> » <a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.name" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.description">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.discovery_protocols">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">discovery_protocols</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols"><span class="pre">netcm.models.interfaces.vi.InterfaceModels.InterfaceDiscoveryProtocols</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.discovery_protocols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l2_port">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">l2_port</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="L2InterfaceModels.html#netcm.models.interfaces.vi.L2InterfaceModels.InterfaceSwitchportModel" title="netcm.models.interfaces.vi.L2InterfaceModels.InterfaceSwitchportModel"><span class="pre">netcm.models.interfaces.vi.L2InterfaceModels.InterfaceSwitchportModel</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l2_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l3_port">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">l3_port</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="L3InterfaceModels.html#netcm.models.interfaces.vi.L3InterfaceModels.InterfaceRouteportModel" title="netcm.models.interfaces.vi.L3InterfaceModels.InterfaceRouteportModel"><span class="pre">netcm.models.interfaces.vi.L3InterfaceModels.InterfaceRouteportModel</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.l3_port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.lag_member">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">lag_member</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig" title="netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig"><span class="pre">netcm.models.interfaces.vi.InterfaceModels.InterfaceLagMemberConfig</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.lag_member" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.name">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = (?P&lt;type&gt;[A-z]{2,}(?:[A-z-])*)(?P&lt;numbers&gt;d+(?:/d+)*(?::d+)?(?:.d+)?)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Validated by</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_interface_name</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.tags">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.interfaces.vi.InterfaceModels.ConstrainedStrValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.tags" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Validated by</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_duplicates_and_sort</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.generate_tags">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">generate_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#netcm.models.interfaces.vi.InterfaceModels.InterfaceModel.generate_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="VlanModel.html" class="btn btn-neutral float-right" title="VLAN Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="L3InterfaceModels.html" class="btn btn-neutral float-left" title="L3 Interface Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Miroslav Hudec.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

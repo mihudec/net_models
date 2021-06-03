@@ -1,0 +1,1497 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Server Models &mdash; netcm 0.1.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/autodoc_pydantic.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Routing Protocol Models" href="RoutingProtocols.html" />
+    <link rel="prev" title="VLAN Models" href="VlanModel.html" />
+    <link href="../_static/styles.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> netcm
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Models.html">Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BaseModels.html">BaseModels</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="VendorIndependentModels.html">Vendor Independent</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="L2InterfaceModels.html">L2 Interface Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="L3InterfaceModels.html">L3 Interface Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="InterfaceModels.html">Interface Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VlanModel.html">VLAN Models</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Server Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RoutingProtocols.html">Routing Protocol Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">netcm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="Models.html">Models</a> &raquo;</li>
+        
+          <li><a href="VendorIndependentModels.html">Vendor Independent</a> &raquo;</li>
+        
+      <li>Server Models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/models/ServerModels.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-netcm.models.services.vi.ServerModels">
+<span id="server-models"></span><h1>Server Models<a class="headerlink" href="#module-netcm.models.services.vi.ServerModels" title="Permalink to this headline">¶</a></h1>
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">AaaServer</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;AaaServer&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;address_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address Version&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;ipv4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ipv6&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Timeout&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/KeyBase&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;single_connection&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Single Connection&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;server&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;KeyBase&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;KeyBase&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encryption_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encryption Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;value&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServer.name" title="netcm.models.services.vi.ServerModels.AaaServer.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(netcm.models.Fields.Fields.ConstrainedStrValue)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServer.server" title="netcm.models.services.vi.ServerModels.AaaServer.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span> <span class="pre">(Union[ipaddress.IPv4Address,</span> <span class="pre">ipaddress.IPv6Address])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServer.address_version" title="netcm.models.services.vi.ServerModels.AaaServer.address_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">address_version</span> <span class="pre">(Optional[Literal[ipv4,</span> <span class="pre">ipv6]])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServer.timeout" title="netcm.models.services.vi.ServerModels.AaaServer.timeout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeout</span> <span class="pre">(Optional[netcm.models.services.vi.ServerModels.ConstrainedIntValue])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServer.key" title="netcm.models.services.vi.ServerModels.AaaServer.key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span> <span class="pre">(Optional[netcm.models.BaseModels.SharedModels.KeyBase])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServer.single_connection" title="netcm.models.services.vi.ServerModels.AaaServer.single_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">single_connection</span> <span class="pre">(Optional[bool])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer.address_version">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">address_version</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">ipv4</span><span class="p"><span class="pre">,</span> </span><span class="pre">ipv6</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer.address_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer.key">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.BaseModels.SharedModels.KeyBase</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer.name">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer.name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = S+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer.server">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">server</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">ipaddress.IPv4Address</span><span class="p"><span class="pre">,</span> </span><span class="pre">ipaddress.IPv6Address</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer.single_connection">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">single_connection</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer.single_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer.timeout">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">timeout</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.services.vi.ServerModels.ConstrainedIntValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>minimum</strong> = 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServer.generate_address_version">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">generate_address_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServer.generate_address_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServerGroup">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">AaaServerGroup</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServerGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;AaaServerGroup&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;name&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServerGroup.name" title="netcm.models.services.vi.ServerModels.AaaServerGroup.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(netcm.models.Fields.Fields.ConstrainedStrValue)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServerGroup.src_interface" title="netcm.models.services.vi.ServerModels.AaaServerGroup.src_interface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">src_interface</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.AaaServerGroup.vrf" title="netcm.models.services.vi.ServerModels.AaaServerGroup.vrf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vrf</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServerGroup.name">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServerGroup.name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = S+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServerGroup.src_interface">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">src_interface</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServerGroup.src_interface" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = (?P&lt;type&gt;[A-z]{2,}(?:[A-z-])*)(?P&lt;numbers&gt;d+(?:/d+)*(?::d+)?(?:.d+)?)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.AaaServerGroup.vrf">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">vrf</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.AaaServerGroup.vrf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = S+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.LoggingServer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">LoggingServer</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.LoggingServer" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;LoggingServer&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;protocol&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Protocol&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;tcp&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;udp&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Port&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;server&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span> <span class="pre">(Union[ipaddress.IPv4Address,</span> <span class="pre">ipaddress.IPv6Address])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">src_interface</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vrf</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.LoggingServer.protocol" title="netcm.models.services.vi.ServerModels.LoggingServer.protocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">protocol</span> <span class="pre">(Optional[Literal[tcp,</span> <span class="pre">udp]])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.LoggingServer.port" title="netcm.models.services.vi.ServerModels.LoggingServer.port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">port</span> <span class="pre">(Optional[int])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.LoggingServer.port">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.LoggingServer.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.LoggingServer.protocol">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">tcp</span><span class="p"><span class="pre">,</span> </span><span class="pre">udp</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.LoggingServer.protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpConfig">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">NtpConfig</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;NtpConfig&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;authenticate&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Authenticate&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;servers&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Servers&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/NtpServer&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;peers&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Peers&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/NtpServer&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Keys&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/NtpKey&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;NtpServer&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;NtpServer&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;key_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Key Id&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;prefer&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Prefer&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;server&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;NtpKey&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;NtpKey&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encryption_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encryption Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;key_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Key Id&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;md5&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;trusted&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Trusted&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;key_id&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpConfig.authenticate" title="netcm.models.services.vi.ServerModels.NtpConfig.authenticate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">authenticate</span> <span class="pre">(Optional[bool])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpConfig.servers" title="netcm.models.services.vi.ServerModels.NtpConfig.servers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">servers</span> <span class="pre">(Optional[List[netcm.models.services.vi.ServerModels.NtpServer]])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpConfig.peers" title="netcm.models.services.vi.ServerModels.NtpConfig.peers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peers</span> <span class="pre">(Optional[List[netcm.models.services.vi.ServerModels.NtpServer]])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpConfig.keys" title="netcm.models.services.vi.ServerModels.NtpConfig.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span> <span class="pre">(Optional[List[netcm.models.services.vi.ServerModels.NtpKey]])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpConfig.src_interface" title="netcm.models.services.vi.ServerModels.NtpConfig.src_interface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">src_interface</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpConfig.authenticate">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">authenticate</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpConfig.authenticate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpConfig.keys">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">keys</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpKey" title="netcm.models.services.vi.ServerModels.NtpKey"><span class="pre">netcm.models.services.vi.ServerModels.NtpKey</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpConfig.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpConfig.peers">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">peers</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpServer" title="netcm.models.services.vi.ServerModels.NtpServer"><span class="pre">netcm.models.services.vi.ServerModels.NtpServer</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpConfig.peers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpConfig.servers">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">servers</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpServer" title="netcm.models.services.vi.ServerModels.NtpServer"><span class="pre">netcm.models.services.vi.ServerModels.NtpServer</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpConfig.servers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpConfig.src_interface">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">src_interface</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpConfig.src_interface" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = (?P&lt;type&gt;[A-z]{2,}(?:[A-z-])*)(?P&lt;numbers&gt;d+(?:/d+)*(?::d+)?(?:.d+)?)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpKey">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">NtpKey</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpKey" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;NtpKey&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;encryption_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encryption Type&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;key_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Key Id&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;md5&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;trusted&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Trusted&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;key_id&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;method&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span> <span class="pre">(str)</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">encryption_type</span> <span class="pre">(Optional[int])</span></code></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpKey.key_id" title="netcm.models.services.vi.ServerModels.NtpKey.key_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_id</span> <span class="pre">(int)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpKey.method" title="netcm.models.services.vi.ServerModels.NtpKey.method"><code class="xref py py-obj docutils literal notranslate"><span class="pre">method</span> <span class="pre">(Literal[md5])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpKey.trusted" title="netcm.models.services.vi.ServerModels.NtpKey.trusted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trusted</span> <span class="pre">(Optional[bool])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpKey.key_id">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">key_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpKey.key_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpKey.method">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">method</span></span><em class="property"><span class="pre">:</span> <span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">md5</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpKey.method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpKey.trusted">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">trusted</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpKey.trusted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpServer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">NtpServer</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpServer" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;NtpServer&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;key_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Key Id&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;prefer&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Prefer&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;server&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span> <span class="pre">(Union[ipaddress.IPv4Address,</span> <span class="pre">ipaddress.IPv6Address])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">src_interface</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vrf</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpServer.key_id" title="netcm.models.services.vi.ServerModels.NtpServer.key_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_id</span> <span class="pre">(Optional[int])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.NtpServer.prefer" title="netcm.models.services.vi.ServerModels.NtpServer.prefer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefer</span> <span class="pre">(Optional[bool])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpServer.key_id">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">key_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpServer.key_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.NtpServer.prefer">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">prefer</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.NtpServer.prefer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.RadiusServer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">RadiusServer</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.RadiusServer" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;RadiusServer&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;address_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address Version&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;ipv4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ipv6&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Timeout&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/KeyBase&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;single_connection&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Single Connection&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;retransmit&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Retransmit&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;server&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;KeyBase&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;KeyBase&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encryption_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encryption Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;value&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(netcm.models.Fields.Fields.ConstrainedStrValue)</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span> <span class="pre">(Union[ipaddress.IPv4Address,</span> <span class="pre">ipaddress.IPv6Address])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">address_version</span> <span class="pre">(Optional[Literal[ipv4,</span> <span class="pre">ipv6]])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeout</span> <span class="pre">(Optional[netcm.models.services.vi.ServerModels.ConstrainedIntValue])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span> <span class="pre">(Optional[netcm.models.BaseModels.SharedModels.KeyBase])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">single_connection</span> <span class="pre">(Optional[bool])</span></code></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.RadiusServer.retransmit" title="netcm.models.services.vi.ServerModels.RadiusServer.retransmit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">retransmit</span> <span class="pre">(Optional[netcm.models.services.vi.ServerModels.ConstrainedIntValue])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.RadiusServer.retransmit">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">retransmit</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.services.vi.ServerModels.ConstrainedIntValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.RadiusServer.retransmit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>minimum</strong> = 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.RadiusServerGroup">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">RadiusServerGroup</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.RadiusServerGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;RadiusServerGroup&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;servers&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Servers&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/RadiusServer&quot;</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;servers&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;KeyBase&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;KeyBase&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encryption_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encryption Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;value&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;RadiusServer&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;RadiusServer&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;address_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address Version&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;ipv4&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;ipv6&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Timeout&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/KeyBase&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;single_connection&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Single Connection&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;retransmit&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Retransmit&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;server&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(netcm.models.Fields.Fields.ConstrainedStrValue)</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">src_interface</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vrf</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.RadiusServerGroup.servers" title="netcm.models.services.vi.ServerModels.RadiusServerGroup.servers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">servers</span> <span class="pre">(List[netcm.models.services.vi.ServerModels.RadiusServer])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.RadiusServerGroup.servers">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">servers</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.services.vi.ServerModels.RadiusServer" title="netcm.models.services.vi.ServerModels.RadiusServer"><span class="pre">netcm.models.services.vi.ServerModels.RadiusServer</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.RadiusServerGroup.servers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.ServerBase">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">ServerBase</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.ServerBase" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;ServerBase&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{},</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.ServerPropertiesBase">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">ServerPropertiesBase</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.ServerPropertiesBase" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;ServerPropertiesBase&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;server&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.ServerPropertiesBase.server" title="netcm.models.services.vi.ServerModels.ServerPropertiesBase.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span> <span class="pre">(Union[ipaddress.IPv4Address,</span> <span class="pre">ipaddress.IPv6Address])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.ServerPropertiesBase.src_interface" title="netcm.models.services.vi.ServerModels.ServerPropertiesBase.src_interface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">src_interface</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.ServerPropertiesBase.vrf" title="netcm.models.services.vi.ServerModels.ServerPropertiesBase.vrf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vrf</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.ServerPropertiesBase.server">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">server</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">ipaddress.IPv4Address</span><span class="p"><span class="pre">,</span> </span><span class="pre">ipaddress.IPv6Address</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.ServerPropertiesBase.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.ServerPropertiesBase.src_interface">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">src_interface</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.ServerPropertiesBase.src_interface" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = (?P&lt;type&gt;[A-z]{2,}(?:[A-z-])*)(?P&lt;numbers&gt;d+(?:/d+)*(?::d+)?(?:.d+)?)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.ServerPropertiesBase.vrf">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">vrf</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.ServerPropertiesBase.vrf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = S+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServer">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">TacacsServer</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServer" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;TacacsServer&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;address_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address Version&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;ipv4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ipv6&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Timeout&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/KeyBase&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;single_connection&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Single Connection&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;server&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;KeyBase&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;KeyBase&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encryption_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encryption Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;value&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServer.name" title="netcm.models.services.vi.ServerModels.TacacsServer.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(netcm.models.Fields.Fields.ConstrainedStrValue)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServer.server" title="netcm.models.services.vi.ServerModels.TacacsServer.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span> <span class="pre">(Union[ipaddress.IPv4Address,</span> <span class="pre">ipaddress.IPv6Address])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServer.address_version" title="netcm.models.services.vi.ServerModels.TacacsServer.address_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">address_version</span> <span class="pre">(Optional[Literal[ipv4,</span> <span class="pre">ipv6]])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServer.timeout" title="netcm.models.services.vi.ServerModels.TacacsServer.timeout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeout</span> <span class="pre">(Optional[netcm.models.services.vi.ServerModels.ConstrainedIntValue])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServer.key" title="netcm.models.services.vi.ServerModels.TacacsServer.key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span> <span class="pre">(Optional[netcm.models.BaseModels.SharedModels.KeyBase])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServer.single_connection" title="netcm.models.services.vi.ServerModels.TacacsServer.single_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">single_connection</span> <span class="pre">(Optional[bool])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServer.address_version">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">address_version</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">ipv4</span><span class="p"><span class="pre">,</span> </span><span class="pre">ipv6</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServer.address_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServer.key">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.BaseModels.SharedModels.KeyBase</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServer.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServer.name">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <span class="pre">netcm.models.Fields.Fields.ConstrainedStrValue</span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServer.name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> = S+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServer.server">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">server</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">ipaddress.IPv4Address</span><span class="p"><span class="pre">,</span> </span><span class="pre">ipaddress.IPv6Address</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServer.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServer.single_connection">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">single_connection</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServer.single_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServer.timeout">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">timeout</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">netcm.models.services.vi.ServerModels.ConstrainedIntValue</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">PydanticUndefined</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServer.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Constraints</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>minimum</strong> = 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py pydantic_model">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServerGroup">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span> </em><span class="sig-name descname"><span class="pre">TacacsServerGroup</span></span><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServerGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p><details  class="autodoc_pydantic_collapsable_json">
+<summary>Show JSON schema</summary><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;TacacsServerGroup&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;src_interface&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Src Interface&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;(?P&lt;type&gt;[A-z]{2,}(?:[A-z\\-])*)(?P&lt;numbers&gt;\\d+(?:\\/\\d+)*(?:\\:\\d+)?(?:\\.\\d+)?)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;vrf&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Vrf&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;servers&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Servers&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/TacacsServer&quot;</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;servers&quot;</span>
+   <span class="p">],</span>
+   <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+   <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;KeyBase&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;KeyBase&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;encryption_type&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Encryption Type&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;value&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;TacacsServer&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;TacacsServer&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Vendor Independent Base Model Class&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;\\S+&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Server&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv4&quot;</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;ipv6&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;address_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Address Version&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;ipv4&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;ipv6&quot;</span>
+               <span class="p">],</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Timeout&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;minimum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/KeyBase&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;single_connection&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Single Connection&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;server&quot;</span>
+         <span class="p">],</span>
+         <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</details></p><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extra</strong>: <em>Extra = forbid</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(netcm.models.Fields.Fields.ConstrainedStrValue)</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">src_interface</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vrf</span> <span class="pre">(Optional[netcm.models.Fields.Fields.ConstrainedStrValue])</span></code></p></li>
+<li><p><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServerGroup.servers" title="netcm.models.services.vi.ServerModels.TacacsServerGroup.servers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">servers</span> <span class="pre">(List[netcm.models.services.vi.ServerModels.TacacsServer])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py pydantic_field">
+<dt class="sig sig-object py" id="netcm.models.services.vi.ServerModels.TacacsServerGroup.servers">
+<em class="property"><span class="pre">field</span> </em><span class="sig-name descname"><span class="pre">servers</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#netcm.models.services.vi.ServerModels.TacacsServer" title="netcm.models.services.vi.ServerModels.TacacsServer"><span class="pre">netcm.models.services.vi.ServerModels.TacacsServer</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">Ellipsis</span></em><a class="headerlink" href="#netcm.models.services.vi.ServerModels.TacacsServerGroup.servers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="RoutingProtocols.html" class="btn btn-neutral float-right" title="Routing Protocol Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="VlanModel.html" class="btn btn-neutral float-left" title="VLAN Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Miroslav Hudec.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

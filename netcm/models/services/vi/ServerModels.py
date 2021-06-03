@@ -52,7 +52,7 @@ class AaaServer(ServerBase):
     server: Union[ipaddress.IPv4Address, ipaddress.IPv6Address]
     address_version: Optional[Literal["ipv4", "ipv6"]]
     timeout: Optional[conint(ge=1)]
-    key: Optional[KeyBase]
+    key: KeyBase
     single_connection: Optional[bool]
 
     @root_validator(allow_reuse=True)
