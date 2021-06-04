@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT_DIR))
 
 # -- Project information -----------------------------------------------------
 
-project = 'netcm'
+project = 'net_models'
 copyright = '2021, Miroslav Hudec'
 author = 'Miroslav Hudec'
 

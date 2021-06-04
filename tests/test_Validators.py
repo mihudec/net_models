@@ -1,6 +1,6 @@
 import unittest
 from pydantic.typing import List, Dict, Callable
-from netcm.validators import *
+from net_models.validators import *
 
 class TestValidatorBase(unittest.TestCase):
 

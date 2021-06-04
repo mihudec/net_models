@@ -6,7 +6,7 @@ with open("requirements.txt", "r") as fs:
     reqs = [r for r in fs.read().splitlines() if (len(r) > 0 and not r.startswith("#"))]
 
 setup(
-    name="netcm",
+    name="net_models",
     packages=find_packages(),
     version=VERSION,
     author="Miroslav Hudec <http://github.com/mihudec>",

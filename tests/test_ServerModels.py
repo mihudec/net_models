@@ -1,6 +1,6 @@
 from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
 
-from netcm.models.services.vi.ServerModels import *
+from net_models.models.services.vi.ServerModels import *
 
 class VendorIndependentServerTest(BaseVendorIndependentTest):
 

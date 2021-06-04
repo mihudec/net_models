@@ -1,6 +1,6 @@
 Server Models
 #############
 
-.. automodule:: netcm.models.services.vi.ServerModels
+.. automodule:: net_models.models.services.vi.ServerModels
    :members:
    :undoc-members:
