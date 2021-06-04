@@ -1,6 +1,6 @@
 import unittest
 from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
-from netcm.models.VendorIndependent.VlanModel import VlanModel
+from net_models.models.VendorIndependent.VlanModel import VlanModel
 
 
 class TestVlanModel(BaseVendorIndependentTest):

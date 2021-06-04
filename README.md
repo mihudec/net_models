@@ -1,2 +1,2 @@
-# netcm
+# net_models
 Network Config Models

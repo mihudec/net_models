@@ -1,6 +1,6 @@
 import unittest
-from netcm.utils import get_interface_index
-from netcm.utils.interface_sort import *
+from net_models.utils import get_interface_index
+from net_models.utils.interface_sort import *
 import random
 
 class TestInterfaceSort(unittest.TestCase):

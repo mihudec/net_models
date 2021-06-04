@@ -2,8 +2,8 @@ import sys
 import pathlib
 import unittest
 import yaml
-from netcm.models.BaseModels import BaseNetCmModel, VendorIndependentBaseModel
-from netcm.utils import get_logger
+from net_models.models.BaseModels import BaseNetCmModel, VendorIndependentBaseModel
+from net_models.utils import get_logger
 from pprint import pprint
 
 class BaseNetCmTestClass(unittest.TestCase):

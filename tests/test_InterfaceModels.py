@@ -3,12 +3,12 @@ import unittest
 import json
 import yaml
 from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
-from netcm.models.interfaces.vi import (
+from net_models.models.interfaces.vi import (
     InterfaceModel,
     InterfaceContainerModel
 )
-from netcm.models.interfaces.vi.L2InterfaceModels import *
-from netcm.models.interfaces.vi.L3InterfaceModels import *
+from net_models.models.interfaces.vi.L2InterfaceModels import *
+from net_models.models.interfaces.vi.L3InterfaceModels import *
 from pydantic.error_wrappers import ValidationError
 
 

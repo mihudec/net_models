@@ -1,6 +1,6 @@
 VLAN Models
 ###########
 
-.. automodule:: netcm.models.VendorIndependent.VlanModel
+.. automodule:: net_models.models.VendorIndependent.VlanModel
    :members:
    :undoc-members:
