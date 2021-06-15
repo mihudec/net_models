@@ -21,3 +21,5 @@ ASN = conint(ge=1, le=4294967295)
 
 interface_name = constr(min_length=3)
 SWITCHPORT_MODE = Literal["access", "trunk", "dynamic auto", "dynamic desirable", "dot1q-tunnel", "private-vlan host", "private-vlan promiscuous"]
+
+PRIVILEGE_LEVEL = conint(ge=0, le=15)

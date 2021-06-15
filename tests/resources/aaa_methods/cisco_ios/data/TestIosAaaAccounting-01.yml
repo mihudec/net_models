@@ -1,0 +1,19 @@
+exec:
+  - name: default
+    record: start-stop
+    action_list:
+      - action: group
+        group: TACACS-GROUP
+commands:
+  - name: default
+    level: 1
+    record: start-stop
+    action_list:
+      - action: group
+        group: TACACS-GROUP
+  - name: default
+    level: 15
+    record: start-stop
+    action_list:
+      - action: group
+        group: TACACS-GROUP

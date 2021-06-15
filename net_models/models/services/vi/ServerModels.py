@@ -5,6 +5,19 @@ from net_models.models.BaseModels import VendorIndependentBaseModel
 from net_models.models.BaseModels.SharedModels import KeyBase, AuthBase
 from net_models.models.Fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME
 
+def validate_servers_unique(cls, values):
+    names = [x.name for x in values.get("servers")]
+    servers = [x.server for x in values.get("servers")]
+
+    if len(names) != len(set(names)):
+        msg = f"Server names must be unique."
+        raise AssertionError(msg)
+
+    if len(servers) != len(set(servers)):
+        msg = f"Server addresses must be unique."
+        raise AssertionError(msg)
+
+    return values
 
 class ServerBase(VendorIndependentBaseModel):
 
@@ -81,13 +94,19 @@ class AaaServerGroup(ServerBase):
     src_interface: Optional[BASE_INTERFACE_NAME]
     vrf: Optional[VRF_NAME]
 
+    _validate_servers_unique = root_validator(allow_reuse=True)(validate_servers_unique)
+
 
 class RadiusServerGroup(AaaServerGroup):
 
     servers: List[RadiusServer]
 
+    #TODO: Validate Servers have unique IPs/Names
+
 
 class TacacsServerGroup(AaaServerGroup):
 
     servers: List[TacacsServer]
+
+
 

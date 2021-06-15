@@ -16,12 +16,12 @@ class BaseNetCmModel(BaseModel):
         if validation_error:
             raise validation_error
 
-    def yaml(self, indent: int = 2, **kwargs):
-        data_dict = self.dict(**kwargs)
+    def yaml(self, indent: int = 2, exclude_none: bool = False, **kwargs):
+        data_dict = self.dict(exclude_none=exclude_none, **kwargs)
         return yaml.dump(data=data_dict, Dumper=CustomYamlDumper, indent=indent)
 
-    def serial_dict(self, **kwargs):
-        return json.loads(self.json(**kwargs))
+    def serial_dict(self, exclude_none: bool = False, **kwargs):
+        return json.loads(self.json(exclude_none=exclude_none, **kwargs))
 
 
 class VendorIndependentBaseModel(BaseNetCmModel):

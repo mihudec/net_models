@@ -1,0 +1,18 @@
+login:
+  - name: default
+    action_list:
+      - action: group
+        group: TACACS-GROUP
+      - action: local
+  - name: CONSOLE
+    action_list:
+      - action: local
+enable:
+  - name: default
+    action_list:
+      - action: group
+        group: TACACS-GROUP
+      - action: enable
+  - name: CONSOLE
+    action_list:
+      - action: enable

@@ -1,0 +1,8 @@
+login:
+  - name: default
+    action_list:
+      - action: local
+enable:
+  - name: default
+    action_list:
+      - action: enable

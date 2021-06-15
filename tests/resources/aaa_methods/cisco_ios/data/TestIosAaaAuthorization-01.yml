@@ -1,0 +1,32 @@
+exec:
+  - name: default
+    action_list:
+      - action: group
+        group: TACACS-GROUP
+      - action: local
+  - name: CONSOLE
+    action_list:
+      - action: local
+commands:
+  - name: default
+    level: 1
+    action_list:
+      - action: group
+        group: TACACS-GROUP
+      - action: local
+  - name: default
+    level: 15
+    action_list:
+      - action: group
+        group: TACACS-GROUP
+      - action: local
+  - name: CONSOLE
+    level: 1
+    action_list:
+      - action: local
+  - name: CONSOLE
+    level: 15
+    action_list:
+      - action: local
+authorize_console: true
+authorize_config_commands: true

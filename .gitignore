@@ -60,3 +60,4 @@ target/
 # Develop
 .idea/
 venv/
+/.bumpversion.cfg
