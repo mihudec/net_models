@@ -40,6 +40,7 @@ class TestNtpKey(BaseVendorIndependentTest):
 
 
 class TestNtpServer(VendorIndependentServerTest):
+
     TEST_CLASS = NtpServer
 
     def test_init_valid(self):
@@ -57,8 +58,34 @@ class TestNtpServer(VendorIndependentServerTest):
             with self.subTest(msg=test_case["test_name"]):
                 try:
                     test_obj = self.TEST_CLASS(**test_case["data"])
+                    print(test_obj.serial_dict())
                 except Exception as e:
                     self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
+
+
+class TestNtpAccessGroups(BaseVendorIndependentTest):
+
+    TEST_CLASS = NtpAccessGroups
+
+    def test_valid_01(self):
+        test_cases = [
+            {
+                "test_name": "Test-Valid-01",
+                "data": {
+                    "serve_only": 1,
+                    "query_only": "NTP-QUERY-ONLY",
+                    "serve": "ACL-NTP-SERVE",
+                    "peer": "ACL-NTP-PEERS"
+                }
+            }
+        ]
+        for test_case in test_cases:
+            test_obj = self.TEST_CLASS(**test_case["data"])
+
+
+class TestNtpConfig(BaseVendorIndependentTest):
+
+    TEST_CLASS = NtpConfig
 
 
 class TestLoggingServer(VendorIndependentServerTest):

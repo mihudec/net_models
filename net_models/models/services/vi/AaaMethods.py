@@ -1,7 +1,8 @@
 from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.Fields import GENERIC_OBJECT_NAME, PRIVILEGE_LEVEL
+from net_models.fields import GENERIC_OBJECT_NAME, PRIVILEGE_LEVEL
 from pydantic.typing import Optional, List, Literal, Union
-from pydantic import root_validator, Field, conint
+from pydantic import root_validator
+
 
 def enable_action_prohibited(cls, values):
     return values

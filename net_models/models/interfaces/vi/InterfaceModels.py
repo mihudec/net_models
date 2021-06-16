@@ -1,9 +1,8 @@
-import ipaddress
 from net_models.models.BaseModels import VendorIndependentBaseModel
 from net_models.models.interfaces.vi import InterfaceSwitchportModel
 from net_models.models.interfaces.vi import InterfaceRouteportModel
-from net_models.models.Fields import BASE_INTERFACE_NAME
-from pydantic.typing import (List, Optional, Dict, Literal)
+from net_models.fields import BASE_INTERFACE_NAME
+from pydantic.typing import (Optional, Dict, Literal)
 from pydantic import root_validator, validator, conint, constr
 from net_models.validators import *
 

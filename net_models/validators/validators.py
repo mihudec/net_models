@@ -1,14 +1,23 @@
-import ipaddress
 from collections import OrderedDict
-from net_models.utils import get_interface_index, get_logger, split_interface
 from pydantic.typing import List, Union
-from net_models.utils import INTERFACE_NAMES
-from net_models.models.BaseModels import BaseNetCmModel
+import ipaddress
+from net_models.utils import get_interface_index, get_logger, split_interface, INTERFACE_NAMES
+from net_models import models
 
 
 LOGGER = get_logger(name="NetCm-Validators")
 
 def ipv4_is_assignable(address: ipaddress.IPv4Interface) -> ipaddress.IPv4Interface:
+    """
+    This validator check that given IP address is neither broadcast nor network Id.
+    These rules apply to netmasks up to /30.
+
+    Args:
+        address: ipaddress.IPv4Interface (address with netmask)
+
+    Returns: ipaddress.IPv4Interface
+
+    """
     # Don't validate address if prefix is /31 or /32
     if int(address.with_prefixlen.split("/")[1]) in [31,32]:
         pass
@@ -76,22 +85,25 @@ def expand_vlan_range(vlan_range: Union[List[int], str]) -> List[int]:
 
 def normalize_interface_name(interface_name: str) -> str:
     interface_type, interface_num = split_interface(interface_name=interface_name)
+    if any([x is None for x in [interface_type, interface_num]]):
+        msg = f"Failed to split interface_name '{interface_name}'"
+        raise ValueError(msg)
     match_found = False
     if interface_type in INTERFACE_NAMES.keys():
         match_found = True
         return interface_name
-    for full_name, shorts in INTERFACE_NAMES.items():
-        for short in shorts:
-            if interface_type.lower().startswith(short.lower()):
+    for full_type, short_types in INTERFACE_NAMES.items():
+        for short_type in short_types:
+            if interface_type.lower().startswith(short_type.lower()):
                 match_found = True
-                interface_name = full_name + interface_num
+                interface_name = full_type + interface_num
     if not match_found:
         msg = f"Given interface name does not comply with valid interface names. Given: {interface_name}, Expected: {list(INTERFACE_NAMES.keys())}"
         LOGGER.error(msg=msg)
         raise AssertionError(msg)
     return interface_name
 
-def validate_unique_name_field(value: List[BaseNetCmModel]):
+def validate_unique_name_field(value: List[models.BaseNetCmModel]):
     names = set([x.name for x in value])
     if len(names) != len(value):
         msg = f"Found duplicate 'name's."

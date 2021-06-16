@@ -1,8 +1,8 @@
 from pydantic import validator, root_validator
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.BaseModels.SharedModels import AuthBase
-from net_models.models.Fields import *
 from net_models.validators import *
+from net_models.fields.Fields import *
+from net_models.models import VendorIndependentBaseModel
+from net_models.models.BaseModels.SharedModels import AuthBase
 from typing import (List, Optional)
 from typing_extensions import (Literal)
 

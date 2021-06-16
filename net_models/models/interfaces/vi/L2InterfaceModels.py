@@ -1,7 +1,7 @@
-from pydantic import validator, root_validator, Field
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.Fields import *
+from pydantic import validator, root_validator
 from net_models.validators import *
+from net_models.fields.Fields import *
+from net_models.models import VendorIndependentBaseModel
 from pydantic.typing import Literal, List, Union, Optional
 
 

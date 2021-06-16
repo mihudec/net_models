@@ -1,10 +1,9 @@
 from net_models.models.BaseModels import VendorIndependentBaseModel
 from net_models.models.BaseModels.SharedModels import AuthBase
-from net_models.models.Fields import GENERIC_OBJECT_NAME
+from net_models.fields import GENERIC_OBJECT_NAME
 from net_models.utils.get_logger import get_logger
-from pydantic.typing import Optional, List, Union, Literal
+from pydantic.typing import Optional, List, Literal
 from pydantic import root_validator
-import ipaddress
 
 LOGGER = get_logger(name="NetCm-RoutingProtocols")
 

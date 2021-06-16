@@ -1,9 +1,9 @@
 import ipaddress
 from pydantic.typing import Optional, Union, List, Literal
 from pydantic import conint, root_validator
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.BaseModels.SharedModels import KeyBase, AuthBase
-from net_models.models.Fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME
+from net_models.fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME, InterfaceName
+from net_models.models import VendorIndependentBaseModel
+from net_models.models.BaseModels.SharedModels import KeyBase
 
 def validate_servers_unique(cls, values):
     names = [x.name for x in values.get("servers")]
@@ -19,6 +19,7 @@ def validate_servers_unique(cls, values):
 
     return values
 
+
 class ServerBase(VendorIndependentBaseModel):
 
     pass
@@ -27,7 +28,7 @@ class ServerBase(VendorIndependentBaseModel):
 class ServerPropertiesBase(ServerBase):
 
     server: Union[ipaddress.IPv4Address, ipaddress.IPv6Address]
-    src_interface: Optional[BASE_INTERFACE_NAME]
+    src_interface: Optional[InterfaceName]
     vrf: Optional[VRF_NAME]
 
 
@@ -44,13 +45,22 @@ class NtpServer(ServerPropertiesBase):
     prefer: Optional[bool]
 
 
+class NtpAccessGroups(VendorIndependentBaseModel):
+
+    serve_only: Optional[GENERIC_OBJECT_NAME]
+    query_only: Optional[GENERIC_OBJECT_NAME]
+    serve: Optional[GENERIC_OBJECT_NAME]
+    peer: Optional[GENERIC_OBJECT_NAME]
+
+
 class NtpConfig(VendorIndependentBaseModel):
 
     authenticate: Optional[bool]
     servers: Optional[List[NtpServer]]
     peers: Optional[List[NtpServer]]
-    keys: Optional[List[NtpKey]]
-    src_interface: Optional[BASE_INTERFACE_NAME]
+    ntp_keys: Optional[List[NtpKey]]
+    src_interface: Optional[InterfaceName]
+    access_groups: Optional[NtpAccessGroups]
 
 
 class LoggingServer(ServerPropertiesBase):
@@ -91,7 +101,7 @@ class TacacsServer(AaaServer):
 class AaaServerGroup(ServerBase):
 
     name: GENERIC_OBJECT_NAME
-    src_interface: Optional[BASE_INTERFACE_NAME]
+    src_interface: Optional[InterfaceName]
     vrf: Optional[VRF_NAME]
 
     _validate_servers_unique = root_validator(allow_reuse=True)(validate_servers_unique)
@@ -100,8 +110,6 @@ class AaaServerGroup(ServerBase):
 class RadiusServerGroup(AaaServerGroup):
 
     servers: List[RadiusServer]
-
-    #TODO: Validate Servers have unique IPs/Names
 
 
 class TacacsServerGroup(AaaServerGroup):

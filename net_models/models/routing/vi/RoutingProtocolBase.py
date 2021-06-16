@@ -1,5 +1,5 @@
 from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.Fields import GENERIC_OBJECT_NAME
+from net_models.fields import GENERIC_OBJECT_NAME
 from pydantic.typing import Optional
 
 class RoutingProtocolBase(VendorIndependentBaseModel):
