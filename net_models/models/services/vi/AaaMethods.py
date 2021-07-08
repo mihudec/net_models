@@ -1,7 +1,8 @@
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.fields import GENERIC_OBJECT_NAME, PRIVILEGE_LEVEL
-from pydantic.typing import Optional, List, Literal, Union
+from net_models.fields import GENERIC_OBJECT_NAME, PRIVILEGE_LEVEL, AAA_METHOD_NAME
+from net_models.models.BaseModels import BaseNetModel, VendorIndependentBaseModel
 from pydantic import root_validator
+from pydantic.types import PositiveInt
+from pydantic.typing import Optional, List, Literal, Union
 
 
 def enable_action_prohibited(cls, values):
@@ -32,7 +33,7 @@ class IosAaaAction(IosAaaBase):
 
 class IosAaaMethodBase(IosAaaBase):
 
-    name: Union[Literal["default"], GENERIC_OBJECT_NAME]
+    name: AAA_METHOD_NAME
     action_list: List[IosAaaAction]
 
 
@@ -117,4 +118,40 @@ class IosAaaConfig(IosAaaBase):
     authentication: Optional[IosAaaAuthentication]
     authorization: Optional[IosAaaAuthorization]
     accounting: Optional[IosAaaAccounting]
+
+
+
+class IosAaaLineCommands(BaseNetModel):
+
+    name: GENERIC_OBJECT_NAME
+    """Name of the AAA method"""
+    level: PRIVILEGE_LEVEL
+    """Privilege level"""
+
+
+class IosAaaLineAuthorization(BaseNetModel):
+
+    exec: Optional[AAA_METHOD_NAME]
+    """Name of the authorization exec method"""
+    commands: Optional[List[IosAaaLineCommands]]
+    """List of Line Commands Authorization Models"""
+
+
+class IosAaaLineAccounting(BaseNetModel):
+
+    exec: Optional[AAA_METHOD_NAME]
+    """Name of the accounting exec method"""
+    commands: Optional[List[IosAaaLineCommands]]
+    """List of Line Commands Accounting Models"""
+
+
+class IosLineAaaConfig(BaseNetModel):
+
+    authentication: Optional[AAA_METHOD_NAME]
+    """Name of the authentication login method"""
+    authorization: Optional[IosAaaLineAuthorization]
+    """Line Authorization Model"""
+    accounting: Optional[IosAaaLineAuthorization]
+    """Line Accounting Model"""
+
 

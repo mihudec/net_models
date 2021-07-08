@@ -5,7 +5,7 @@ from net_models.validators import *
 class TestValidatorBase(unittest.TestCase):
 
 
-    def test_common_testcase(self, test_cases: List[Dict], test_func: Callable):
+    def common_testcase(self, test_cases: List[Dict], test_func: Callable):
         for test_case in test_cases:
             with self.subTest(msg=test_case["test_name"]):
                 want = test_case["result"]
@@ -54,7 +54,7 @@ class TestExpandVlanRange(TestValidatorBase):
             },
 
         ]
-        super().test_common_testcase(test_cases=test_cases, test_func=expand_vlan_range)
+        super().common_testcase(test_cases=test_cases, test_func=expand_vlan_range)
 
 
     def test_invalid_range_01(self):
@@ -101,9 +101,30 @@ class TestNormalizeInterfaceName(TestValidatorBase):
                 "result": "Ethernet0/1"
             }
         ]
-        super().test_common_testcase(test_cases=test_cases, test_func=normalize_interface_name)
+        super().common_testcase(test_cases=test_cases, test_func=normalize_interface_name)
 
 
+class TestRequiredTogether(TestValidatorBase):
+
+    def test_raises(self):
+        test_cases = [
+            {
+                "test_name": "Test-01",
+                "data": {
+                    "values": {
+                        "one": 1
+                    },
+                    "required": [
+                        "one",
+                        "two"
+                    ]
+                }
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(test_case["test_name"]):
+                with self.assertRaises(AssertionError):
+                    test_result = required_together(**test_case["data"])
 
 del TestValidatorBase
 

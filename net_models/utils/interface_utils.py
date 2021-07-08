@@ -1,21 +1,57 @@
-from net_models.utils import get_logger
-from net_models.utils.common import split_interface
 import re
-from typing import List, Union
-LOGGER = get_logger(name="NetCm-InterfaceSort")
+
+from pydantic.typing import (
+    Literal,
+    List,
+    Union,
+    Tuple
+)
+from net_models.config import LOGGER_INTERFACE_UTILS
+
+LOGGER = LOGGER_INTERFACE_UTILS
+
+BASE_INTERFACE_REGEX = re.compile(pattern=r"(?P<type>^[A-z]{2,}(?:[A-z\-])*)(?P<numbers>\d+(?:\/\d+)*(?:\:\d+)?(?:\.\d+)?)(\s*)$")
+INTEFACE_TYPE_DEFAULT_WEIGHT = 50
+INTEFACE_TYPE_MAX_WEIGHT = 255
+
+INTERFACE_NAMES = {
+    "Ethernet": ["Eth", "Et"],
+    "FastEthernet": ["Fa"],
+    "GigabitEthernet": ["Gi"],
+    "TenGigabitEthernet": ["Te"],
+    "TwentyFiveGigE": ["Twe"],
+    "FortyGigabitEthernet": ["Fo"],
+    "HundredGigE": ["Hu"],
+    "Port-channel": ["Po"],
+    "Tunnel": ["Tu"],
+    "Vlan": ["Vl"],
+    "BDI": ["BDI"],
+    "Loopback": ["Lo"],
+    "Serial": ["Se"],
+    "pseudowire": ["pw"]
+
+}
 
 INTERFACE_TYPE_WEIGHT_MAP = {
     100: ["Loopback"],
-    90: ["Vlan"],
-    95: ["BDI"],
+    95: ["Vlan"],
+    90: ["BDI"],
     80: ["Tunnel"],
     75: ["pseudowire"],
 
 }
-INTEFACE_TYPE_DEFAULT_WEIGHT = 50
-INTEFACE_TYPE_MAX_WEIGHT = 255
 
-
+def split_interface(interface_name: str) -> Union[Tuple[str, str], Tuple[None, None]]:
+    try:
+        match = re.match(pattern=BASE_INTERFACE_REGEX, string=interface_name)
+    except TypeError as e:
+        LOGGER.error("Expected string or bytes-like object, cannot match on '{}'".format(type(interface_name)))
+        return (None, None)
+    if match:
+        return [match.group("type"), match.group("numbers")]
+    else:
+        LOGGER.error("Given interface '{}' did not match parsing pattern.".format(interface_name))
+        return (None, None)
 
 def extract_numbers(text: str, max_length: int = 6) -> Union[List[int], None]:
 
@@ -69,11 +105,14 @@ def get_interface_index(interface_name: str, max_length: int = 6, max_bits: int 
 
     try:
         numbers, len_slots = extract_numbers(text=numbers, max_length=max_length)
+        LOGGER.debug(msg=f"Numbers: {numbers}, LenSlots: {len_slots}")
     except ValueError as e:
         LOGGER.error(f"{repr(e)}")
         return 0
 
     binary_numbers = [format(x, f"0{max_bits}b") for x in numbers]
-    weight = INTEFACE_TYPE_MAX_WEIGHT - get_weight_by_type(interface_type=interface_type)
-    index = int(format(weight, "08b") + format(len_slots, "04b") + "".join(binary_numbers), 2)
+    reverse_weight = INTEFACE_TYPE_MAX_WEIGHT - get_weight_by_type(interface_type=interface_type)
+    index_binary = format(reverse_weight, "08b") + format(len_slots, "04b") + "".join(binary_numbers)
+    index = int(index_binary, 2)
+    LOGGER.debug(msg=f"Interface: '{interface_name}' LenSlots: {len_slots} Index: {index} IndexBinary: {index_binary}")
     return index

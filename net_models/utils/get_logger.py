@@ -3,8 +3,14 @@ import sys
 import pathlib
 
 LOG_PATH = pathlib.Path.home().joinpath(".net_models.log")
-
-def get_logger(name, verbosity=4, handle=["stderr"], with_threads=False):
+VERBOSITY_MAP = {
+    1: logging.CRITICAL,
+    2: logging.ERROR,
+    3: logging.WARNING,
+    4: logging.INFO,
+    5: logging.DEBUG
+}
+def get_logger(name, verbosity=4, handle=["stderr"], with_threads=False) -> logging.Logger:
     """
     This function provides common logging facility by creating instances of `loggers` from python standard ``logging`` library.
     :param str name: Name of the logger
@@ -12,14 +18,7 @@ def get_logger(name, verbosity=4, handle=["stderr"], with_threads=False):
     :param list handle: Changing value of this parameter is not recommended.
     :return: Instance of logger object
     """
-    verbosity_map = {
-        1: logging.CRITICAL,
-        2: logging.ERROR,
-        3: logging.WARNING,
-        4: logging.INFO,
-        5: logging.DEBUG
-    }
-
+    global VERBOSITY_MAP
     threading_formatter_string = '[%(asctime)s] [%(levelname)s]\t[%(name)s][%(threadName)s][%(module)s][%(funcName)s]\t%(message)s'
     single_formatter_string = '[%(asctime)s] [%(levelname)s]\t[%(name)s][%(module)s][%(funcName)s]\t%(message)s'
 
@@ -43,7 +42,7 @@ def get_logger(name, verbosity=4, handle=["stderr"], with_threads=False):
     for handler in handlers:
         handler.setFormatter(formatter)
         try:
-            handler.setLevel(verbosity_map[verbosity])
+            handler.setLevel(VERBOSITY_MAP[verbosity])
         except KeyError:
             handler.setLevel(logging.INFO)
 

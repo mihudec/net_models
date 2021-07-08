@@ -1,8 +1,9 @@
+from __future__ import annotations
 from collections import OrderedDict
 from pydantic.typing import List, Union
 import ipaddress
 from net_models.utils import get_interface_index, get_logger, split_interface, INTERFACE_NAMES
-from net_models import models
+
 
 
 LOGGER = get_logger(name="NetCm-Validators")
@@ -91,7 +92,7 @@ def normalize_interface_name(interface_name: str) -> str:
     match_found = False
     if interface_type in INTERFACE_NAMES.keys():
         match_found = True
-        return interface_name
+        return f"{interface_type}{interface_num}"
     for full_type, short_types in INTERFACE_NAMES.items():
         for short_type in short_types:
             if interface_type.lower().startswith(short_type.lower()):
@@ -103,10 +104,41 @@ def normalize_interface_name(interface_name: str) -> str:
         raise AssertionError(msg)
     return interface_name
 
-def validate_unique_name_field(value: List[models.BaseNetCmModel]):
+def validate_unique_name_field(value: List[BaseNetCmModel]):
     names = set([x.name for x in value])
     if len(names) != len(value):
         msg = f"Found duplicate 'name's."
         LOGGER.error(msg=msg)
         raise AssertionError(msg)
     return value
+
+def validate_names_unique(values: List[BaseNetModel]):
+    names = [x.name for x in values.get("servers")]
+    if len(names) != len(set(names)):
+        msg = f"Server names must be unique. Names: {names}."
+        LOGGER.error(msg=msg)
+        raise AssertionError(msg)
+
+    return values
+
+def validate_servers_unique(values: List[BaseNetModel]):
+    servers = [x.server for x in values.get("servers")]
+    if len(servers) != len(set(servers)):
+        msg = f"Server addresses must be unique. Servers: {servers}."
+        LOGGER.error(msg=msg)
+        raise AssertionError(msg)
+
+    return values
+
+
+def required_together(values, required=List[str]) -> dict:
+    for req in required:
+        others = list(required)
+        others.remove(req)
+        if values.get(req) is not None:
+            for other in others:
+                if values.get(other) is None:
+                    msg = f"RequiredTogether: {required}. Got '{req}' but '{other}' is None"
+                    LOGGER.error(msg)
+                    raise AssertionError(msg)
+    return values

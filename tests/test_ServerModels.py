@@ -1,11 +1,11 @@
-from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
+from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 
 from net_models.models.services.vi.ServerModels import *
 
 from pydantic import ValidationError
 
 
-class VendorIndependentServerTest(BaseVendorIndependentTest):
+class VendorIndependentServerTest(TestVendorIndependentBase):
     TEST_CLASS = ServerPropertiesBase
 
     def test_subclasses_server_model(self):
@@ -16,7 +16,7 @@ class TestServerPropertiesBase(VendorIndependentServerTest):
     TEST_CLASS = ServerPropertiesBase
 
 
-class TestNtpKey(BaseVendorIndependentTest):
+class TestNtpKey(TestVendorIndependentBase):
     TEST_CLASS = NtpKey
 
     def test_valid_init(self):
@@ -40,7 +40,6 @@ class TestNtpKey(BaseVendorIndependentTest):
 
 
 class TestNtpServer(VendorIndependentServerTest):
-
     TEST_CLASS = NtpServer
 
     def test_init_valid(self):
@@ -58,13 +57,11 @@ class TestNtpServer(VendorIndependentServerTest):
             with self.subTest(msg=test_case["test_name"]):
                 try:
                     test_obj = self.TEST_CLASS(**test_case["data"])
-                    print(test_obj.serial_dict())
                 except Exception as e:
                     self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
 
 
-class TestNtpAccessGroups(BaseVendorIndependentTest):
-
+class TestNtpAccessGroups(TestVendorIndependentBase):
     TEST_CLASS = NtpAccessGroups
 
     def test_valid_01(self):
@@ -83,8 +80,7 @@ class TestNtpAccessGroups(BaseVendorIndependentTest):
             test_obj = self.TEST_CLASS(**test_case["data"])
 
 
-class TestNtpConfig(BaseVendorIndependentTest):
-
+class TestNtpConfig(TestVendorIndependentBase):
     TEST_CLASS = NtpConfig
 
 
@@ -206,7 +202,8 @@ class TestRadiusServerGroup(VendorIndependentServerTest):
             ]
         }
 
-        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Server names must be unique\."):
+        with self.assertRaisesRegex(expected_exception=ValidationError,
+                                    expected_regex=r"Server names must be unique\."):
             test_obj = self.TEST_CLASS(**data)
 
     def test_duplicate_servers_01(self):
@@ -232,8 +229,103 @@ class TestRadiusServerGroup(VendorIndependentServerTest):
             ]
         }
 
-        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Server addresses must be unique\."):
+        with self.assertRaisesRegex(expected_exception=ValidationError,
+                                    expected_regex=r"Server addresses must be unique\."):
             test_obj = self.TEST_CLASS(**data)
+
+
+class TestLoggingDiscriminator(TestVendorIndependentBase):
+    TEST_CLASS = LoggingDiscriminator
+
+    def test_valid_01(self):
+        test_obj = LoggingDiscriminator(
+            name="DROP-IFD",
+            actions=[
+                LoggingDiscriminatorAction(
+                    match="mnemonics",
+                    value="IFDOWN",
+                    action="drops"
+                )
+            ]
+
+        )
+
+
+class TestLoggingServer(VendorIndependentServerTest):
+    TEST_CLASS = LoggingServer
+
+    def test_valid_01(self):
+        test_cases = [
+            {
+                "test_name": "Test-Valid-01",
+                "data": {
+                    "server": "192.0.2.1",
+                    "protocol": "tcp",
+                    "port": 1514,
+                    "src_interface": "Loopback0",
+                    "discriminator": "DROP-IFD"
+                }
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(msg=test_case["test_name"]):
+                test_obj = self.TEST_CLASS.parse_obj(test_case["data"])
+
+
+class TestLogginConfig(TestVendorIndependentBase):
+    TEST_CLASS = LoggingConfig
+
+    def test_valid_01(self):
+        test_cases = [
+            {
+                "test_name": "Test-Valid-01",
+                "data": {
+                    "servers": [
+                        {
+                            "server": "192.0.2.1",
+                            "protocol": "tcp",
+                            "port": 1514,
+                            "src_interface": "Loopback0",
+                            "discriminator": "DROP-IFD"
+                        },
+                        {
+                            "server": "192.0.2.2",
+                            "protocol": "tcp",
+                            "port": 1514,
+                            "src_interface": "Loopback0",
+                        }
+                    ]
+                }
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(msg=test_case["test_name"]):
+                test_obj = self.TEST_CLASS.parse_obj(test_case["data"])
+
+    def test_raises_duplicate_servers(self):
+        data = {
+            "servers": [
+                {
+                    "server": "192.0.2.1",
+                    "protocol": "tcp",
+                    "port": 1514,
+                    "src_interface": "Loopback0",
+                    "discriminator": "DROP-IFDOWN"
+                },
+                {
+                    "server": "192.0.2.1",
+                    "protocol": "tcp",
+                    "port": 1514,
+                    "src_interface": "Loopback0",
+                }
+            ]
+        }
+
+        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r".*"):
+            test_obj = self.TEST_CLASS.parse_obj(data)
+
+    def test_raises_missing_discriminator(self):
+        pass
 
 
 if __name__ == '__main__':

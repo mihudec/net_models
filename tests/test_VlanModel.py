@@ -1,9 +1,9 @@
 import unittest
-from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
+from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 from net_models.models.VendorIndependent.VlanModel import VlanModel
 
 
-class TestVlanModel(BaseVendorIndependentTest):
+class TestVlanModel(TestVendorIndependentBase):
     TEST_CLASS = VlanModel
 
     def test_valid_01(self):

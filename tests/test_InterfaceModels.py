@@ -2,7 +2,7 @@ import collections
 import unittest
 import json
 import yaml
-from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
+from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 from net_models.models.interfaces.vi import (
     InterfaceModel,
     InterfaceContainerModel
@@ -12,11 +12,11 @@ from net_models.models.interfaces.vi.L3InterfaceModels import *
 from pydantic.error_wrappers import ValidationError
 
 
-class TestInterfaceSpanningTreeConfig(BaseVendorIndependentTest):
+class TestInterfaceSpanningTreeConfig(TestVendorIndependentBase):
     TEST_CLASS = InterfaceSpanningTreeConfig
 
 
-class TestInterfaceSwitchportModel(BaseVendorIndependentTest):
+class TestInterfaceSwitchportModel(TestVendorIndependentBase):
     TEST_CLASS = InterfaceSwitchportModel
 
     def test_valid_trunk_01(self):
@@ -83,7 +83,7 @@ class TestInterfaceSwitchportModel(BaseVendorIndependentTest):
             self.fail(f"{repr(e)}")
 
 
-class TestInterfaceIPv4Address(BaseVendorIndependentTest):
+class TestInterfaceIPv4Address(TestVendorIndependentBase):
     TEST_CLASS = InterfaceIPv4Address
 
     def test_valid_01(self):
@@ -103,7 +103,7 @@ class TestInterfaceIPv4Address(BaseVendorIndependentTest):
             test_obj = self.TEST_CLASS(**test_payload)
 
 
-class TestInterfaceIPv6Address(BaseVendorIndependentTest):
+class TestInterfaceIPv6Address(TestVendorIndependentBase):
     TEST_CLASS = InterfaceIPv6Address
 
     def test_valid_01(self):
@@ -116,7 +116,7 @@ class TestInterfaceIPv6Address(BaseVendorIndependentTest):
             self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
 
 
-class TestInterfaceIPv4Container(BaseVendorIndependentTest):
+class TestInterfaceIPv4Container(TestVendorIndependentBase):
     TEST_CLASS = InterfaceIPv4Container
 
     def test_valid_01(self):
@@ -139,16 +139,7 @@ class TestInterfaceIPv4Container(BaseVendorIndependentTest):
             self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
 
 
-    def test_multiple_primary(self):
-        test_payload = {
-            "addresses": [
-                {"address": "192.168.1.1/24"},
-                {"address": "10.0.0.1/24"}
-            ]
-        }
-        with self.assertRaisesRegex(ValidationError, expected_regex="Multiple 'primary addresses' found, only one allowed."):
-            test_obj = self.TEST_CLASS(**test_payload)
-
+     
     def test_with_overlapping(self):
         test_payload = {
             "addresses": [
@@ -160,15 +151,15 @@ class TestInterfaceIPv4Container(BaseVendorIndependentTest):
             test_obj = self.TEST_CLASS(**test_payload)
 
 
-class TestInterfaceIPv6Container(BaseVendorIndependentTest):
+class TestInterfaceIPv6Container(TestVendorIndependentBase):
     TEST_CLASS = InterfaceIPv6Container
 
 
-class TestRouteportModel(BaseVendorIndependentTest):
+class TestRouteportModel(TestVendorIndependentBase):
     TEST_CLASS = InterfaceRouteportModel
 
 
-class TestInterfaceModel(BaseVendorIndependentTest):
+class TestInterfaceModel(TestVendorIndependentBase):
     TEST_CLASS = InterfaceModel
 
     def test_valid_interface_names(self):
@@ -223,7 +214,7 @@ class TestInterfaceModel(BaseVendorIndependentTest):
         self.assertEqual(want, have)
 
 
-class TestInterfaceContainerModel(BaseVendorIndependentTest):
+class TestInterfaceContainerModel(TestVendorIndependentBase):
     TEST_CLASS = InterfaceContainerModel
 
     def test_create_01(self):

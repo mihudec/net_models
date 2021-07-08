@@ -1,6 +1,7 @@
 import unittest
-from net_models.utils import get_interface_index
-from net_models.utils.interface_sort import *
+from net_models.config import CONFIG, update_loggers
+from net_models.utils import *
+
 import random
 
 class TestInterfaceSort(unittest.TestCase):
@@ -44,7 +45,7 @@ class TestInterfaceSort(unittest.TestCase):
 
         test_data = {
             "Loopback": 100,
-            "Vlan": 90,
+            "Vlan": 95,
             "FastEthernet": 50
         }
         for interface_type, want in test_data.items():
@@ -66,7 +67,9 @@ class TestInterfaceSort(unittest.TestCase):
                 self.assertEqual(want, have)
 
     def test_interface_sort(self):
-        interfaces = ["Loopback0", "Loopback1", "BDI11", "Tunnel1", "Tunnel1000", "pseudowire1", "pseudowire2",
+        CONFIG.INTERFACE_UTILS_LOG_LEVEL = 5
+        update_loggers()
+        interfaces = ["Loopback0", "Loopback1", "Vlan100", "Vlan1000", "BDI11", "Tunnel1", "Tunnel1000", "pseudowire1", "pseudowire2",
                       "pseudowire3", "pseudowire4", "pseudowire5", "pseudowire6", "pseudowire7", "pseudowire8",
                       "pseudowire9", "pseudowire10", "pseudowire11", "pseudowire12", "pseudowire13", "pseudowire15",
                       "pseudowire16", "pseudowire17", "pseudowire18", "pseudowire19", "pseudowire20", "pseudowire21",

@@ -2,16 +2,16 @@ import sys
 import pathlib
 import unittest
 import yaml
-from net_models.models.BaseModels import BaseNetCmModel, VendorIndependentBaseModel
+from net_models.models.BaseModels import BaseNetModel, VendorIndependentBaseModel
 from net_models.utils import get_logger
 from pprint import pprint
 
-class BaseNetCmTestClass(unittest.TestCase):
+class TestBaseNetModel(unittest.TestCase):
     LOGGER = get_logger(name="NetCm-Tests", verbosity=5)
-    TEST_CLASS = BaseNetCmModel
+    TEST_CLASS = BaseNetModel
 
     def test_subclasses_basemodel(self):
-        self.assertTrue(issubclass(self.TEST_CLASS, BaseNetCmModel))
+        self.assertTrue(issubclass(self.TEST_CLASS, BaseNetModel))
 
     def test_has_dict_method(self):
         self.assertTrue(hasattr(self.TEST_CLASS, "__dict__"))
@@ -20,7 +20,7 @@ class BaseNetCmTestClass(unittest.TestCase):
         self.assertTrue(hasattr(self.TEST_CLASS, "__validators__"))
 
 
-class BaseVendorIndependentTest(BaseNetCmTestClass):
+class TestVendorIndependentBase(TestBaseNetModel):
 
     TEST_CLASS = VendorIndependentBaseModel
     RESOURCE_DIR = pathlib.Path(__file__).resolve().parent.joinpath("resources")
@@ -42,7 +42,7 @@ class BaseVendorIndependentTest(BaseNetCmTestClass):
             with self.subTest(msg=resource_file.stem):
                 test_data = self.load_yaml(path=resource_file)
                 test_obj = self.TEST_CLASS.parse_obj(test_data)
-                self.assertIsInstance(test_obj, BaseNetCmModel)
+                self.assertIsInstance(test_obj, BaseNetModel)
 
 
 if __name__ == '__main__':

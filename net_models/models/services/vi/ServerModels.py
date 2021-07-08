@@ -1,23 +1,11 @@
 import ipaddress
 from pydantic.typing import Optional, Union, List, Literal
-from pydantic import conint, root_validator
+from pydantic import conint, constr, root_validator
+from net_models.validators import *
 from net_models.fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME, InterfaceName
-from net_models.models import VendorIndependentBaseModel
-from net_models.models.BaseModels.SharedModels import KeyBase
+from net_models.models import VendorIndependentBaseModel, NamedModel
+from net_models.models.BaseModels.SharedModels import KeyBase, AuthBase
 
-def validate_servers_unique(cls, values):
-    names = [x.name for x in values.get("servers")]
-    servers = [x.server for x in values.get("servers")]
-
-    if len(names) != len(set(names)):
-        msg = f"Server names must be unique."
-        raise AssertionError(msg)
-
-    if len(servers) != len(set(servers)):
-        msg = f"Server addresses must be unique."
-        raise AssertionError(msg)
-
-    return values
 
 
 class ServerBase(VendorIndependentBaseModel):
@@ -63,10 +51,43 @@ class NtpConfig(VendorIndependentBaseModel):
     access_groups: Optional[NtpAccessGroups]
 
 
+class LoggingSource(VendorIndependentBaseModel):
+
+    src_interface: Optional[InterfaceName]
+    vrf: Optional[VRF_NAME]
+
+class LoggingDiscriminatorAction(VendorIndependentBaseModel):
+
+    match: Literal["facility", "mnemonics", "msg-body", "rate-limit", "severity"]
+    value: str
+    action: Literal["drops", "includes"]
+
+class LoggingDiscriminator(VendorIndependentBaseModel):
+
+    name: constr(max_length=8)
+    actions: List[LoggingDiscriminatorAction]
+
+
+
 class LoggingServer(ServerPropertiesBase):
 
     protocol: Optional[Literal["tcp", "udp"]]
     port: Optional[int]
+    discriminator: Optional[GENERIC_OBJECT_NAME]
+
+    @root_validator(allow_reuse=True)
+    def validate_port_protocol(cls, values):
+        return validators.required_together(values=values, required=["port", "protocol"])
+
+
+
+class LoggingConfig(VendorIndependentBaseModel):
+
+    servers: Optional[List[LoggingServer]]
+
+    @root_validator(allow_reuse=True)
+    def _validate_servers_unique(cls, values):
+        return validate_servers_unique(values=values)
 
 
 class AaaServer(ServerBase):
@@ -104,7 +125,13 @@ class AaaServerGroup(ServerBase):
     src_interface: Optional[InterfaceName]
     vrf: Optional[VRF_NAME]
 
-    _validate_servers_unique = root_validator(allow_reuse=True)(validate_servers_unique)
+    @root_validator(allow_reuse=True)
+    def _validate_servers_unique(cls, values):
+        return validate_servers_unique(values=values)
+
+    @root_validator(allow_reuse=True)
+    def _validate_names_unique(cls, values):
+        return validate_names_unique(values=values)
 
 
 class RadiusServerGroup(AaaServerGroup):
@@ -117,4 +144,48 @@ class TacacsServerGroup(AaaServerGroup):
     servers: List[TacacsServer]
 
 
+class SnmpView(VendorIndependentBaseModel):
 
+    name: GENERIC_OBJECT_NAME
+    mib: str
+    action: Literal["included", "excluded"]
+
+
+class SnmpUserAuth(AuthBase):
+
+    method: Literal["md5", "sha"]
+    value: str
+
+
+class SnmpUserPriv(AuthBase):
+
+    method: Literal["des", "3des", "aes"]
+    value: str
+
+
+class SnmpGroup(VendorIndependentBaseModel):
+
+    name: GENERIC_OBJECT_NAME
+    version: Literal["v1", "v2c", "v3"]
+    level: Optional[Literal["noauth", "auth", "priv"]]
+    read: Optional[GENERIC_OBJECT_NAME]
+    write: Optional[GENERIC_OBJECT_NAME]
+    notify: Optional[GENERIC_OBJECT_NAME]
+    access_list: Optional[GENERIC_OBJECT_NAME]
+
+
+class SnmpUser(VendorIndependentBaseModel):
+
+    name: GENERIC_OBJECT_NAME
+    group: GENERIC_OBJECT_NAME
+    version: Literal["v1", "v2c", "v3"]
+    auth: Optional[SnmpUserAuth]
+    priv: Optional[SnmpUserPriv]
+    group: GENERIC_OBJECT_NAME
+    access_list: Optional[GENERIC_OBJECT_NAME]
+
+class SnmpConfig(VendorIndependentBaseModel):
+
+    users: Optional[List[SnmpUser]]
+    groups: Optional[List[SnmpGroup]]
+    views: Optional[List[SnmpView]]

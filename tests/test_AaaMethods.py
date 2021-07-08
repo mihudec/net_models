@@ -1,12 +1,13 @@
-from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
+from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 
 from net_models.models.services.vi.AaaMethods import *
+from net_models.models.services.cisco_ios.IosLineModels import IosLineConfig
 
 from pydantic import ValidationError
 
 
 
-class TestIosAaaAction(BaseVendorIndependentTest):
+class TestIosAaaAction(TestVendorIndependentBase):
 
     TEST_CLASS = IosAaaAction
 
@@ -79,19 +80,19 @@ class TestIosAaaAction(BaseVendorIndependentTest):
 
 
 
-class TestIosAaaAuthentication(BaseVendorIndependentTest):
+class TestIosAaaAuthentication(TestVendorIndependentBase):
 
     TEST_CLASS = IosAaaAuthentication
-    RESOURCE_DIR = BaseVendorIndependentTest.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
+    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
 
 
-class TestIosAaaAuthorization(BaseVendorIndependentTest):
+class TestIosAaaAuthorization(TestVendorIndependentBase):
 
     TEST_CLASS = IosAaaAuthorization
-    RESOURCE_DIR = BaseVendorIndependentTest.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
+    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
 
 
-class TestIosAaaAccountingAction(BaseVendorIndependentTest):
+class TestIosAaaAccountingAction(TestVendorIndependentBase):
 
     TEST_CLASS = IosAaaAccountingAction
 
@@ -128,7 +129,7 @@ class TestIosAaaAccountingAction(BaseVendorIndependentTest):
             test_obj = self.TEST_CLASS(**data)
 
 
-class TestIosAaaAccountingMethod(BaseVendorIndependentTest):
+class TestIosAaaAccountingMethod(TestVendorIndependentBase):
 
     TEST_CLASS = IosAaaAccountingMethod
 
@@ -153,10 +154,15 @@ class TestIosAaaAccountingMethod(BaseVendorIndependentTest):
             test_obj = self.TEST_CLASS(**data)
 
 
-class TestIosAaaAccounting(BaseVendorIndependentTest):
+class TestIosAaaAccounting(TestVendorIndependentBase):
 
     TEST_CLASS = IosAaaAccounting
-    RESOURCE_DIR = BaseVendorIndependentTest.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
+    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
 
 
+
+class TestIosLineConfig(TestVendorIndependentBase):
+
+    TEST_CLASS = IosLineConfig
+    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("line").joinpath("cisco_ios")
 

@@ -1,11 +1,11 @@
 import unittest
-from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
+from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 from net_models.models.routing.vi.BgpModels import *
 from pydantic import ValidationError
 
-class TestViBgpBase(BaseVendorIndependentTest):
+class TestViBgpBase(TestVendorIndependentBase):
 
-    RESOURCE_DIR = BaseVendorIndependentTest.RESOURCE_DIR.joinpath("routing").joinpath("vi")
+    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("routing").joinpath("vi")
 
 class TestBgpTimers(TestViBgpBase):
 

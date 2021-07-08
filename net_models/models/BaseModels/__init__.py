@@ -1,1 +1,1 @@
-from net_models.models.BaseModels.BaseNetCmModel import BaseNetCmModel, VendorIndependentBaseModel
+from net_models.models.BaseModels.BaseNetModels import BaseNetModel, VendorIndependentBaseModel, NamedModel

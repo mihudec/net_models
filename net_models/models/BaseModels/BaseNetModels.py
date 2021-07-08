@@ -3,13 +3,14 @@ import yaml
 import json
 from pydantic import BaseModel, validate_model, Extra
 from net_models.utils.CustomYamlDumper import CustomYamlDumper
+from net_models.fields import GENERIC_OBJECT_NAME
 
-
-class BaseNetCmModel(BaseModel):
+class BaseNetModel(BaseModel):
     """Base Network Config Model Class"""
 
     class Config:
         extra = Extra.forbid
+        anystr_strip_whitespace = True
 
     def check(self):
         *_, validation_error = validate_model(self.__class__, self.__dict__)
@@ -24,7 +25,11 @@ class BaseNetCmModel(BaseModel):
         return json.loads(self.json(exclude_none=exclude_none, **kwargs))
 
 
-class VendorIndependentBaseModel(BaseNetCmModel):
+class VendorIndependentBaseModel(BaseNetModel):
     """Vendor Independent Base Model Class"""
 
     pass
+
+class NamedModel(BaseNetModel):
+
+    name: GENERIC_OBJECT_NAME

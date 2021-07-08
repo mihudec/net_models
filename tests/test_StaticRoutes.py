@@ -1,9 +1,9 @@
 import unittest
-from tests.BaseTestClass import BaseNetCmTestClass, BaseVendorIndependentTest
+from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 from net_models.models.routing.vi.StaticRoutes import *
 
 
-class TestStaticRouteV4(BaseVendorIndependentTest):
+class TestStaticRouteV4(TestVendorIndependentBase):
 
     TEST_CLASS = StaticRouteV4
 
@@ -66,7 +66,7 @@ class TestStaticRouteV4(BaseVendorIndependentTest):
 
 
 
-class TestStaticRouteV6(BaseVendorIndependentTest):
+class TestStaticRouteV6(TestVendorIndependentBase):
 
     TEST_CLASS = StaticRouteV6
 
