@@ -1,6 +1,6 @@
-from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
+from tests.BaseTestClass import TestVendorIndependentBase
 
-from net_models.models.services.vi.ServerModels import *
+from net_models.models.services.ServerModels import *
 
 from pydantic import ValidationError
 

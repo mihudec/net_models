@@ -30,6 +30,8 @@ class CustomYamlRepresenter(Representer):
             data_keys.insert(0, data_keys.pop(data_keys.index("name")))
         if "tags" in data_keys:
             data_keys.insert(1, data_keys.pop(data_keys.index("tags")))
+        if "hosts" in data_keys:
+            data_keys.append(data_keys.pop(data_keys.index("hosts")))
         values = [(self.represent_data(key), self.represent_data(data[key])) for key in data_keys]
         return yaml.nodes.MappingNode(u'tag:yaml.org,2002:map', values)
 

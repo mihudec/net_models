@@ -26,7 +26,7 @@ class TestVendorIndependentBase(TestBaseNetModel):
     RESOURCE_DIR = pathlib.Path(__file__).resolve().parent.joinpath("resources")
 
     def test_has_resource_dir(self):
-        # print(f"RESOURCE_DIR for {self.__class__.__name__}: {self.RESOURCE_DIR}")
+        # print(f"RESOURCE_DIR for {model.__class__.__name__}: {model.RESOURCE_DIR}")
         self.assertIsInstance(self.RESOURCE_DIR, pathlib.Path)
 
     def get_resource_yaml(self):

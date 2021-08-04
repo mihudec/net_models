@@ -51,7 +51,7 @@ class BgpNeighborBase(VendorIndependentBaseModel):
     src_interface: Optional[INTERFACE_NAME]
     """Update source"""
     next_hop_self: Optional[bool]
-    """Set NextHop to self"""
+    """Set NextHop to model"""
     rr_client: Optional[bool]
     """Route Reflector Client"""
     # TODO: Be more specific
@@ -111,9 +111,9 @@ class BgpImportPath(VendorIndependentBaseModel):
 
 class BgpAddressFamily(VendorIndependentBaseModel):
     # TODO: Unfinished
-    afi: Literal["ipv4", "ipv6", "vpnv4", "vpnv6"]
+    afi: AFI
     """Address family type"""
-    safi: Optional[Literal["unicast", "multicast"]]
+    safi: Optional[SAFI]
     """Address family sub-type"""
     vrf: Optional[VRF_NAME]
     """Name of the VRF"""

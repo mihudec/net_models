@@ -2,13 +2,13 @@ import collections
 import unittest
 import json
 import yaml
-from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
-from net_models.models.interfaces.vi import (
+from tests.BaseTestClass import TestVendorIndependentBase
+from net_models.models.interfaces import (
     InterfaceModel,
     InterfaceContainerModel
 )
-from net_models.models.interfaces.vi.L2InterfaceModels import *
-from net_models.models.interfaces.vi.L3InterfaceModels import *
+from net_models.models.interfaces.L2InterfaceModels import *
+from net_models.models.interfaces.L3InterfaceModels import *
 from pydantic.error_wrappers import ValidationError
 
 
@@ -42,24 +42,24 @@ class TestInterfaceSwitchportModel(TestVendorIndependentBase):
         )
 
 
-    # def test_invalid_trunk_01(self):
+    # def test_invalid_trunk_01(model):
     #     test_payload = {
     #         "mode": "trunk",
     #         "allowed_vlans": [1, 2, 3, 4]
     #     }
-    #     with self.assertRaisesRegex(expected_exception=ValidationError,
+    #     with model.assertRaisesRegex(expected_exception=ValidationError,
     #                                 expected_regex=r"Vlan 1 cannot be tagged if untagged_vlan is None."):
-    #         test_obj = self.TEST_CLASS(**test_payload)
+    #         test_obj = model.TEST_CLASS(**test_payload)
 
-    # def test_invalid_trunk_02(self):
+    # def test_invalid_trunk_02(model):
     #     test_payload = {
     #         "mode": "trunk",
     #         "allowed_vlans": [1, 2, 3, 4],
     #         "untagged_vlan": 2
     #     }
-    #     with self.assertRaisesRegex(expected_exception=ValidationError,
+    #     with model.assertRaisesRegex(expected_exception=ValidationError,
     #                                 expected_regex=r"Vlan \d+ cannot be both tagged and untagged."):
-    #         test_obj = self.TEST_CLASS(**test_payload)
+    #         test_obj = model.TEST_CLASS(**test_payload)
 
     def test_duplicate_allowed(self):
 
@@ -81,6 +81,14 @@ class TestInterfaceSwitchportModel(TestVendorIndependentBase):
             test_obj.check()
         except ValidationError as e:
             self.fail(f"{repr(e)}")
+
+    def test_posponed_validation_02(self):
+        test_obj = InterfaceSwitchportModel.construct()
+        test_obj.mode = "trunk"
+        with self.assertRaises(ValidationError):
+            test_obj.allowed_vlans = [5000]
+            test_obj.check()
+
 
 
 class TestInterfaceIPv4Address(TestVendorIndependentBase):

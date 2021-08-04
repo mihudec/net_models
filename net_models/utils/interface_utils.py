@@ -15,7 +15,7 @@ INTEFACE_TYPE_DEFAULT_WEIGHT = 50
 INTEFACE_TYPE_MAX_WEIGHT = 255
 
 INTERFACE_NAMES = {
-    "Ethernet": ["Eth", "Et"],
+    "Ethernet": ["Et", "Eth"],
     "FastEthernet": ["Fa"],
     "GigabitEthernet": ["Gi"],
     "TenGigabitEthernet": ["Te"],

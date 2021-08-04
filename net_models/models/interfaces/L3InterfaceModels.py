@@ -84,9 +84,9 @@ class InterfaceOspfConfig(VendorIndependentBaseModel):
 
     @root_validator(allow_reuse=True)
     def validate_process_and_area(cls, values):
-        if values.get("process_id") and not values.get("area"):
+        if values.get("process_id") is not None and  values.get("area") is None:
             raise AssertionError("When 'process_id' is set, 'area' is required.")
-        elif not values.get("process_id") and values.get("area"):
+        elif values.get("process_id") is None and values.get("area") is not None:
             raise AssertionError("When 'area' is set, 'process_id' is required.")
         return values
 
@@ -128,6 +128,19 @@ class InterfaceRouteportModel(VendorIndependentBaseModel):
     ipv4: Optional[InterfaceIPv4Container]
     ipv6: Optional[InterfaceIPv6Container]
     vrf: Optional[str]
+    ip_mtu: Optional[int]
     ospf: Optional[InterfaceOspfConfig]
     isis: Optional[InterfaceIsisConfig]
     bfd: Optional[InterfaceBfdConfig]
+
+    def add_ipv4_address(self, address: Union[InterfaceIPv4Address, ipaddress.IPv4Interface]):
+        if self.ipv4 is None:
+            self.ipv4 = InterfaceIPv4Container()
+        if self.ipv4.addresses is None:
+            self.ipv4.addresses = []
+        if not isinstance(address, InterfaceIPv4Address):
+            address = InterfaceIPv4Address(address=address)
+        self.ipv4.addresses.append(address)
+        self.ipv4 = self.ipv4.clone()
+
+

@@ -1,7 +1,6 @@
-from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
+from tests.BaseTestClass import TestVendorIndependentBase
 
-from net_models.models.services.vi.AaaMethods import *
-from net_models.models.services.cisco_ios.IosLineModels import IosLineConfig
+from net_models.models.services.cisco_ios.AaaMethods import *
 
 from pydantic import ValidationError
 
@@ -161,8 +160,4 @@ class TestIosAaaAccounting(TestVendorIndependentBase):
 
 
 
-class TestIosLineConfig(TestVendorIndependentBase):
-
-    TEST_CLASS = IosLineConfig
-    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("line").joinpath("cisco_ios")
 

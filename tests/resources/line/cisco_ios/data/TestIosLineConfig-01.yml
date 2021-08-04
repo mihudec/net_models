@@ -1,0 +1,27 @@
+line_type: console
+line_range: [0]
+aaa_config:
+  authentication: CONSOLE
+  authorization:
+    exec: CONSOLE
+    commands:
+      - level: 0
+        name: CONSOLE
+      - level: 15
+        name: CONSOLE
+  accounting:
+    exec: CONSOLE
+    commands:
+      - level: 1
+        name: CONSOLE
+      - level: 15
+        name: CONSOLE
+exec_timeout: 600
+transport:
+  input: all
+  output: all
+  preferred: ssh
+access_classes:
+  - name: ACT-VTY
+    direction: in
+    vrf_also: true

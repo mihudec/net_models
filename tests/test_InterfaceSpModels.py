@@ -1,6 +1,5 @@
-from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
-from net_models.models.interfaces.vi.SpModels import (
-    PseudowireFlowLabel,
+from tests.BaseTestClass import TestVendorIndependentBase
+from net_models.models.interfaces.SpModels import (
     PseudowireLoadBalancing,
     PseudowireEncapsulation,
     PseudowireClass,

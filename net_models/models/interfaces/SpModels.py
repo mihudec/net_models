@@ -1,8 +1,8 @@
 from net_models.validators import *
 from net_models.fields import GENERIC_OBJECT_NAME, InterfaceName, VLAN_ID, CLASS_OF_SERVICE
 from net_models.models.BaseModels import VendorIndependentBaseModel, NamedModel
-from net_models.models.interfaces.vi import InterfaceSwitchportModel
-from net_models.models.interfaces.vi import InterfaceRouteportModel
+from net_models.models.interfaces import InterfaceSwitchportModel
+from net_models.models.interfaces import InterfaceRouteportModel
 from pydantic.typing import (Optional, Dict, Literal)
 from pydantic import root_validator, validator, conint, constr, conlist
 

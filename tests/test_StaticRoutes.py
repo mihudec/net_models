@@ -1,6 +1,6 @@
 import unittest
-from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
-from net_models.models.routing.vi.StaticRoutes import *
+from tests.BaseTestClass import TestVendorIndependentBase
+from net_models.models.routing.StaticRoutes import *
 
 
 class TestStaticRouteV4(TestVendorIndependentBase):

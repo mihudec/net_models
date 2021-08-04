@@ -8,7 +8,7 @@ Vendor Independent
    ./L2InterfaceModels
    ./L3InterfaceModels
    ./InterfaceModels
-   ./VlanModel
+   ./VLANModel
    ./ServerModels
    ./RoutingProtocols
 

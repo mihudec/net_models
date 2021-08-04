@@ -49,5 +49,99 @@ class TestKeyChain(TestVendorIndependentBase):
 
 
 
+class TestVLANModel(TestVendorIndependentBase):
+    TEST_CLASS = VLANModel
+
+    def test_valid_01(self):
+        test_payload = {
+            "vlan_id": "100",
+            "name": "Vlan-100"
+        }
+        test_obj = self.TEST_CLASS(**test_payload)
+        self.assertTrue(
+            all([hasattr(test_obj, x) for x in test_payload.keys()])
+        )
+
+
+class TestRouteTarget(TestVendorIndependentBase):
+
+    TEST_CLASS = RouteTarget
+
+
+    def test_valid_01(self):
+        test_cases = [
+            {
+                "test_name": "Test-01",
+                "data": {
+                    "rt": "1:1",
+                    "action": "both"
+
+                }
+            },
+            {
+                "test_name": "Test-01",
+                "data": {
+                    "rt": "1:1",
+                    "action": "both",
+                    "rt_type": "stitching"
+                }
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(msg=test_case["test_name"]):
+                test_obj = self.TEST_CLASS(**test_case["data"])
+
+class TestVRFAddressFamily(TestVendorIndependentBase):
+
+    TEST_CLASS = VRFAddressFamily
+
+
+class TestVRFModel(TestVendorIndependentBase):
+
+    TEST_CLASS = VRFModel
+
+    def test_valid_01(self):
+        test_cases = [
+            {
+                "test_name": "Test-01",
+                "data": {
+                    "name": "MGMT-VRF"
+                }
+            },
+            {
+                "test_name": "Test-02",
+                "data": {
+                    "name": "MGMT-VRF",
+                    "rd": "1:1"
+                }
+            },
+            {
+                "test_name": "Test-03",
+                "data": {
+                    "name": "MGMT-VRF",
+                    "rd": "1:1",
+                    "address_families": [
+                        {
+                            "afi": "ipv4",
+                            "route_targets": [
+                                {
+                                    "rt": "1:1",
+                                    "action": "both"
+                                },
+                                {
+                                    "rt": "1:1",
+                                    "action": "both",
+                                    "rt_type": "stitching"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(msg=test_case["test_name"]):
+                test_obj = self.TEST_CLASS(**test_case["data"])
+
 if __name__ == '__main__':
     unittest.main()

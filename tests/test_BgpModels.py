@@ -1,6 +1,6 @@
 import unittest
-from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
-from net_models.models.routing.vi.BgpModels import *
+from tests.BaseTestClass import TestVendorIndependentBase
+from net_models.models.routing.BgpModels import *
 from pydantic import ValidationError
 
 class TestViBgpBase(TestVendorIndependentBase):

@@ -1,6 +1,6 @@
 from net_models.models.BaseModels import BaseNetModel, VendorIndependentBaseModel, NamedModel
 
-from net_models.models.services.vi.ServerModels import (
+from net_models.models.services.ServerModels import (
     RadiusServer,
     RadiusServerGroup,
     TacacsServer,

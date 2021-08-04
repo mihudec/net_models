@@ -38,13 +38,13 @@ class BfdTemplate(VendorIndependentBaseModel):
 
 class RoutingProtocolBase(VendorIndependentBaseModel):
 
-    pass
+    router_id: Optional[GENERIC_OBJECT_NAME]
 
 class RoutingProtocolIgpBase(RoutingProtocolBase):
 
     passive_interfaces: List[str]
 
-class RoutingOspfProcess(RoutingProtocolBase):
+class RoutingOspfProcess(RoutingProtocolIgpBase):
 
     process_id: GENERIC_OBJECT_NAME
 
@@ -69,7 +69,7 @@ class AuthenticationIsis(VendorIndependentBaseModel):
     mode: List[AuthenticationIsisMode]
     keychain: List[AuthenticationIsisKeychain]
 
-class RoutingIsisProcess(RoutingProtocolBase):
+class RoutingIsisProcess(RoutingProtocolIgpBase):
 
     process_id: GENERIC_OBJECT_NAME
     it_type: str

@@ -1,5 +1,5 @@
 import re
-
+from collections import UserString
 from pydantic import constr, conint
 from pydantic.typing import Literal
 
@@ -16,7 +16,7 @@ INTERFACE_NAME = constr(regex=BASE_INTERFACE_REGEX.pattern)
 # INTERFACE_NAME = Literal['Ethernet', 'FastEthernet', 'GigabitEthernet', 'TenGigabitEthernet', 'TwentyFiveGigE', 'FortyGigabitEthernet', 'HundredGigE', 'Port-channel', 'Tunnel', 'Vlan', 'BDI', 'Loopback', 'Serial', 'pseudowire']
 GENERIC_OBJECT_NAME = constr(strip_whitespace=True, regex=r"\S+")
 GENERIC_INTERFACE_NAME = constr(strip_whitespace=True, regex=r"\S+")
-
+LAG_MODE = Literal["active", "pasive", "desirable", "auto", "on"]
 
 VRF_NAME = constr(strip_whitespace=True, regex=r"\S+")
 VLAN_ID = conint(ge=1, le=4094)
@@ -24,11 +24,22 @@ CLASS_OF_SERVICE = conint(ge=0, le=7)
 ROUTE_MAP_NAME = GENERIC_OBJECT_NAME
 ASN = conint(ge=1, le=4294967295)
 
+
+
+AFI = Literal["ipv4", "ipv6", "vpnv4", "vpnv6"]
+SAFI = Literal["unicast", "multicast"]
+
 interface_name = constr(min_length=3)
 SWITCHPORT_MODE = Literal["access", "trunk", "dynamic auto", "dynamic desirable", "dot1q-tunnel", "private-vlan host", "private-vlan promiscuous"]
 
 PRIVILEGE_LEVEL = conint(ge=0, le=15)
 AAA_METHOD_NAME = Union[Literal['default'], GENERIC_OBJECT_NAME]
+
+
+ROUTE_TARGET = constr(regex=r"((?:(?:\d{1,3}\.){3}(?:\d{1,3}))|(?:\d+)):(\d+)")
+ROUTE_DISTINGUISHER = ROUTE_TARGET
+
+
 
 
 class InterfaceName(str):
@@ -39,9 +50,10 @@ class InterfaceName(str):
 
     @classmethod
     def validate_name(cls, v: str):
-        if not isinstance(v, str):
+        if not isinstance(v, (str, UserString)):
             msg = f"Interface name has to be str, got {type(v)}"
             LOGGER.error(msg=msg)
             raise TypeError(f"Interface name has to be str, got {type(v)}")
+        # This is ordinary <class 'str'>
         interface_name = normalize_interface_name(interface_name=v)
         return interface_name
