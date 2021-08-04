@@ -4,3 +4,4 @@ diffsync
 coverage
 pyyaml
 pandas
+openpyxl
