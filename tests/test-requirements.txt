@@ -3,3 +3,4 @@ pydantic
 diffsync
 coverage
 pyyaml
+pandas
