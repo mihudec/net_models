@@ -1,6 +1,6 @@
 from net_models.models.BaseModels import VendorIndependentBaseModel
 from net_models.models.BaseModels.SharedModels import AuthBase
-from net_models.fields import GENERIC_OBJECT_NAME
+from net_models.fields import GENERIC_OBJECT_NAME, InterfaceName
 from net_models.utils.get_logger import get_logger
 from pydantic.typing import Optional, List, Literal
 from pydantic import root_validator
@@ -42,7 +42,7 @@ class RoutingProtocolBase(VendorIndependentBaseModel):
 
 class RoutingProtocolIgpBase(RoutingProtocolBase):
 
-    passive_interfaces: List[str]
+    passive_interfaces: List[InterfaceName]
 
 class RoutingOspfProcess(RoutingProtocolIgpBase):
 
@@ -56,12 +56,12 @@ class RoutingIsisNetwork(VendorIndependentBaseModel):
 
 class AuthenticationIsisMode(VendorIndependentBaseModel):
 
-    level: str
-    auth_mode: str
+    level: Literal['level-1', 'level-2']
+    auth_mode: Literal['md5', 'text']
 
 class AuthenticationIsisKeychain(VendorIndependentBaseModel):
 
-    level: str
+    level: Literal['level-1', 'level-2']
     keychain: GENERIC_OBJECT_NAME
 
 class AuthenticationIsis(VendorIndependentBaseModel):

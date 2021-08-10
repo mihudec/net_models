@@ -155,7 +155,8 @@ class TestRoutingBgpProcess(TestViBgpBase):
                 {"name": "PG-01"}
             ]
         }
-        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r"Found duplicate 'name's"):
+        with self.assertRaisesRegex(expected_exception=ValidationError,
+                                    expected_regex=r"Given models .*? contain duplicate values for the following fields: \['name'\]\."):
             test_obj = self.TEST_CLASS.parse_obj(data)
 
 

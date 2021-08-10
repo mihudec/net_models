@@ -203,7 +203,7 @@ class TestRadiusServerGroup(VendorIndependentServerTest):
         }
 
         with self.assertRaisesRegex(expected_exception=ValidationError,
-                                    expected_regex=r"Server names must be unique\."):
+                                    expected_regex=r"Given models .*? contain duplicate values for the following fields: \['name'\]\."):
             test_obj = self.TEST_CLASS(**data)
 
     def test_duplicate_servers_01(self):
@@ -230,14 +230,21 @@ class TestRadiusServerGroup(VendorIndependentServerTest):
         }
 
         with self.assertRaisesRegex(expected_exception=ValidationError,
-                                    expected_regex=r"Server addresses must be unique\."):
+                                    expected_regex=r"Given models .*? contain duplicate values for the following fields: \['server'\]\."):
             test_obj = self.TEST_CLASS(**data)
+
+
+class TestAAAServerConfig(TestVendorIndependentBase):
+
+    TEST_CLASS = AAAServerConfig
+    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("aaa_servers").joinpath("cisco_ios")
+
 
 
 class TestLoggingDiscriminator(TestVendorIndependentBase):
     TEST_CLASS = LoggingDiscriminator
 
-    def test_valid_01(self):
+    def test_valid_resources(self):
         test_obj = LoggingDiscriminator(
             name="DROP-IFD",
             actions=[
@@ -321,7 +328,8 @@ class TestLogginConfig(TestVendorIndependentBase):
             ]
         }
 
-        with self.assertRaisesRegex(expected_exception=ValidationError, expected_regex=r".*"):
+        with self.assertRaisesRegex(expected_exception=ValidationError,
+                                    expected_regex=r"Given models .*? contain duplicate values for the following fields: \['server'\]\."):
             test_obj = self.TEST_CLASS.parse_obj(data)
 
     def test_raises_missing_discriminator(self):

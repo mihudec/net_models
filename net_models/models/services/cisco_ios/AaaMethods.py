@@ -154,4 +154,9 @@ class IosLineAaaConfig(BaseNetModel):
     accounting: Optional[IosAaaLineAuthorization]
     """Line Accounting Model"""
 
+class IosAaaConfig(BaseNetModel):
+
+    authentication: Optional[IosAaaAuthentication]
+    authorization: Optional[IosAaaAuthorization]
+    accounting: Optional[IosAaaAccounting]
 

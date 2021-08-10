@@ -2,9 +2,10 @@ from pydantic import validator, root_validator
 from net_models.validators import *
 from net_models.fields.Fields import *
 from net_models.models import VendorIndependentBaseModel
-from net_models.models.BaseModels.SharedModels import AuthBase
+from net_models.models.BaseModels.SharedModels import AuthBase, KeyBase
 from typing import (List, Optional)
 from typing_extensions import (Literal)
+
 
 class InterfaceIPv4Address(VendorIndependentBaseModel):
 
@@ -72,15 +73,55 @@ class InterfaceIPv6Container(VendorIndependentBaseModel):
     addresses: Optional[List[InterfaceIPv6Address]]
 
 
+class KeyOspf(KeyBase):
+
+    value: constr(max_length=8)
+
+    @validator('value', allow_reuse=True, pre=True)
+    def truncate_value(cls, value):
+        if len(value) > 8:
+            value = value[:8]
+        return value
+
+class InterfaceOspfAuthentication(AuthBase):
+
+    method: Optional[Literal['message-digest', 'key-chain', 'null']]
+    keychain: Optional[GENERIC_OBJECT_NAME]
+    key: Optional[KeyOspf]
+
+    @root_validator(allow_reuse=True)
+    def validate_keychain_present(cls, values):
+        method = values.get('method')
+        keychain = values.get('keychain')
+        key = values.get('key')
+        if method == 'key-chain' and keychain is None:
+            raise AssertionError("When method is 'keychain', keychain cannot be None")
+        if method != 'key-chain' and keychain is not None:
+            raise AssertionError("Field keychain can only be set if method == 'key-chain'")
+        if method not in [None, 'message-digest'] and key is not None:
+            raise AssertionError("Field key can only be set if method in [None, 'message-digest']")
+        return values
+
+
+class InterfaceOspfTimers(VendorIndependentBaseModel):
+
+    hello: Optional[conint(ge=1, le=65535)]
+    dead: Optional[Union[conint(ge=1, le=65535), Literal['minimal']]]
+    retransmit: Optional[conint(ge=1, le=65535)]
+
+
 class InterfaceOspfConfig(VendorIndependentBaseModel):
 
     _modelname = "interface_ospf_config"
 
-    network_type: Optional[str]
-    cost: Optional[int]
-    priority: Optional[int]
     process_id: Optional[int]
     area: Optional[int]
+    network_type: Optional[Literal['broadcast', 'non-broadcast', 'point-to-multipoint', 'point-to-point']]
+    cost: Optional[int]
+    priority: Optional[int]
+    authentication: Optional[InterfaceOspfAuthentication]
+    timers: Optional[InterfaceOspfTimers]
+    bfd: Optional[Union[bool, Literal['strict-mode']]]
 
     @root_validator(allow_reuse=True)
     def validate_process_and_area(cls, values):
@@ -106,7 +147,7 @@ class IsisMetricField(VendorIndependentBaseModel):
 
 class IsisInterfaceAuthentication(AuthBase):
 
-    mode: Optional[str]
+    mode: Optional[Literal['md5', 'text']]
     keychain: Optional[str]
 
 class InterfaceIsisConfig(VendorIndependentBaseModel):
@@ -115,7 +156,7 @@ class InterfaceIsisConfig(VendorIndependentBaseModel):
 
     network_type: Optional[str]
     circuit_type: Optional[str]
-    process_id: Optional[int]
+    process_id: Optional[Union[int, GENERIC_OBJECT_NAME]]
     authentication: Optional[IsisInterfaceAuthentication]
     metric: Optional[List[IsisMetricField]]
 

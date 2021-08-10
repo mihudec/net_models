@@ -87,7 +87,10 @@ class LoggingConfig(VendorIndependentBaseModel):
 
     @root_validator(allow_reuse=True)
     def _validate_servers_unique(cls, values):
-        return validate_servers_unique(values=values)
+        servers = values.get('servers')
+        if servers is not None:
+            validate_fields_unique(obj_list=servers, fields=['server'])
+        return values
 
 
 class AaaServer(ServerBase):
@@ -126,12 +129,11 @@ class AaaServerGroup(ServerBase):
     vrf: Optional[VRF_NAME]
 
     @root_validator(allow_reuse=True)
-    def _validate_servers_unique(cls, values):
-        return validate_servers_unique(values=values)
-
-    @root_validator(allow_reuse=True)
-    def _validate_names_unique(cls, values):
-        return validate_names_unique(values=values)
+    def _validate_unique_fields(cls, values):
+        servers = values.get('servers')
+        if servers is not None:
+            validate_fields_unique(obj_list=servers, fields=['name', 'server'])
+        return values
 
 
 class RadiusServerGroup(AaaServerGroup):
@@ -143,6 +145,23 @@ class TacacsServerGroup(AaaServerGroup):
 
     servers: List[TacacsServer]
 
+
+class AAAServerConfig(VendorIndependentBaseModel):
+
+    radius_groups: Optional[List[RadiusServerGroup]]
+    tacacs_groups: Optional[List[TacacsServerGroup]]
+
+    def _validate_tacacs_group_uniquenes(cls, values):
+        tacacs_groups = values.get('tacacs_groups')
+        if tacacs_groups is not None:
+            validate_fields_unique(obj_list=tacacs_groups, fields=['name', 'server'])
+        return values
+
+    def _validate_tacacs_group_uniquenes(cls, values):
+        radius_groups = values.get('radius_groups')
+        if radius_groups is not None:
+            validate_fields_unique(obj_list=radius_groups, fields=['name', 'server'])
+        return values
 
 class SnmpView(VendorIndependentBaseModel):
 

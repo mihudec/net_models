@@ -159,5 +159,15 @@ class TestIosAaaAccounting(TestVendorIndependentBase):
     RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
 
 
+class TestIosAaaConfig(TestVendorIndependentBase):
+
+    TEST_CLASS = IosAaaConfig
+    RESOURCE_DIR = TestVendorIndependentBase.RESOURCE_DIR.joinpath("aaa_methods").joinpath("cisco_ios")
+
+
+
+
+if __name__ == '__main__':
+    unittest.main()
 
 

@@ -87,6 +87,7 @@ class BgpNeighbor(BgpNeighborBase):
 
         return values
 
+
 class BgpNetwork(VendorIndependentBaseModel):
 
     network: ipaddress.IPv4Network
@@ -126,6 +127,7 @@ class BgpAddressFamily(VendorIndependentBaseModel):
     import_path: Optional[BgpImportPath]
     additional_paths: Optional[Literal["install"]]
 
+    _validate_peergroups_unique_name = validator('peer_groups', allow_reuse=True)(validate_unique_name_field)
 
 
 class RoutingBgpProcess(RoutingProtocolBase):

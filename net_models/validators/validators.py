@@ -146,18 +146,7 @@ def validate_unique(values: list):
         raise AssertionError(msg)
     return values
 
-def validate_unique_name_field(value: List[BaseNetCmModel]):
-    # Filed might be optional
-    if value is None:
-        return value
-    names = set([x.name for x in value])
-    if len(names) != len(value):
-        msg = f"Found duplicate 'name's."
-        LOGGER.error(msg=msg)
-        raise AssertionError(msg)
-    return value
-
-def validate_names_unique(values: List[BaseNetModel]):
+def old_validate_names_unique(values: List[BaseNetModel]):
     names = [x.name for x in values.get("servers")]
     if len(names) != len(set(names)):
         msg = f"Server names must be unique. Names: {names}."
@@ -166,7 +155,7 @@ def validate_names_unique(values: List[BaseNetModel]):
 
     return values
 
-def validate_servers_unique(values: List[BaseNetModel]):
+def old_validate_servers_unique(values: List[BaseNetModel]):
     servers = [x.server for x in values.get("servers")]
     if len(servers) != len(set(servers)):
         msg = f"Server addresses must be unique. Servers: {servers}."
@@ -187,3 +176,36 @@ def required_together(values, required=List[str]) -> dict:
                     LOGGER.error(msg)
                     raise AssertionError(msg)
     return values
+
+def validate_fields_unique(obj_list: List[BaseNetModel], fields: List[str]) -> List[BaseNetModels]:
+    """
+    This validator takes in a list of models and checks that the fields are not duplicate.
+    Typical use case if for verifying that objects have different names/ip (AAA servers, etc)
+    Args:
+        obj_list: List of models
+        fields: names of fields to check for duplicates
+
+    Returns: The original list of models or raises Assertion Error
+
+    """
+    duplicate_fields = []
+    if not isinstance(fields, list):
+        fields = [fields]
+    for field in fields:
+        model_types = [x.__class__.__name__ for x in obj_list]
+        field_list = [getattr(x, field) for x in obj_list]
+        field_set = set(field_list)
+        if len(field_set) != len(field_list):
+            duplicate_fields.append(field)
+    if len(duplicate_fields) == 0:
+        return obj_list
+    else:
+        msg = f"Given models ({set(model_types)}) contain duplicate values for the following fields: {duplicate_fields}."
+        LOGGER.error(msg=msg)
+        raise AssertionError(msg)
+
+def validate_unique_name_field(value: List[BaseNetCmModel]):
+    # Filed might be optional
+    if value is None:
+        return value
+    return validate_fields_unique(obj_list=value, fields=['name'])

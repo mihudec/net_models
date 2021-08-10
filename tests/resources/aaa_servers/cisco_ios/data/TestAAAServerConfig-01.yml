@@ -1,0 +1,40 @@
+radius_groups:
+  - name: Radius-Group-01
+    servers:
+      - name: RADIUS-01
+        server: 192.0.2.1
+        timeout: 5
+        single_connection: true
+        key:
+          value: Password123
+          encryption_type: 0
+      - name: RADIUS-02
+        server: 192.0.2.2
+        timeout: 5
+        single_connection: true
+        key:
+          value: Password123
+          encryption_type: 0
+    vrf: Mgmt-vrf
+    src_interface: GigabitEthernet0
+  - name: Radius-Group-01
+    servers: []
+tacacs_groups:
+  - name: Tacacs-Group-01
+    servers:
+      - name: TACACS-01
+        server: 192.0.2.1
+        timeout: 5
+        single_connection: true
+        key:
+          value: Password123
+          encryption_type: 0
+      - name: TACACS-02
+        server: 192.0.2.2
+        timeout: 5
+        single_connection: true
+        key:
+          value: Password123
+          encryption_type: 0
+    vrf: Mgmt-vrf
+    src_interface: GigabitEthernet0
