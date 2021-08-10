@@ -1,13 +1,21 @@
-from net_models.models import BaseNetModel
-from net_models.fields import InterfaceName, GENERIC_OBJECT_NAME, LAG_MODE, VRF_NAME
-from net_models.validators import sort_interface_dict, required_together, ipv4s_in_same_subnet, ipv4_is_assignable, validate_unique
-from net_models.models.interfaces import InterfaceModel
-from net_models.models.BaseModels.SharedModels import VLANModel, VRFModel
-from net_models.models.routing import *
+# Standard Libraries
 import ipaddress
-
+# Third party packages
 from pydantic import root_validator, validator, conint
 from pydantic.typing import Optional, List, Literal, Dict
+# Local package
+from net_models.fields import InterfaceName, GENERIC_OBJECT_NAME, LAG_MODE, VRF_NAME
+from net_models.validators import sort_interface_dict, required_together, ipv4s_in_same_subnet, ipv4_is_assignable, validate_unique
+from net_models.models import (
+    BaseNetModel,
+    InterfaceModel,
+    VRFModel,
+    VLANModel
+)
+from net_models.models.routing import *
+# Local module
+
+
 
 
 class InventoryModel(BaseNetModel):

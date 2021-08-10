@@ -1,6 +1,10 @@
 import unittest
+import ipaddress
+from net_models.models import (
+    StaticRouteV4,
+    StaticRouteV6
+)
 from tests.BaseTestClass import TestVendorIndependentBase
-from net_models.models.routing.StaticRoutes import *
 
 
 class TestStaticRouteV4(TestVendorIndependentBase):

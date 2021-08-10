@@ -5,7 +5,6 @@ import ipaddress
 from net_models.utils import get_interface_index, get_logger, split_interface, INTERFACE_NAMES
 
 
-
 LOGGER = get_logger(name="NetCm-Validators")
 
 def ipv4_is_assignable(address: ipaddress.IPv4Interface) -> ipaddress.IPv4Interface:

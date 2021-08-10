@@ -1,7 +1,14 @@
+# Standard Libraries
+# Third party packages
 from pydantic import root_validator
 from pydantic.typing import Union, Optional, List, Literal, List
-from net_models.models import VendorIndependentBaseModel
+# Local package
 from net_models.fields import GENERIC_OBJECT_NAME, VRF_NAME, VLAN_ID, ROUTE_TARGET, ROUTE_DISTINGUISHER, AFI, SAFI
+# Local module
+from .BaseNetModels import VendorIndependentBaseModel
+
+
+__all__ = ['KeyBase', 'KeyChain', 'AuthBase', 'VLANModel', 'RouteTarget', 'VRFAddressFamily', 'VRFModel']
 
 
 class KeyBase(VendorIndependentBaseModel):
@@ -40,8 +47,6 @@ class RouteTarget(VendorIndependentBaseModel):
     rt_type: Optional[Literal['stitching']]
 
 
-
-
 class VRFAddressFamily(VendorIndependentBaseModel):
 
     afi: AFI
@@ -56,4 +61,5 @@ class VRFModel(VendorIndependentBaseModel):
     name: VRF_NAME
     rd: Optional[ROUTE_DISTINGUISHER]
     address_families: Optional[List[VRFAddressFamily]]
+    description: Optional[str]
 

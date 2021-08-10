@@ -1,1 +1,2 @@
-from net_models.models.BaseModels.BaseNetModels import BaseNetModel, VendorIndependentBaseModel, NamedModel
+from .BaseNetModels import *
+from .SharedModels import *

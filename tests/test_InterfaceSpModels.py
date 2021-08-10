@@ -1,5 +1,5 @@
 from tests.BaseTestClass import TestVendorIndependentBase
-from net_models.models.interfaces.SpModels import (
+from net_models.models import (
     PseudowireLoadBalancing,
     PseudowireEncapsulation,
     PseudowireClass,

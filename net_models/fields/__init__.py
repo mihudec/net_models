@@ -1,1 +1,1 @@
-from net_models.fields.Fields import *
+from .Fields import *

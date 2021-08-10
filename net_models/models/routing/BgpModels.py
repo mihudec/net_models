@@ -1,11 +1,14 @@
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.BaseModels.SharedModels import KeyBase
-from net_models.models.routing import RoutingProtocolBase
-from net_models.fields.Fields import *
-from net_models.validators import validate_unique_name_field
-from pydantic.typing import Optional, List, Union, Literal
-from pydantic import validator, root_validator, Field
+# Standard Libraries
 import ipaddress
+# Third party packages
+from pydantic import validator, root_validator, Field
+from pydantic.typing import Optional, List, Union, Literal
+# Local package
+from net_models.validators import validate_unique_name_field
+from net_models.fields import *
+from net_models.models import VendorIndependentBaseModel, KeyBase
+# Local module
+from .RoutingProtocols import RoutingProtocolBase
 
 class BgpTimers(VendorIndependentBaseModel):
 

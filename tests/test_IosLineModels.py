@@ -1,8 +1,8 @@
+from pydantic import ValidationError
+
+from net_models.models import IosLineConfig
 from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 
-from net_models.models.services.cisco_ios.IosLineModels import IosLineConfig
-
-from pydantic import ValidationError
 
 
 class TestIosLineConfig(TestVendorIndependentBase):

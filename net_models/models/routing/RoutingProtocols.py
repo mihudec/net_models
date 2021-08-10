@@ -1,9 +1,12 @@
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.BaseModels.SharedModels import AuthBase
-from net_models.fields import GENERIC_OBJECT_NAME, InterfaceName
-from net_models.utils.get_logger import get_logger
-from pydantic.typing import Optional, List, Literal
+# Standard Libraries
+# Third party packages
 from pydantic import root_validator
+from pydantic.typing import Optional, List, Literal
+# Local package
+from net_models.fields import GENERIC_OBJECT_NAME, InterfaceName
+from net_models.models.BaseModels import VendorIndependentBaseModel, AuthBase
+from net_models.utils.get_logger import get_logger
+# Local module
 
 LOGGER = get_logger(name="NetCm-RoutingProtocols")
 

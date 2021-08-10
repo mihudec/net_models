@@ -1,8 +1,12 @@
+# Standard Libraries
+# Third party packages
 from pydantic import validator, root_validator
-from net_models.validators import *
-from net_models.fields.Fields import *
-from net_models.models import VendorIndependentBaseModel
 from pydantic.typing import Literal, List, Union, Optional
+# Local package
+from net_models.validators import *
+from net_models.fields import *
+from net_models.models import VendorIndependentBaseModel
+# Local module
 
 
 

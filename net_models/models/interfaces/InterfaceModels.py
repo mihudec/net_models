@@ -1,12 +1,28 @@
+# Standard Libraries
+# Third party packages
+from pydantic import root_validator, validator, conint, constr
+from pydantic.typing import (Optional, Dict, Literal)
+# Local package
 from net_models.validators import *
 from net_models.fields import InterfaceName, GENERIC_OBJECT_NAME, LAG_MODE
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.models.interfaces import InterfaceSwitchportModel
-from net_models.models.interfaces import InterfaceRouteportModel
-from pydantic.typing import (Optional, Dict, Literal)
-from pydantic import root_validator, validator, conint, constr
+from net_models.models import VendorIndependentBaseModel
+# Local module
+from .L2InterfaceModels import InterfaceSwitchportModel
+from .L3InterfaceModels import InterfaceRouteportModel
 
 
+
+
+
+__all__ = [
+    'InterfaceLagMemberConfig',
+    'InterfaceLldpConfig',
+    'InterfaceCdpConfig',
+    'InterfaceDiscoveryProtocols',
+    'InterfaceNeighbor',
+    'InterfaceModel',
+    'InterfaceContainerModel'
+]
 class InterfaceLagMemberConfig(VendorIndependentBaseModel):
 
     _modelname = "interface_lag_member_config"

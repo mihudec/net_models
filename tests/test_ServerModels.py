@@ -1,9 +1,25 @@
-from tests.BaseTestClass import TestVendorIndependentBase
-
-from net_models.models.services.ServerModels import *
-
 from pydantic import ValidationError
 
+from net_models.models import (
+    ServerPropertiesBase,
+    ServerBase,
+    NtpKey,
+    NtpServer,
+    NtpAccessGroups,
+    NtpConfig,
+    AaaServer,
+    AAAServerConfig,
+    RadiusServer,
+    RadiusServerGroup,
+    TacacsServer,
+    TacacsServerGroup,
+    LoggingDiscriminatorAction,
+    LoggingDiscriminator,
+    LoggingServer,
+    LoggingSource,
+    LoggingConfig
+)
+from tests.BaseTestClass import TestVendorIndependentBase
 
 class VendorIndependentServerTest(TestVendorIndependentBase):
     TEST_CLASS = ServerPropertiesBase

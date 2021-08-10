@@ -1,8 +1,14 @@
-from net_models.models.BaseModels import VendorIndependentBaseModel
-from net_models.fields import VRF_NAME, INTERFACE_NAME
-from pydantic.typing import Optional
-from pydantic import conint
+# Standard Libraries
 import ipaddress
+# Third party packages
+from pydantic import conint
+from pydantic.typing import Optional
+# Local package
+from net_models.fields import VRF_NAME, INTERFACE_NAME
+from net_models.models import VendorIndependentBaseModel
+# Local module
+
+
 
 class StaticRoute(VendorIndependentBaseModel):
 

@@ -1,9 +1,13 @@
-from net_models.fields import InterfaceName
-from net_models.models.interfaces import InterfaceModel
-from net_models.inventory.InventoryModels import Inventory, Group, Host, GlobalConfig, HostConfig, GroupConfig
-from net_models.utils import get_logger
-
+# Standard Libraries
+# Third party packages
 from pydantic.typing import Union
+# Local package
+from net_models.fields import InterfaceName
+from net_models.models import InterfaceModel
+from net_models.inventory import (Inventory, Group, Host, GlobalConfig, HostConfig, GroupConfig)
+from net_models.utils import get_logger
+# Local module
+
 
 class BaseLoader(object):
 

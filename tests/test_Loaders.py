@@ -1,10 +1,9 @@
 import unittest
 import pathlib
 from net_models.models.interfaces import *
-from net_models.models.interfaces.L3InterfaceModels import *
-from net_models.models.interfaces.L2InterfaceModels import *
 
-from net_models.inventory.InventoryModels import Host, GlobalConfig
+
+from net_models.inventory import Host, GlobalConfig
 from net_models.loaders import BaseLoader, ExcelLoader
 
 

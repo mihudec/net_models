@@ -1,10 +1,19 @@
-from tests.BaseTestClass import TestVendorIndependentBase
-
-from net_models.models.services.cisco_ios.AaaMethods import *
-
 from pydantic import ValidationError
 
+from net_models.models import (
+    IosAaaAction,
+    IosAaaAuthenticationMethod,
+    IosAaaAuthentication,
+    IosAaaAuthorizationMethod,
+    IosAaaAuthorization,
+    IosAaaAccountingMethod,
+    IosAaaAccountingAction,
+    IosAaaAccounting,
+    IosAaaConfig
 
+)
+
+from tests.BaseTestClass import TestVendorIndependentBase
 
 class TestIosAaaAction(TestVendorIndependentBase):
 

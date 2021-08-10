@@ -1,17 +1,18 @@
+# Standard Libraries
 import pathlib
+# Third party packages
 import pandas as pd
 import numpy as np
-
+from pydantic.typing import Tuple
+# Local package
 from net_models.loaders import BaseLoader
-from net_models.models.BaseModels.SharedModels import (
+from net_models.models import (
     VLANModel
 )
-from net_models.models.interfaces.InterfaceModels import *
-from net_models.models.interfaces.L2InterfaceModels import *
-from net_models.models.interfaces.L3InterfaceModels import *
-from net_models.inventory.InventoryModels import *
+from net_models.models.interfaces import *
+from net_models.inventory import *
+# Local module
 
-from pydantic.typing import Tuple
 
 META_KEYS = ["use"]
 GLOBAL_VRFS = [None, 'global']

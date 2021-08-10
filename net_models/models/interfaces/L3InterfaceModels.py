@@ -1,10 +1,20 @@
+# Standard Libraries
+# Third party packages
 from pydantic import validator, root_validator
+from pydantic.typing import (
+    List,
+    Literal,
+    Optional
+)
+# Local package
 from net_models.validators import *
-from net_models.fields.Fields import *
-from net_models.models import VendorIndependentBaseModel
-from net_models.models.BaseModels.SharedModels import AuthBase, KeyBase
-from typing import (List, Optional)
-from typing_extensions import (Literal)
+from net_models.fields import *
+from net_models.models import (
+    VendorIndependentBaseModel,
+    AuthBase,
+    KeyBase
+)
+# Local module
 
 
 class InterfaceIPv4Address(VendorIndependentBaseModel):

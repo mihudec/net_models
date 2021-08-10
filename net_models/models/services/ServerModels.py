@@ -1,11 +1,13 @@
+# Standard Libraries
 import ipaddress
-from pydantic.typing import Optional, Union, List, Literal
+# Third party packages
 from pydantic import conint, constr, root_validator
+from pydantic.typing import Optional, Union, List, Literal
+# Local package
 from net_models.validators import *
 from net_models.fields import GENERIC_OBJECT_NAME, VRF_NAME, BASE_INTERFACE_NAME, InterfaceName
-from net_models.models import VendorIndependentBaseModel, NamedModel
-from net_models.models.BaseModels.SharedModels import KeyBase, AuthBase
-
+from net_models.models import VendorIndependentBaseModel, NamedModel, KeyBase, AuthBase
+# Local module
 
 
 class ServerBase(VendorIndependentBaseModel):

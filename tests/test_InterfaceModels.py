@@ -2,14 +2,11 @@ import collections
 import unittest
 import json
 import yaml
-from tests.BaseTestClass import TestVendorIndependentBase
-from net_models.models.interfaces import (
-    InterfaceModel,
-    InterfaceContainerModel
-)
-from net_models.models.interfaces.L2InterfaceModels import *
-from net_models.models.interfaces.L3InterfaceModels import *
 from pydantic.error_wrappers import ValidationError
+from net_models.models.interfaces import *
+
+
+from tests.BaseTestClass import TestVendorIndependentBase
 
 
 class TestInterfaceSpanningTreeConfig(TestVendorIndependentBase):

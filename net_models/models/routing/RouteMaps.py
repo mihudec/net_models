@@ -1,8 +1,11 @@
-from pydantic.typing import Optional, Literal, List, Any
+# Standard Libraries
+# Third party packages
 from pydantic import PositiveInt
-from net_models.models import VendorIndependentBaseModel
+from pydantic.typing import Optional, Literal, List, Any
+# Local package
 from net_models.fields import GENERIC_OBJECT_NAME
-
+from net_models.models import VendorIndependentBaseModel
+# Local module
 
 #TODO: WORK IN PROGRESS
 

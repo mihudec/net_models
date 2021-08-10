@@ -2,9 +2,9 @@ import sys
 import pathlib
 import unittest
 import yaml
+from pprint import pprint
 from net_models.models.BaseModels import BaseNetModel, VendorIndependentBaseModel
 from net_models.utils import get_logger
-from pprint import pprint
 
 class TestBaseNetModel(unittest.TestCase):
     LOGGER = get_logger(name="NetCm-Tests", verbosity=5)

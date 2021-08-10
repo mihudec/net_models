@@ -3,8 +3,8 @@ from collections import UserString
 from pydantic import constr, conint
 from pydantic.typing import Literal
 
-from net_models.config import LOGGER_FIELDS
 from net_models.validators import *
+from net_models.config import LOGGER_FIELDS
 from net_models.utils import get_logger, BASE_INTERFACE_REGEX, INTERFACE_NAMES
 
 LOGGER = LOGGER_FIELDS

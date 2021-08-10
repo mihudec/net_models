@@ -1,8 +1,15 @@
+from pydantic import ValidationError
+
+from net_models.models import (
+    KeyBase,
+    KeyChain,
+    VLANModel,
+    RouteTarget,
+    VRFAddressFamily,
+    VRFModel
+)
 from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 
-from net_models.models.BaseModels.SharedModels import *
-
-from pydantic import ValidationError
 
 
 class TestKeyBase(TestVendorIndependentBase):

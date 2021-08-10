@@ -1,12 +1,16 @@
+# Standard Libraries
 import re
-
+# Third party packages
 from pydantic.typing import (
     Literal,
     List,
     Union,
     Tuple
 )
+# Local package
 from net_models.config import LOGGER_INTERFACE_UTILS
+# Local module
+
 
 LOGGER = LOGGER_INTERFACE_UTILS
 
