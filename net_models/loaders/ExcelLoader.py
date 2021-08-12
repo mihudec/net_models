@@ -19,8 +19,8 @@ GLOBAL_VRFS = [None, 'global']
 
 class ExcelLoader(BaseLoader):
 
-    def __init__(self, input_file: pathlib.Path):
-        super(ExcelLoader, self).__init__()
+    def __init__(self, input_file: pathlib.Path, inventory: Inventory = None, verbosity: int = 4):
+        super(ExcelLoader, self).__init__(inventory=inventory, verbosity=verbosity)
         self.input_file = self.resolve_path(path=input_file)
         self.templates = {}
 
@@ -257,11 +257,9 @@ class ExcelLoader(BaseLoader):
             if host.config.routing.bgp.neighbors is None:
                 host.config.routing.bgp.neighbors = []
             neighbor = BgpNeighbor(**{k:v for k, v in row.items() if k in BgpNeighbor.__fields__.keys() and v is not None})
-            print(neighbor)
             # Assign peer group to host if needed
             if neighbor.peer_group is not None:
                 peer_group = list(filter(lambda x: x.name == neighbor.peer_group, peer_groups))[0]
-                print(peer_group)
                 if host.config.routing.bgp.peer_groups is None:
                     host.config.routing.bgp.peer_groups = []
                 host.config.routing.bgp.peer_groups.append(peer_group)

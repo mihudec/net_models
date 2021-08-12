@@ -49,18 +49,18 @@ class InterfaceIPv4Container(VendorIndependentBaseModel):
     unnumbered: Optional[INTERFACE_NAME]
     dhcp_client: Optional[InterfaceDhcpClientConfig]
 
-    @root_validator(allow_reuse=True)
-    def validate_non_overlapping(cls, values):
-        addresses = values.get("addresses")
-        if addresses is None:
-            return values
-        for address in addresses:
-            other_addresses = list(addresses)
-            other_addresses.remove(address)
-            for other_address in other_addresses:
-                if address.address in other_address.address.network:
-                    raise AssertionError(f"Address {str(other_address.address)} overlaps with {str(address.address)}")
-        return values
+    # @root_validator(allow_reuse=True)
+    # def validate_non_overlapping(cls, values):
+    #     addresses = values.get("addresses")
+    #     if addresses is None:
+    #         return values
+    #     for address in addresses:
+    #         other_addresses = list(addresses)
+    #         other_addresses.remove(address)
+    #         for other_address in other_addresses:
+    #             if address.address in other_address.address.network:
+    #                 raise AssertionError(f"Address {str(other_address.address)} overlaps with {str(address.address)}")
+    #     return values
 
     @root_validator(allow_reuse=True)
     def validate_single_primary(cls, values):
@@ -171,6 +171,13 @@ class InterfaceIsisConfig(VendorIndependentBaseModel):
     metric: Optional[List[IsisMetricField]]
 
 
+class RoutePortEncapsulation(VendorIndependentBaseModel):
+
+    encapsulation: Literal['dot1q']
+    tag: VLAN_ID
+    native: Optional[bool]
+
+
 class InterfaceRouteportModel(VendorIndependentBaseModel):
 
     _modelname = "routeport_model"
@@ -178,6 +185,7 @@ class InterfaceRouteportModel(VendorIndependentBaseModel):
 
     ipv4: Optional[InterfaceIPv4Container]
     ipv6: Optional[InterfaceIPv6Container]
+    encapsulation: Optional[RoutePortEncapsulation]
     vrf: Optional[str]
     ip_mtu: Optional[int]
     ospf: Optional[InterfaceOspfConfig]

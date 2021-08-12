@@ -11,9 +11,16 @@ from net_models.utils import get_logger
 
 class BaseLoader(object):
 
-    def __init__(self):
-        self.logger = get_logger(name="BaseLoader", verbosity=5)
-        self.inventory = Inventory(hosts={}, groups={})
+    def __init__(self, inventory: Inventory = None, verbosity: int = 4):
+        self.logger = get_logger(name="BaseLoader", verbosity=verbosity)
+        self.inventory = inventory
+        if self.inventory is None:
+            self.logger.debug(msg="No Inventory passed during initialization, creating empty inventory.")
+            self.init_inventory()
+
+    def init_inventory(self):
+        if self.inventory is None:
+            self.inventory = Inventory(hosts={}, groups={})
 
     def find_host(self, host_name) -> Union[Host, None]:
 
@@ -29,13 +36,64 @@ class BaseLoader(object):
 
         return host
 
-    def get_group(self, group_name: str, create_if_missing: bool = True) -> Union[Group, None]:
-        group = self.inventory.groups.get(group_name, None)
+    def recursive_find_group(self, group_name: str, group_dict: dict) -> Union[Group, None]:
+        group_candidate = None
+        if group_name in group_dict.keys():
+            self.logger.debug(f'Found group {group_name}')
+            group_candidate = group_dict.get(group_name)
+            return group_candidate
+        if group_candidate is None:
+            for name, group in group_dict.items():
+                if group.children is not None:
+                    self.logger.debug(f"Traversing children of group {name}")
+                    group_candidate = self.recursive_find_group(group_name=group_name, group_dict=group.children)
+                if group_candidate is not None:
+                    return group_candidate
+                    self.logger.debug(f'Found group {group_name}')
+        return group_candidate
+
+
+
+    def get_group(self, group_name: str, parent_name: str = None, create_if_missing: bool = True) -> Union[Group, None]:
+        group = None
+        parent_group = None
+        if parent_name is not None:
+            # Try finding the parent_name
+            parent_group = self.recursive_find_group(group_name=parent_name, group_dict=self.inventory.groups)
+            if parent_group is None:
+                # Check if the group exists regardless of parent_name
+                group_candidate = self.recursive_find_group(group_name=group_name, group_dict=self.inventory.groups)
+                if group_candidate is not None:
+                    msg = f"Parent {parent_name} does not exist, however the group {group_name} was found."
+                    self.logger.critical(msg=msg)
+                    raise AssertionError(msg)
+                else:
+                    self.logger.error(f"Cannot get specified group {group_name} as its parent {parent_name} does not exist.")
+            else:
+                # Try getting the group as a direct child of parent_name
+                if parent_group.children is not None:
+                    group = parent_group.children.get(group_name)
+        else:
+            # Try finding the group itself
+            group = self.recursive_find_group(group_name=group_name, group_dict=self.inventory.groups)
+
+
+        # If group is still None at this point, it does not exist
         if group is None:
             if create_if_missing:
-                self.logger.debug(f"Creating group '{group_name}'")
-                group = Group(name=group_name, config=GroupConfig())
-                self.inventory.groups[group.name] = group
+                group = Group(name=group_name)
+                if parent_name is not None:
+                    if parent_group is not None:
+                        self.logger.debug(f"Creating group '{group_name}' under parent {parent_name}")
+                        if parent_group.children is None:
+                            parent_group.children = {}
+                        parent_group.children[group_name] = group
+                    else:
+                        # At this point, the AssertionError above should have been raised
+                        raise Exception("You should not get to this situation.")
+                else:
+                    self.logger.debug(f"Creating top-level group '{group_name}'")
+                    self.inventory.groups[group_name] = group
             else:
                 self.logger.debug(f"Group '{group_name}' not present in inventory")
         return group

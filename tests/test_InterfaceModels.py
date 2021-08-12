@@ -152,7 +152,7 @@ class TestInterfaceIPv4Container(TestVendorIndependentBase):
                 {"address": "192.168.1.2/24"}
             ]
         }
-        with self.assertRaisesRegex(ValidationError, expected_regex="Address 192.168.1.2/24 overlaps with 192.168.1.1/24"):
+        with self.assertRaisesRegex(ValidationError, expected_regex="Multiple 'primary addresses' found, only one allowed\..*"):
             test_obj = self.TEST_CLASS(**test_payload)
 
 

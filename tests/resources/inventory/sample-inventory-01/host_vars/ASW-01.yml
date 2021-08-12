@@ -1,0 +1,8 @@
+---
+interfaces:
+  Vlan1:
+    name: Vlan1
+    l3_port:
+      ipv4:
+        addresses:
+          - address: 192.0.2.10/24

@@ -1,0 +1,4 @@
+---
+interfaces:
+  Vlan100:
+    name: Vlan100

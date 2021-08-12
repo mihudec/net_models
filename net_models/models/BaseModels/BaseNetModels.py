@@ -32,7 +32,7 @@ class BaseNetModel(BaseModel):
         if validation_error:
             raise validation_error
 
-    def serial_dict(self, exclude_none: bool = False, **kwargs):
+    def serial_dict(self, exclude_none: bool = False, **kwargs) -> dict:
         return json.loads(self.json(exclude_none=exclude_none, **kwargs))
 
     def yaml(self, indent: int = 2, exclude_none: bool = False, **kwargs):

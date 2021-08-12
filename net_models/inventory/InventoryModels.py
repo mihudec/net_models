@@ -59,12 +59,22 @@ class VLANHostMapping(VLANModel, HostMapping):
 
 class GroupConfig(BaseNetModel):
 
-    vlan_definitions: Optional[List[VLANHostMapping]] = []
-    vrf_definitions: Optional[List[VRFModel]] = []
+    vlan_definitions: Optional[List[VLANHostMapping]]
+    vrf_definitions: Optional[List[VRFModel]]
 
     @validator('vlan_definitions', allow_reuse=True)
     def sort_vlan_definitions(cls, value):
-        return sorted(value, key=lambda x: x.vlan_id)
+        if value is not None:
+            return sorted(value, key=lambda x: x.vlan_id)
+        else:
+            return value
+
+    @validator('vrf_definitions', allow_reuse=True)
+    def sort_vrf_definitions(cls, value):
+        if value is not None:
+            return sorted(value, key=lambda x: x.name)
+        else:
+            return value
 
 
 class Host(InventoryModel):
@@ -72,12 +82,49 @@ class Host(InventoryModel):
     name: GENERIC_OBJECT_NAME
     config: Optional[HostConfig]
 
+
 class Group(InventoryModel):
 
-    name: GENERIC_OBJECT_NAME
+    name: Optional[GENERIC_OBJECT_NAME]
     config: Optional[GroupConfig]
+    children: Optional[Dict[GENERIC_OBJECT_NAME, 'Group']]
+    hosts: Optional[Dict[GENERIC_OBJECT_NAME, Union[dict, None]]]
+
+    def add_child(self, group_name: GENERIC_OBJECT_NAME, group: 'Group' = None):
+        result = None
+        if self.children is None:
+            self.children = {}
+        if group_name in self.children.keys():
+            result = False
+        else:
+            self.children[group_name] = group if group is not None else Group()
+            result = True
+        return result
+
+    def add_host(self, host_name: GENERIC_OBJECT_NAME):
+        result = None
+        if self.hosts is None:
+            self.hosts = {}
+        if host_name in self.hosts.keys():
+            result = False
+        else:
+            self.hosts[host_name] = None
+            result = True
+        return result
+
+    def get_flat_children(self) -> Dict[GENERIC_OBJECT_NAME, 'Group']:
+        group_dict = {}
+        if self.children is not None:
+            for name, group in self.children.items():
+                group_dict.update(group.get_flat_children())
+                group_clone = group.clone()
+                group_clone.children = None
+                if name not in group_dict.keys():
+                    group_dict[name] = group_clone
+        return group_dict
 
 
+Group.update_forward_refs()
 
 class Link(InventoryModel):
 
