@@ -1,5 +1,6 @@
 # Standard Libraries
 import pathlib
+import unicodedata
 # Third party packages
 import pandas as pd
 import numpy as np
@@ -34,10 +35,10 @@ class ExcelLoader(BaseLoader):
             raise FileNotFoundError(f"File with specified path does not exist.")
         return path
 
-    def load_excel(self, path: pathlib.Path, sheet_name: str, index_column: str = None, columns_rename: dict =None, **kwargs) -> pd.DataFrame:
+    def load_excel(self, path: pathlib.Path, sheet_name: str, index_column: str = None, columns_rename: dict = None, skiprows: List[int] = None, **kwargs) -> pd.DataFrame:
         self.logger.info("Loading file: '{}' Sheet: '{}' as DF".format(path, sheet_name))
         path = self.resolve_path(path=path)
-        df = pd.read_excel(io=path, sheet_name=sheet_name, index_col=index_column, dtype=object, engine="openpyxl", **kwargs)
+        df = pd.read_excel(io=path, sheet_name=sheet_name, index_col=index_column, dtype=object, engine="openpyxl", skiprows=skiprows, **kwargs)
         df = df.where(pd.notnull(df), None)
         # Drop Unnamed columns
         # https://stackoverflow.com/a/58158544/6198445
@@ -52,6 +53,24 @@ class ExcelLoader(BaseLoader):
         df["use"] = df["use"].map(lambda x: True if x == 1 else x)
         df = df[df["use"]]
         return df
+
+    def duplicates_check(self, df, columns):
+        results = []
+        for column_name in columns:
+            duplicates = df.duplicated(subset=[column_name])
+            results.append(any(duplicates))
+            if results[-1]:
+                self.logger.warning("Found duplicated values in column '{0}': {1}".format(column_name, df[duplicates][column_name]))
+        return results
+
+    @staticmethod
+    def replace_cz_chars(line):
+        line = unicodedata.normalize('NFKD', line)
+        output = ''
+        for c in line:
+            if not unicodedata.combining(c):
+                output += c
+        return output
 
     def row_to_model(self, row, model) -> BaseNetModel:
 

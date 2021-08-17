@@ -7,8 +7,10 @@ from net_models.validators import *
 from net_models.fields import InterfaceName, GENERIC_OBJECT_NAME, LAG_MODE
 from net_models.models import VendorIndependentBaseModel
 # Local module
-from .L2InterfaceModels import InterfaceSwitchportModel
-from .L3InterfaceModels import InterfaceRouteportModel
+from .InterfaceCommon import InterfaceServicePolicy
+from .L2InterfaceModels import *
+from .L3InterfaceModels import *
+from .SpModels import ServiceInstance
 
 
 
@@ -54,6 +56,7 @@ class InterfaceNeighbor(VendorIndependentBaseModel):
     host: GENERIC_OBJECT_NAME
     interface: InterfaceName
 
+
 class InterfaceModel(VendorIndependentBaseModel):
 
     _modelname = "interface_model"
@@ -73,6 +76,8 @@ class InterfaceModel(VendorIndependentBaseModel):
     l3_port: Optional[InterfaceRouteportModel]
     lag_member: Optional[InterfaceLagMemberConfig]
     discovery_protocols: Optional[InterfaceDiscoveryProtocols]
+    service_policy: Optional[InterfaceServicePolicy]
+    service_instances: Optional[List[ServiceInstance]]
     neighbor: Optional[InterfaceNeighbor]
 
 
@@ -112,6 +117,19 @@ class InterfaceModel(VendorIndependentBaseModel):
                     neighbor=self.neighbor.host,
                     neighbor_interface=normalize_interface_name(interface_name=self.neighbor.interface, short=True))
                 self.description = description
+
+    def add_ipv4_address(self, address: InterfaceIPv4Address):
+        if isinstance(address, ipaddress.IPv4Interface):
+            address = InterfaceIPv4Address(address=address)
+        if self.l3_port is None:
+            self.l3_port = InterfaceRouteportModel()
+        if self.l3_port.ipv4 is None:
+            self.l3_port.ipv4 = InterfaceIPv4Container()
+        if self.l3_port.ipv4.addresses is None:
+            self.l3_port.ipv4.addresses = []
+        if address not in self.l3_port.ipv4.addresses:
+            self.l3_port.ipv4.addresses.append(address)
+
 
 
 

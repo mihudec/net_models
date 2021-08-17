@@ -8,9 +8,10 @@ from pydantic.typing import (
 )
 # Local package
 from net_models.validators import *
-from net_models.fields import GENERIC_OBJECT_NAME, InterfaceName, VLAN_ID, CLASS_OF_SERVICE
+from net_models.fields import GENERIC_OBJECT_NAME, InterfaceName, VLAN_ID, BRIDGE_DOMAIN_ID, L2_PROTOCOL, CLASS_OF_SERVICE
 from net_models.models import VendorIndependentBaseModel
 # Local module
+from .InterfaceCommon import InterfaceServicePolicy
 from .L2InterfaceModels import InterfaceSwitchportModel
 from .L3InterfaceModels import InterfaceRouteportModel
 
@@ -98,15 +99,47 @@ class Dot1QEncapsulation(VendorIndependentBaseModel):
     """
     This class applies both to dot1q and dot1ad
     """
-    vid_range: conlist(item_type=VLAN_ID, min_items=1, max_items=2)
+    vid_range: conlist(item_type=VLAN_ID, min_items=1)
     cos: Optional[CLASS_OF_SERVICE]
-    etype: Optional[str] # TODO: Fix this to literal
+    etype: Optional[Literal['ipv4', 'ipv6', 'pppoe-all', 'pppoe-discovery', 'pppoe-session']]
     exact: Optional[bool]
 
 
 class InterfaceEncapsulation(VendorIndependentBaseModel):
 
     encapsulation_type: Literal['default', 'dot1ad', 'dot1q', 'priority-tagged', 'untagged']
-    inner_tag: Optional[Dot1QEncapsulation]
     outer_tag: Optional[Dot1QEncapsulation]
+    inner_tag: Optional[Dot1QEncapsulation]
 
+
+class ServiceInstanceL2Protocol(VendorIndependentBaseModel):
+
+    forward: Optional[List[L2_PROTOCOL]]
+    peer: Optional[List[L2_PROTOCOL]]
+
+
+
+class RewriteOperation(VendorIndependentBaseModel):
+
+    action: Literal['pop', 'push', 'translate']
+    tag: Literal[1, 2]
+    symetric: Optional[bool]
+
+
+class ServiceInstanceRewrite(VendorIndependentBaseModel):
+
+    ingress: Optional[RewriteOperation]
+    egress: Optional[RewriteOperation]
+
+
+class ServiceInstance(VendorIndependentBaseModel):
+
+    si_id: conint(ge=1)
+    description: Optional[str]
+    encapsulation: Optional[InterfaceEncapsulation]
+    evc_name: Optional[GENERIC_OBJECT_NAME]
+    l2_protocol: Optional[ServiceInstanceL2Protocol]
+    bridge_domain: Optional[BRIDGE_DOMAIN_ID]
+    rewrite: Optional[ServiceInstanceRewrite]
+    service_policy: Optional[InterfaceServicePolicy]
+    enabled: Optional[bool]

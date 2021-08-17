@@ -1,3 +1,13 @@
+# Preparation for migration to ruamel.yaml
+# from ruamel.yaml import YAML
+# from ruamel.yaml.representer import Representer
+# from ruamel.yaml.dumper import Dumper
+# from ruamel.yaml.emitter import Emitter
+# from ruamel.yaml.serializer import Serializer
+# from ruamel.yaml.resolver import Resolver
+
+
+
 import yaml
 from yaml.representer import Representer
 from yaml.dumper import Dumper
@@ -6,6 +16,7 @@ from yaml.serializer import Serializer
 from yaml.resolver import Resolver
 from collections import OrderedDict
 
+# yaml = YAML()
 
 def represent_ordereddict(dumper, data):
     value = []

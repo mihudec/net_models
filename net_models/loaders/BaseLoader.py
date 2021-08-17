@@ -53,6 +53,13 @@ class BaseLoader(object):
         return group_candidate
 
 
+    def get_all_group_names(self):
+        group_dict = {}
+        for group_name, group in self.inventory.groups.items():
+            group_dict.update({k:v.serial_dict(include=set(), exclude_none=True) for k, v in group.get_flat_children().items()})
+            # Include self
+            group_dict.update({group_name: group.serial_dict(include={'config'}, exclude_none=True)})
+        return list(group_dict.keys())
 
     def get_group(self, group_name: str, parent_name: str = None, create_if_missing: bool = True) -> Union[Group, None]:
         group = None

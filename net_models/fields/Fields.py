@@ -20,6 +20,7 @@ LAG_MODE = Literal["active", "pasive", "desirable", "auto", "on"]
 
 VRF_NAME = constr(strip_whitespace=True, regex=r"\S+")
 VLAN_ID = conint(ge=1, le=4094)
+BRIDGE_DOMAIN_ID = conint(ge=1)
 CLASS_OF_SERVICE = conint(ge=0, le=7)
 ROUTE_MAP_NAME = GENERIC_OBJECT_NAME
 ASN = conint(ge=1, le=4294967295)
@@ -38,7 +39,7 @@ AAA_METHOD_NAME = Union[Literal['default'], GENERIC_OBJECT_NAME]
 
 ROUTE_TARGET = constr(regex=r"((?:(?:\d{1,3}\.){3}(?:\d{1,3}))|(?:\d+)):(\d+)")
 ROUTE_DISTINGUISHER = ROUTE_TARGET
-
+L2_PROTOCOL = Literal['R4', 'R5', 'R6', 'R8', 'R9', 'RA', 'RB', 'RC', 'RD', 'RF', 'cdp', 'dot1x', 'dtp', 'elmi', 'esmc', 'lacp', 'lldp', 'pagp', 'ptppd', 'stp', 'udld', 'vtp']
 
 
 

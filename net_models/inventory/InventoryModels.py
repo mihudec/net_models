@@ -1,11 +1,12 @@
 # Standard Libraries
 import ipaddress
 # Third party packages
-from pydantic import root_validator, validator, conint
-from pydantic.typing import Optional, List, Literal, Dict
+from pydantic import Extra, root_validator, validator, conint
+from pydantic.typing import Optional, List, Literal, Dict, Tuple
 # Local package
+from net_models.exceptions import *
 from net_models.fields import InterfaceName, GENERIC_OBJECT_NAME, LAG_MODE, VRF_NAME
-from net_models.validators import sort_interface_dict, required_together, ipv4s_in_same_subnet, ipv4_is_assignable, validate_unique
+from net_models.validators import sort_interface_dict, required_together, ipv4s_in_same_subnet, ipv4_is_assignable, validate_unique, remove_duplicates_and_sort
 from net_models.models import (
     BaseNetModel,
     InterfaceModel,
@@ -40,11 +41,121 @@ class GlobalConfig(BaseNetModel):
 
 class HostConfig(BaseNetModel):
 
-    interfaces: Dict[InterfaceName, InterfaceModel] # Actually collections.OrderedDict, because Python 3.6
+    hostname: Optional[GENERIC_OBJECT_NAME]
+    interfaces: Optional[Dict[InterfaceName, InterfaceModel]] # Actually collections.OrderedDict, because Python 3.6
     routing: Optional[RoutingConfig]
-
+    vrf_names: Optional[List[VRF_NAME]]
 
     _sort_interfaces = validator("interfaces", allow_reuse=True)(sort_interface_dict)
+
+
+    def get_interface(self, interface_name: str, interface_params: dict = None, create_if_missing: bool = False):
+        interface = None
+        if self.interfaces is None:
+            if create_if_missing:
+                self.interfaces = {}
+            else:
+                return None
+        interface = self.interfaces.get(interface_name)
+        if interface is None:
+            if create_if_missing:
+                if interface_params is not None:
+                    if interface_params.get("name"):
+                        interface_name = interface_params.pop("name")
+                    interface = InterfaceModel(name=interface_name, **interface_params)
+                else:
+                    interface = InterfaceModel(name=interface_name)
+                self.interfaces[interface.name] = interface
+
+        return interface
+
+    @validator('vrf_names')
+    def sort_vrf_names(cls, value):
+        if value is not None:
+            remove_duplicates_and_sort(data=value)
+        return value
+
+
+    def add_vrf_name(self, vrf_name):
+        if self.vrf_names is None:
+            self.vrf_names = []
+        if vrf_name not in self.vrf_names:
+            self.vrf_names.append(vrf_name)
+
+
+    def _get_interface(self, interface_name: str):
+        interface_name = normalize_interface_name(interface_name=interface_name)
+        if self.interfaces is None:
+            return None
+        if interface_name not in self.interfaces.keys():
+            return None
+        if interface_name in self.interfaces.keys():
+            return self.interfaces[interface_name]
+
+
+    def _create_interface(self, interface: InterfaceModel, force_create: bool = False) -> bool:
+        if not isinstance(interface, InterfaceModel):
+            interface = InterfaceModel.parse_obj(interface)
+        current_interface = self.get_interface(interface_name=interface.name)
+        if current_interface is None:
+            if self.interfaces is None:
+                self.interfaces = {}
+            self.interfaces[interface.name] = interface
+        else:
+            if force_create:
+                self.interfaces[interface.name] = interface
+            else:
+                raise InterfaceAlreadyExists(f"Interface {interface.name} already exist.")
+
+    def _get_or_create_interface(self,
+                                 interface_name: str = None,
+                                 interface: Union[InterfaceModel, dict] = None) -> Tuple[InterfaceModel, bool]:
+        """
+
+        Args:
+            interface_name: Name of the interface
+            interface: Model or dict representation of the interface
+
+        Returns: Tuple of InterfaceModel, bool - True if interface has been just created, False if it was fetched
+
+        """
+        if interface is None:
+            if interface_name is not None:
+                interface = InterfaceModel(name=interface_name)
+            else:
+                raise ValueError("Need either 'interface_name' or 'interface' (or both). Got none of those.")
+        else:
+            if isinstance(interface, dict):
+                if 'name' in interface.keys():
+                    interface = InterfaceModel.parse_obj(interface)
+                else:
+                    if interface_name is not None:
+                        interface['name'] = interface_name
+                        interface = InterfaceModel.parse_obj(interface)
+                    else:
+                        raise ValueError("Need either 'interface_name' or 'interface' (or both). Got none of those.")
+            elif isinstance(interface, InterfaceModel):
+                # All good here
+                pass
+            else:
+                raise ValueError(f"Param interface has to be Union[InterfaceModel, dict]. Got {type(interface)}")
+
+        if not isinstance(interface, InterfaceModel):
+            raise AssertionError("Ath this point, interface should me a model. Something went wrong.")
+
+        candidate = self._get_interface(interface_name=interface.name)
+        if candidate is None:
+            self._create_interface(interface=interface)
+            return interface, True
+        else:
+            return candidate, False
+
+    def _update_interface(self, interface_params: Union[InterfaceModel, dict]):
+        raise NotImplementedError
+
+    def _delete_interface(self, interface_name: str):
+        raise NotImplementedError
+
 
 
 class HostMapping(BaseNetModel):
@@ -79,15 +190,37 @@ class GroupConfig(BaseNetModel):
 
 class Host(InventoryModel):
 
+    class Config:
+        extra = Extra.allow
+        anystr_strip_whitespace = True
+        validate_assignment = True
+
     name: GENERIC_OBJECT_NAME
     config: Optional[HostConfig]
+
+    def _get_or_create_config(self):
+        if self.config is None:
+            self.config = HostConfig()
+        return self.config
+
+    def get_or_create_interface(self, interface_name: str = None, interface: Union[InterfaceModel, dict] = None):
+        config = self._get_or_create_config()
+        return config._get_or_create_interface(interface_name=interface_name, interface=interface)
+
+
 
 
 class Group(InventoryModel):
 
+    class Config:
+        extra = Extra.allow
+        anystr_strip_whitespace = True
+        validate_assignment = True
+
     name: Optional[GENERIC_OBJECT_NAME]
     config: Optional[GroupConfig]
     children: Optional[Dict[GENERIC_OBJECT_NAME, 'Group']]
+
     hosts: Optional[Dict[GENERIC_OBJECT_NAME, Union[dict, None]]]
 
     def add_child(self, group_name: GENERIC_OBJECT_NAME, group: 'Group' = None):
@@ -123,6 +256,15 @@ class Group(InventoryModel):
                     group_dict[name] = group_clone
         return group_dict
 
+    def structure(self):
+        structure = {}
+        if self.hosts is not None:
+            structure['hosts'] = {k: None for k in self.hosts.keys()}
+        if self.children is not None:
+            structure['children'] = {}
+            for name, group in self.children.items():
+                structure['children'].update({name: group.structure()})
+        return structure
 
 Group.update_forward_refs()
 
@@ -186,4 +328,13 @@ class Inventory(InventoryModel):
 
     hosts: Dict[GENERIC_OBJECT_NAME, Host]
     groups: Dict[GENERIC_OBJECT_NAME, Group]
+
+    def structure(self):
+        structure = {}
+        if self.groups is not None:
+            for group_name, group in self.groups.items():
+                structure.update({group_name: group.structure()})
+        return structure
+
+
 

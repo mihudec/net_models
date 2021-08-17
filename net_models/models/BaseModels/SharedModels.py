@@ -3,7 +3,10 @@
 from pydantic import root_validator
 from pydantic.typing import Union, Optional, List, Literal, List
 # Local package
-from net_models.fields import GENERIC_OBJECT_NAME, VRF_NAME, VLAN_ID, ROUTE_TARGET, ROUTE_DISTINGUISHER, AFI, SAFI
+from net_models.fields import (
+    GENERIC_OBJECT_NAME, VRF_NAME, VLAN_ID, BRIDGE_DOMAIN_ID,
+    ROUTE_TARGET, ROUTE_DISTINGUISHER, AFI, SAFI
+)
 # Local module
 from .BaseNetModels import VendorIndependentBaseModel
 
@@ -35,9 +38,12 @@ class VLANModel(VendorIndependentBaseModel):
 
     vlan_id: VLAN_ID
     name: Optional[GENERIC_OBJECT_NAME]
-    active: Optional[bool]
+    enabled: Optional[bool]
 
 
+class BridgeDomainModel(VendorIndependentBaseModel):
+    bridge_domain_id: BRIDGE_DOMAIN_ID
+    enabled: Optional[bool]
 
 
 class RouteTarget(VendorIndependentBaseModel):

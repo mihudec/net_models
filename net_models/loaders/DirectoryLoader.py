@@ -37,6 +37,7 @@ class DirectoryLoader(BaseLoader):
         self.load_inventory_structure()
         self.traverse_host_vars()
         self.traverse_group_vars()
+        self.traverse_host_vars()
 
     def traverse_inventory(self, data: dict, data_type: Literal['groups', 'hosts'], parent_name: str = None):
         if data_type == 'groups':
@@ -128,6 +129,7 @@ class DirectoryLoader(BaseLoader):
                             group_data.update(data)
                     if len(group_data.keys()):
                         group.config = GroupConfig.parse_obj(group_data)
+
 
 
 

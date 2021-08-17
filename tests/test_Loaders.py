@@ -49,6 +49,7 @@ class TestBaseLoader(unittest.TestCase):
             have = loader.recursive_find_group(group_name="Level-3A", group_dict=group_dict)
             want = Group(name="Level-3A")
             self.assertEqual(want, have)
+
         with self.subTest(msg="Get non-existent group"):
             have = loader.recursive_find_group(group_name="NonExistentGroup", group_dict=group_dict)
             self.assertTrue(have is None)

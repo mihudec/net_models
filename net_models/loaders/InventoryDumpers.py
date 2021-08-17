@@ -53,7 +53,7 @@ class AnsibleInventoryDumper(BaseInventoryDumper):
         inventory_dict = self.inventory.serial_dict(exclude_none=True)
         # Dump Structure
         with hosts_file.open(mode='w') as f:
-            yaml.dump(data=inventory_dict['groups'], stream=f, Dumper=CustomYamlDumper, indent=self.indent)
+            yaml.dump(data=self.inventory.structure(), stream=f, Dumper=CustomYamlDumper, indent=self.indent)
         # Dump host_vars
         for host_name, host in inventory_dict['hosts'].items():
             self.logger.debug(msg=f"Dumping host_vars for host {host_name}")
@@ -76,10 +76,9 @@ class AnsibleInventoryDumper(BaseInventoryDumper):
         group_dict = {}
         self.logger.debug("Dumping group_vars...")
         for group_name, group in self.inventory.groups.items():
-            group_dict.update({k:v.serial_dict(include={'config'}, exclude_none=True) for k, v in group.get_flat_children().items()})
+            group_dict.update({k:v.serial_dict(exclude={'name', 'hosts', 'children'}, exclude_none=True) for k, v in group.get_flat_children().items()})
             # Include self
-            group_dict.update({group_name: group.serial_dict(include={'config'}, exclude_none=True)})
-        print(group_dict)
+            group_dict.update({group_name: group.serial_dict(exclude={'name', 'hosts', 'children'}, exclude_none=True)})
         for group_name, group in group_dict.items():
             self.logger.debug(msg=f"Dumping group_vars for group {group_name}")
             if 'config' in group.keys():
