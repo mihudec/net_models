@@ -1,6 +1,7 @@
 import unittest
 from pydantic.typing import List, Dict, Callable
 from net_models.validators import *
+from net_models.models.interfaces import InterfaceModel
 
 class TestValidatorBase(unittest.TestCase):
 
@@ -125,6 +126,30 @@ class TestRequiredTogether(TestValidatorBase):
             with self.subTest(test_case["test_name"]):
                 with self.assertRaises(AssertionError):
                     test_result = required_together(**test_case["data"])
+
+
+class TestSortInterfaceDict(TestValidatorBase):
+
+    def test_01(self):
+        data = {
+            "Loopback2": {
+                "name": "Loopback2"
+            },
+            "Lo1": {
+                "name": "Lo1"
+            }
+        }
+        model_data = {k: InterfaceModel.parse_obj(v) for k, v in data.items()}
+        print(model_data)
+        sorted_data = sort_interface_dict(interfaces=model_data)
+        with self.subTest(msg="Test Keys are sorted"):
+            self.assertListEqual(list(sorted_data.keys()), ["Loopback1", "Loopback2"])
+        with self.subTest(msg="Test Values are sorted"):
+            self.assertListEqual(list(sorted_data.values()), [InterfaceModel(name="Loopback1"), InterfaceModel(name="Loopback2")])
+        with self.subTest(msg="Test Repeated sort"):
+            self.assertEqual(sorted_data, sort_interface_dict(interfaces=sorted_data))
+
+
 
 del TestValidatorBase
 

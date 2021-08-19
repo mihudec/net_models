@@ -79,6 +79,6 @@ class RoutingIsisProcess(RoutingProtocolIgpBase):
     metric_style: str
     fast_flood: Optional[int]
     max_lsp_lifetime: Optional[int]
-    network: RoutingIsisNetwork
-    authentication: AuthenticationIsis
+    network: Optional[RoutingIsisNetwork]
+    authentication: Optional[AuthenticationIsis]
 

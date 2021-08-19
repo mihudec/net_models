@@ -164,9 +164,9 @@ class InterfaceIsisConfig(VendorIndependentBaseModel):
 
     _modelname = "interface_isis_config"
 
+    process_id: Optional[Union[int, GENERIC_OBJECT_NAME]]
     network_type: Optional[str]
     circuit_type: Optional[str]
-    process_id: Optional[Union[int, GENERIC_OBJECT_NAME]]
     authentication: Optional[IsisInterfaceAuthentication]
     metric: Optional[List[IsisMetricField]]
 

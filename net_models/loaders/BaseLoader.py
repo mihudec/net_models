@@ -4,7 +4,7 @@ from pydantic.typing import Union
 # Local package
 from net_models.fields import InterfaceName
 from net_models.models import InterfaceModel
-from net_models.inventory import (Inventory, Group, Host, GlobalConfig, HostConfig, GroupConfig)
+from net_models.inventory import (Inventory, Group, Host, HostConfig, GroupConfig)
 from net_models.utils import get_logger
 # Local module
 
@@ -195,6 +195,6 @@ class BaseLoader(object):
     def finish(self):
         self.inventory = self.inventory.clone()
         # model.inventory.check()
-        print(self.inventory.yaml(exclude_none=True, indent=2))
+        # print(self.inventory.yaml(exclude_none=True, indent=2))
 
 

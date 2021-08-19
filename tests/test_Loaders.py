@@ -4,7 +4,7 @@ import shutil
 from net_models.models.interfaces import *
 
 
-from net_models.inventory import Host, GlobalConfig, Group, Inventory
+from net_models.inventory import Host, Group, Inventory
 from net_models.loaders import BaseLoader, ExcelLoader, DirectoryLoader, AnsibleInventoryDumper
 
 VERBOSITY = 5

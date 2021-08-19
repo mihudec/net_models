@@ -40,7 +40,9 @@ class BaseNetModel(BaseModel):
         return yaml.dump(data=data_dict, Dumper=CustomYamlDumper, indent=indent)
 
     def clone(self):
-        return self.__class__(**self.dict())
+        return self.__class__.parse_obj(self.dict())
+
+
 
 
 class VendorIndependentBaseModel(BaseNetModel):
