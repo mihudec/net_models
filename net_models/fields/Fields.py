@@ -41,8 +41,6 @@ ROUTE_TARGET = constr(regex=r"((?:(?:\d{1,3}\.){3}(?:\d{1,3}))|(?:\d+)):(\d+)")
 ROUTE_DISTINGUISHER = ROUTE_TARGET
 L2_PROTOCOL = Literal['R4', 'R5', 'R6', 'R8', 'R9', 'RA', 'RB', 'RC', 'RD', 'RF', 'cdp', 'dot1x', 'dtp', 'elmi', 'esmc', 'lacp', 'lldp', 'pagp', 'ptppd', 'stp', 'udld', 'vtp']
 
-
-
 class InterfaceName(str):
 
     @classmethod
@@ -58,3 +56,25 @@ class InterfaceName(str):
         # This is ordinary <class 'str'>
         interface_name = normalize_interface_name(interface_name=v)
         return interface_name
+
+
+class DoubleQoutedString(str):
+
+    pass
+
+class Jinja2String(DoubleQoutedString):
+
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate_jinja
+
+    @classmethod
+    def validate_jinja(cls, v: str):
+        jinja_pattern = re.compile(pattern=r"^\{\{.*?\}\}$", flags=re.MULTILINE)
+        if not jinja_pattern.match(v):
+            msg = f"Jinja2 String must start with '{{{{' and end with '}}}}'. Got '{v}'"
+            # LOGGER.warning(msg=msg)
+            raise AssertionError(msg)
+        return cls(v)
+
+JINJA_OR_NAME = Union[Jinja2String, GENERIC_OBJECT_NAME]

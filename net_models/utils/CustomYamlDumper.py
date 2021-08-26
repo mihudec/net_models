@@ -15,28 +15,29 @@ from yaml.emitter import Emitter
 from yaml.serializer import Serializer
 from yaml.resolver import Resolver
 from collections import OrderedDict
+import ipaddress
 
-# yaml = YAML()
+from pydantic.typing import Union
 
-def represent_ordereddict(dumper, data):
-    value = []
 
-    for item_key, item_value in data.items():
-        node_key = dumper.represent_data(item_key)
-        node_value = dumper.represent_data(item_value)
-
-        value.append((node_key, node_value))
-
-    return yaml.nodes.MappingNode(u'tag:yaml.org,2002:map', value)
+from net_models.fields import DoubleQoutedString, Jinja2String
 
 
 class CustomYamlRepresenter(Representer):
+
+    def __init__(self, default_style=None, default_flow_style: bool =False, sort_keys: bool = True):
+        super().__init__(default_style=default_style, default_flow_style=default_flow_style, sort_keys=sort_keys)
+
 
     def represent_none(self, data):
         return self.represent_scalar(u'tag:yaml.org,2002:null', u'')
 
     def represent_dict(self, data):
         data_keys = list(data.keys())
+        if self.sort_keys:
+            # TODO: Try to uncomment
+            # data_keys = sorted(data_keys)
+            pass
         if "name" in data_keys:
             data_keys.insert(0, data_keys.pop(data_keys.index("name")))
         if "tags" in data_keys:
@@ -44,7 +45,30 @@ class CustomYamlRepresenter(Representer):
         if "hosts" in data_keys:
             data_keys.append(data_keys.pop(data_keys.index("hosts")))
         values = [(self.represent_data(key), self.represent_data(data[key])) for key in data_keys]
-        return yaml.nodes.MappingNode(u'tag:yaml.org,2002:map', values)
+        return yaml.nodes.MappingNode(tag=u'tag:yaml.org,2002:map', value=values)
+
+    def represent_ordered_dict(self, data):
+        values = []
+        for item_key, item_value in data.items():
+            node_key = self.represent_data(item_key)
+            node_value = self.represent_data(item_value)
+            values.append((node_key, node_value))
+
+        return yaml.nodes.MappingNode(tag=u'tag:yaml.org,2002:map', value=values)
+
+    def represent_double_quoted_string(self, value):
+        return self.represent_scalar(tag=u'tag:yaml.org,2002:str', value=value, style=u'"')
+
+    def represent_ip_interface(self, value: Union[ipaddress.IPv4Interface, ipaddress.IPv6Interface]):
+        return self.represent_scalar(tag=u'tag:yaml.org,2002:str', value=value.with_prefixlen, style=u'')
+
+CustomYamlRepresenter.add_representer(type(None), CustomYamlRepresenter.represent_none)
+CustomYamlRepresenter.add_representer(dict, CustomYamlRepresenter.represent_dict)
+CustomYamlRepresenter.add_representer(OrderedDict, CustomYamlRepresenter.represent_ordered_dict)
+CustomYamlRepresenter.add_representer(DoubleQoutedString, CustomYamlRepresenter.represent_double_quoted_string)
+CustomYamlRepresenter.add_representer(Jinja2String, CustomYamlRepresenter.represent_double_quoted_string)
+CustomYamlRepresenter.add_representer(ipaddress.IPv4Interface, CustomYamlRepresenter.represent_ip_interface)
+CustomYamlRepresenter.add_representer(ipaddress.IPv6Interface, CustomYamlRepresenter.represent_ip_interface)
 
 
 class CustomYamlDumper(Emitter, Serializer, CustomYamlRepresenter, Resolver):
@@ -63,11 +87,6 @@ class CustomYamlDumper(Emitter, Serializer, CustomYamlRepresenter, Resolver):
         CustomYamlRepresenter.__init__(self, default_style=default_style,
                                        default_flow_style=default_flow_style)
         Resolver.__init__(self)
-
-        CustomYamlRepresenter.add_representer(type(None), CustomYamlRepresenter.represent_none)
-        CustomYamlRepresenter.add_representer(OrderedDict, represent_ordereddict)
-        CustomYamlRepresenter.add_representer(dict, CustomYamlRepresenter.represent_dict)
-
 
     def increase_indent(self, flow=False, indentless=False):
         return super(CustomYamlDumper, self).increase_indent(flow=flow, indentless=False)

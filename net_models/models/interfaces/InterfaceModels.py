@@ -4,7 +4,7 @@ from pydantic import root_validator, validator, conint, constr
 from pydantic.typing import (Optional, Dict, Literal)
 # Local package
 from net_models.validators import *
-from net_models.fields import InterfaceName, GENERIC_OBJECT_NAME, LAG_MODE
+from net_models.fields import InterfaceName, GENERIC_OBJECT_NAME, LAG_MODE, JINJA_OR_NAME
 from net_models.models import VendorIndependentBaseModel
 # Local module
 from .InterfaceCommon import InterfaceServicePolicy

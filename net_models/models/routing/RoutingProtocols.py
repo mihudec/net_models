@@ -45,7 +45,9 @@ class RoutingProtocolBase(VendorIndependentBaseModel):
 
 class RoutingProtocolIgpBase(RoutingProtocolBase):
 
-    passive_interfaces: List[InterfaceName]
+    passive_interface_default: Optional[bool]
+    passive_interfaces: Optional[List[InterfaceName]]
+    no_passive_interfaces: Optional[List[InterfaceName]]
 
 class RoutingOspfProcess(RoutingProtocolIgpBase):
 
@@ -75,10 +77,11 @@ class AuthenticationIsis(VendorIndependentBaseModel):
 class RoutingIsisProcess(RoutingProtocolIgpBase):
 
     process_id: GENERIC_OBJECT_NAME
-    it_type: str
+    is_type: str
     metric_style: str
     fast_flood: Optional[int]
     max_lsp_lifetime: Optional[int]
     network: Optional[RoutingIsisNetwork]
     authentication: Optional[AuthenticationIsis]
+    extra_config: Optional[List[str]]
 

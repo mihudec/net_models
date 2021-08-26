@@ -8,3 +8,5 @@ interfaces:
       ipv4:
         addresses:
           - address: 192.0.2.10/24
+    service_policy:
+      input: "{{ PM_TEMPLATE_01 }}"
