@@ -36,6 +36,7 @@ class BgpFallOver(VendorIndependentBaseModel):
         if values.get("type") == "route-map" and not values.get("route-map"):
             msg = "Field 'route-map' is required when 'type' == 'route-map'"
             raise AssertionError()
+        return values
 
 
 class BgpNeighborBase(VendorIndependentBaseModel):
@@ -61,6 +62,7 @@ class BgpNeighborBase(VendorIndependentBaseModel):
     send_community: Optional[str]
     """Send Community"""
     ha_mode: Optional[Literal["sso"]]
+    fall_over: Optional[BgpFallOver]
 
 class BgpPeerGroup(BgpNeighborBase):
     """

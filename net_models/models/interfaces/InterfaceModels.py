@@ -79,7 +79,7 @@ class InterfaceModel(VendorIndependentBaseModel):
     service_policy: Optional[InterfaceServicePolicy]
     service_instances: Optional[List[ServiceInstance]]
     neighbor: Optional[InterfaceNeighbor]
-    raw_config: Optional[List[str]]
+    extra_config: Optional[List[str]]
 
 
 

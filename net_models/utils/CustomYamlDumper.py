@@ -62,6 +62,9 @@ class CustomYamlRepresenter(Representer):
     def represent_ip_interface(self, value: Union[ipaddress.IPv4Interface, ipaddress.IPv6Interface]):
         return self.represent_scalar(tag=u'tag:yaml.org,2002:str', value=value.with_prefixlen, style=u'')
 
+    def represent_ip_address(self, value: Union[ipaddress.IPv4Address, ipaddress.IPv6Address]):
+        return self.represent_scalar(tag=u'tag:yaml.org,2002:str', value=str(value), style=u'')
+
 CustomYamlRepresenter.add_representer(type(None), CustomYamlRepresenter.represent_none)
 CustomYamlRepresenter.add_representer(dict, CustomYamlRepresenter.represent_dict)
 CustomYamlRepresenter.add_representer(OrderedDict, CustomYamlRepresenter.represent_ordered_dict)
@@ -69,7 +72,8 @@ CustomYamlRepresenter.add_representer(DoubleQoutedString, CustomYamlRepresenter.
 CustomYamlRepresenter.add_representer(Jinja2String, CustomYamlRepresenter.represent_double_quoted_string)
 CustomYamlRepresenter.add_representer(ipaddress.IPv4Interface, CustomYamlRepresenter.represent_ip_interface)
 CustomYamlRepresenter.add_representer(ipaddress.IPv6Interface, CustomYamlRepresenter.represent_ip_interface)
-
+CustomYamlRepresenter.add_representer(ipaddress.IPv4Address, CustomYamlRepresenter.represent_ip_address)
+CustomYamlRepresenter.add_representer(ipaddress.IPv6Address, CustomYamlRepresenter.represent_ip_address)
 
 class CustomYamlDumper(Emitter, Serializer, CustomYamlRepresenter, Resolver):
     def __init__(self, stream,

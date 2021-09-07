@@ -118,12 +118,11 @@ class ServiceInstanceL2Protocol(VendorIndependentBaseModel):
     peer: Optional[List[L2_PROTOCOL]]
 
 
-
 class RewriteOperation(VendorIndependentBaseModel):
 
     action: Literal['pop', 'push', 'translate']
     tag: Literal[1, 2]
-    symetric: Optional[bool]
+    symmetric: Optional[bool]
 
 
 class ServiceInstanceRewrite(VendorIndependentBaseModel):

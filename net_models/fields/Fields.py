@@ -30,6 +30,8 @@ ASN = conint(ge=1, le=4294967295)
 AFI = Literal["ipv4", "ipv6", "vpnv4", "vpnv6"]
 SAFI = Literal["unicast", "multicast"]
 
+ISIS_LEVEL = Literal['level-1', 'level-2']
+
 interface_name = constr(min_length=3)
 SWITCHPORT_MODE = Literal["access", "trunk", "dynamic auto", "dynamic desirable", "dot1q-tunnel", "private-vlan host", "private-vlan promiscuous"]
 

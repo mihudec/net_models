@@ -16,6 +16,7 @@ class RoutingConfig(BaseNetModel):
     isis: Optional[List[RoutingIsisProcess]]
     ospf: Optional[List[RoutingOspfProcess]]
     static_ipv4: Optional[List[StaticRouteV4]]
+    segment_routing: Optional[SegmentRoutingConfig]
 
 
 class HostMapping(BaseNetModel):
@@ -38,8 +39,10 @@ class BaseConfig(BaseNetModel):
     vrfs: Optional[List[VRF_NAME]]
     vrf_definitions: Optional[List[VRFModel]]
     vlan_definitions: Optional[List[VLANModel]]
+    aaa_servers: Optional[AAAServerConfig]
     routing: Optional[RoutingConfig]
     ntp: Optional[NtpConfig]
+    network_clock: Optional[NetworkClockConfig]
     snmp: Optional[SnmpConfig]
     logging: Optional[LoggingConfig]
 

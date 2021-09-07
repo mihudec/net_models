@@ -172,5 +172,14 @@ class Inventory(InventoryModel):
                 structure.update({group_name: group.structure()})
         return structure
 
+    def get_flat_groups(self):
+        group_dict = {}
+        for group_name, group in self.groups.items():
+            group_dict.update(group.get_flat_children())
+            group_clone = group.clone()
+            group_clone.children = None
+            if group_name not in group_dict.keys():
+                group_dict[group_name] = group_clone
+        return group_dict
 
 
