@@ -22,7 +22,8 @@ class TestGroup(TestBaseNetModel):
             }
         )
         group_dict = group.get_flat_children()
-        print({k:v.serial_dict(include={'config'}, exclude_none=True) for k, v in group_dict.items()})
+        print(group.structure())
+        self.assertEqual(group_dict, {"B": Group(name="B"), "C": Group(name="C"), "D": Group(name="D")})
 
 
 class TestHostConfig(TestBaseNetModel):
@@ -124,6 +125,62 @@ class TestHost(TestBaseNetModel):
             self.assertEqual(model.config.interfaces[interface.name], interface)
 
 
+class TestInventory(TestBaseNetModel):
+
+    def test_get_group_01(self):
+
+        model = Inventory(
+            groups={
+                "A": Group(name="A"),
+                "B": Group(
+                    name="B",
+                    children={
+                        "C": Group(
+                            name="C",
+                            children={
+                                "D": Group(name="D")
+                            }
+                        )
+                    }
+                ),
+            },
+            hosts={}
+        )
+
+        with self.subTest(msg="Get Existing Group"):
+            self.assertEqual(
+                model.get_group(group_name="C", create_if_missing=False),
+                Group(
+                    name="C",
+                    children={
+                        "D": Group(name="D")
+                    }
+                )
+            )
+
+        with self.subTest(msg="Get Existing Group with Existing Parent"):
+            self.assertEqual(
+                model.get_group(group_name="C", parent_name="B", create_if_missing=False),
+                Group(
+                    name="C",
+                    children={
+                        "D": Group(name="D")
+                    }
+                )
+            )
+
+        with self.subTest(msg="Get Non-existing Group"):
+            self.assertTrue(model.get_group(group_name="E", create_if_missing=False) is None)
+
+        with self.subTest(msg="Get Group from Non-existing Parent"):
+            with self.assertRaises(AssertionError):
+                model.get_group(group_name="C", parent_name="E", create_if_missing=False)
+
+        with self.subTest(msg="Create New Top-level Group"):
+            self.assertEqual(model.get_group(group_name="E"), Group(name="E"))
+
+        with self.subTest(msg="Create New Group Under Parent"):
+            self.assertEqual(model.get_group(group_name="F", parent_name="E"), Group(name="F"))
 
 
 

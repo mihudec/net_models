@@ -104,6 +104,7 @@ class Group(InventoryModel):
 
 Group.update_forward_refs()
 
+
 class Link(InventoryModel):
 
     a_host: GENERIC_OBJECT_NAME
@@ -111,10 +112,12 @@ class Link(InventoryModel):
     a_interface: InterfaceName
     z_interface: InterfaceName
 
+
 class DescriptionLink(Link):
 
     a_description: Optional[str]
     z_description: Optional[str]
+
 
 class PhysicalLink(Link):
 
@@ -158,8 +161,6 @@ class L3Link(Link):
         return values
 
 
-
-
 class Inventory(InventoryModel):
 
     hosts: Dict[GENERIC_OBJECT_NAME, Host]
@@ -182,4 +183,67 @@ class Inventory(InventoryModel):
                 group_dict[group_name] = group_clone
         return group_dict
 
+    @classmethod
+    def recursive_find_group(cls, group_name: str, group_dict: dict) -> Union[Group, None]:
+        group_candidate = None
+        if group_name in group_dict.keys():
+            group_candidate = group_dict.get(group_name)
+            return group_candidate
+        if group_candidate is None:
+            for name, group in group_dict.items():
+                if group.children is not None:
+                    group_candidate = cls.recursive_find_group(group_name=group_name, group_dict=group.children)
+                    if group_candidate is not None:
+                        return group_candidate
+        return group_candidate
+
+    def get_group(self, group_name: str, parent_name: str = None, create_if_missing: bool = True) -> Union[Group, None]:
+        group = None
+        parent_group = None
+        if parent_name is not None:
+            # Try finding the parent_name
+            parent_group = self.recursive_find_group(group_name=parent_name, group_dict=self.groups)
+            if parent_group is None:
+                # Check if the group exists regardless of parent_name
+                group_candidate = self.recursive_find_group(group_name=group_name, group_dict=self.groups)
+                if group_candidate is not None:
+                    msg = f"Parent {parent_name} does not exist, however the group {group_name} was found."
+                    raise AssertionError(msg)
+                else:
+                    pass
+            else:
+                # Try getting the group as a direct child of parent_name
+                if parent_group.children is not None:
+                    group = parent_group.children.get(group_name)
+        else:
+            # Try finding the group itself
+            group = self.recursive_find_group(group_name=group_name, group_dict=self.groups)
+
+        # If group is still None at this point, it does not exist
+        if group is None:
+            if create_if_missing:
+                group = Group(name=group_name)
+                if parent_name is not None:
+                    if parent_group is not None:
+                        if parent_group.children is None:
+                            parent_group.children = {}
+                        parent_group.children[group_name] = group
+                    else:
+                        # At this point, the AssertionError above should have been raised
+                        raise Exception("You should not get to this situation.")
+                else:
+                    self.groups[group_name] = group
+            else:
+                pass
+        return group
+
+    def get_host(self, host_name: str, create_if_missing: bool = True) -> Union[Host, None]:
+        host = self.hosts.get(host_name)
+        if host is None:
+            if create_if_missing:
+                host = Host(name=host_name)
+                self.hosts[host.name] = host
+            else:
+                pass
+        return host
 
