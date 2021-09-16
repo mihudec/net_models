@@ -59,10 +59,11 @@ class BgpNeighborBase(VendorIndependentBaseModel):
     rr_client: Optional[bool]
     """Route Reflector Client"""
     # TODO: Be more specific
-    send_community: Optional[str]
+    send_community: Optional[Literal['both', 'extended', 'standard']]
     """Send Community"""
     ha_mode: Optional[Literal["sso"]]
     fall_over: Optional[BgpFallOver]
+    timers: Optional[BgpTimers]
 
 class BgpPeerGroup(BgpNeighborBase):
     """

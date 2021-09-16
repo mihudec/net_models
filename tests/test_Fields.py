@@ -32,7 +32,6 @@ class TestJinja2String(unittest.TestCase):
         }
         have_yaml = yaml.dump(data=test_data, Dumper=CustomYamlDumper)
         want_yaml = 'foo: "{{ bar }}"\n'
-        print(have_yaml)
         self.assertEqual(have_yaml, want_yaml)
 
     def test_dump_02(self):
@@ -43,7 +42,6 @@ class TestJinja2String(unittest.TestCase):
         }
         have_yaml = yaml.dump(data=test_data, Dumper=CustomYamlDumper)
         want_yaml = 'foo:\n  bar: "{{ bar }}"\n'
-        print(have_yaml)
         self.assertEqual(have_yaml, want_yaml)
 
 

@@ -108,7 +108,6 @@ class DirectoryLoader(BaseLoader):
                 group = self.get_group(group_name=directory.name, create_if_missing=False)
                 if group is not None:
                     group_name = directory.name
-                    print(f"{group_name} found in group.keys()")
                     self.logger.debug(msg=f"Traversing group_var directory for group {group_name}")
                     group_vars_files = self.get_yml_files(path=directory)
                     self.logger.debug(msg=f"Loading {len(group_vars_files)} group_vars files for group {group_name}")

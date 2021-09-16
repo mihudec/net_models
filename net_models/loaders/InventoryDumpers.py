@@ -25,7 +25,6 @@ class AnsibleInventoryDumper(BaseInventoryDumper):
 
     def backup_inventory(self):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        print(timestamp)
         backup_directory = self.directory.parent.joinpath(f"backup_{timestamp}_{self.directory.name}")
         self.logger.info(msg="Creating backup of inventory.")
         shutil.copytree(self.directory, backup_directory)

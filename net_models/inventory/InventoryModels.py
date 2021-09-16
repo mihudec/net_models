@@ -1,6 +1,8 @@
 # Standard Libraries
 import ipaddress
 # Third party packages
+import logging
+
 from pydantic import Extra, root_validator, validator, conint
 from pydantic.typing import Optional, List, Literal, Dict, Tuple
 # Local package
@@ -21,7 +23,7 @@ from .Config import HostConfig, GroupConfig
 
 class InventoryModel(BaseNetModel):
 
-    pass
+    _logger: logging.Logger = get_logger(name="InventoryModel")
 
 
 class Host(InventoryModel):
@@ -247,3 +249,25 @@ class Inventory(InventoryModel):
                 pass
         return host
 
+    def assign_host_to_group(self, host_name, group_name):
+        group = self.get_group(group_name=group_name, create_if_missing=False)
+        host = self.get_host(host_name=host_name, create_if_missing=False)
+        if group is None:
+            msg = f"Group '{group_name}' not found in inventory"
+            self._logger.error(msg=msg)
+            raise GroupNotFound(msg)
+        if host is None:
+            msg = f"Host '{host_name}' not found in inventory"
+            self._logger.error(msg=msg)
+            raise HostNotFound(msg)
+        if group and host:
+            if group.hosts is None:
+                group.hosts = {}
+            if host.name in group.hosts.keys():
+                self._logger.info(msg=f"Host {host.name} is aleready in {group.name}")
+                return True
+            else:
+                group.hosts.update({host.name: None})
+                self._logger.info(msg=f"Added host {host.name} to group {group.name}")
+                return True
+        return False

@@ -70,8 +70,8 @@ class GroupConfig(BaseConfig):
 
     vlans: Optional[List[VLAN_ID]]
     vlan_definitions: Optional[List[VLANHostMapping]]
-    @validator('vlans', allow_reuse=True)
 
+    @validator('vlans', allow_reuse=True)
     def sort_vlans(cls, value):
         if value is not None:
             return remove_duplicates_and_sort(data=value)

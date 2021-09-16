@@ -3,3 +3,9 @@ class NetModelException(Exception):
 
 class InterfaceAlreadyExists(NetModelException):
     pass
+
+class HostNotFound(NetModelException):
+    pass
+
+class GroupNotFound(NetModelException):
+    pass

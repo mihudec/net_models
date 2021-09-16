@@ -181,8 +181,17 @@ class SnmpUserAuth(AuthBase):
 class SnmpUserPriv(AuthBase):
 
     method: Literal["des", "3des", "aes"]
+    key_length: Optional[Literal[128, 192, 256]]
     value: str
 
+    @root_validator(allow_reuse=True)
+    def key_length_required(cls, values):
+        method = values.get('method')
+        if method == 'aes':
+            key_length = values.get('key_length')
+            if key_length is None:
+                raise AssertionError("If method == 'aes', 'key_length' must be specified")
+        return values
 
 class SnmpGroup(VendorIndependentBaseModel):
 
@@ -205,8 +214,22 @@ class SnmpUser(VendorIndependentBaseModel):
     group: GENERIC_OBJECT_NAME
     access_list: Optional[GENERIC_OBJECT_NAME]
 
+class SnmpServer(ServerPropertiesBase):
+
+    version: Optional[Literal['1', '2c', '3']]
+    auth: Optional[str]
+
+class SnmpTrapsConfig(VendorIndependentBaseModel):
+
+    src_traps: Optional[InterfaceName]
+    src_informs: Optional[InterfaceName]
+    dscp: Optional[str]
+    chassis_id: Optional[Literal['hostname']]
+    traps_enable: Optional[List[str]]
+
 class SnmpConfig(VendorIndependentBaseModel):
 
     users: Optional[List[SnmpUser]]
     groups: Optional[List[SnmpGroup]]
     views: Optional[List[SnmpView]]
+    traps_config: Optional[SnmpTrapsConfig]

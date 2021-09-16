@@ -22,7 +22,6 @@ class TestGroup(TestBaseNetModel):
             }
         )
         group_dict = group.get_flat_children()
-        print(group.structure())
         self.assertEqual(group_dict, {"B": Group(name="B"), "C": Group(name="C"), "D": Group(name="D")})
 
 
@@ -182,7 +181,78 @@ class TestInventory(TestBaseNetModel):
         with self.subTest(msg="Create New Group Under Parent"):
             self.assertEqual(model.get_group(group_name="F", parent_name="E"), Group(name="F"))
 
+    def test_get_host_01(self):
 
+        model = Inventory(
+            groups={
+                "A": Group(name="A"),
+                "B": Group(
+                    name="B",
+                    children={
+                        "C": Group(
+                            name="C",
+                            children={
+                                "D": Group(name="D")
+                            },
+                            hosts={
+                                "Host-01": None
+                            }
+                        )
+                    }
+                ),
+            },
+            hosts={
+                "Host-01": Host(name="Host-01")
+            }
+        )
+
+        with self.subTest(msg="Get Existing Host"):
+            self.assertEqual(
+                model.get_host(host_name="Host-01", create_if_missing=False),
+                Host(name="Host-01")
+            )
+
+        with self.subTest(msg="Get Non-existing Host"):
+            self.assertTrue(
+                model.get_host(host_name="Host-02", create_if_missing=False) is None
+            )
+
+        with self.subTest(msg="Create New Host"):
+            self.assertEqual(
+                model.get_host(host_name="Host-02", create_if_missing=True),
+                Host(name="Host-02")
+            )
+
+        with self.subTest(msg="Get Newly Created Host"):
+            self.assertEqual(
+                model.get_host(host_name="Host-02", create_if_missing=False),
+                Host(name="Host-02")
+            )
+
+    def test_assign_host_to_group(self):
+
+        model = Inventory(
+            groups={
+                "A": Group(name="A"),
+            },
+            hosts={
+                "Host-01": Host(name="Host-01")
+            }
+        )
+
+        with self.subTest(msg="Assign Existing Host to Existing Group"):
+            self.assertTrue(model.assign_host_to_group(host_name="Host-01", group_name="A"))
+
+        with self.subTest(msg="Assign Existing Host to Existing Group - Again"):
+            self.assertTrue(model.assign_host_to_group(host_name="Host-01", group_name="A"))
+
+        with self.subTest(msg="Assign Existing Host to Non-existing Group"):
+            with self.assertRaises(expected_exception=GroupNotFound):
+                model.assign_host_to_group(host_name="Host-01", group_name="B"),
+
+        with self.subTest(msg="Assign Non-existing Host to Existing Group"):
+            with self.assertRaises(expected_exception=HostNotFound):
+                model.assign_host_to_group(host_name="Host-02", group_name="A")
 
 
 if __name__ == '__main__':

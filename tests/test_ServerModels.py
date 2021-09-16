@@ -17,7 +17,15 @@ from net_models.models import (
     LoggingDiscriminator,
     LoggingServer,
     LoggingSource,
-    LoggingConfig
+    LoggingConfig,
+    SnmpView,
+    SnmpUserAuth,
+    SnmpUserPriv,
+    SnmpGroup,
+    SnmpUser,
+    SnmpServer,
+    SnmpTrapsConfig,
+    SnmpConfig
 )
 from tests.BaseTestClass import TestVendorIndependentBase
 
@@ -350,6 +358,46 @@ class TestLogginConfig(TestVendorIndependentBase):
 
     def test_raises_missing_discriminator(self):
         pass
+
+
+class TestSnmpView(TestVendorIndependentBase):
+    TEST_CLASS = SnmpView
+
+
+class TestSnmpUserAuth(TestVendorIndependentBase):
+    TEST_CLASS = SnmpUserAuth
+
+
+class TestSnmpUserPriv(TestVendorIndependentBase):
+    TEST_CLASS = SnmpUserPriv
+
+    def test_key_length_required(self):
+
+        with self.assertRaises(expected_exception=ValidationError):
+            model = self.TEST_CLASS(method='aes', value='1234')
+
+        # This is OK
+        model = self.TEST_CLASS(method='aes', key_length=128, value='1234')
+
+
+class TestSnmpGroup(TestVendorIndependentBase):
+    TEST_CLASS = SnmpGroup
+
+
+class TestSnmpUser(TestVendorIndependentBase):
+    TEST_CLASS = SnmpUser
+
+
+class TestSnmpServer(TestVendorIndependentBase):
+    TEST_CLASS = SnmpServer
+
+
+class TestSnmpTrapsConfig(TestVendorIndependentBase):
+    TEST_CLASS = SnmpTrapsConfig
+
+
+class TestSnmpConfig(TestVendorIndependentBase):
+    TEST_CLASS = SnmpConfig
 
 
 if __name__ == '__main__':
