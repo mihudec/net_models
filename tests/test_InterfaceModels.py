@@ -222,7 +222,7 @@ class TestInterfaceModel(TestVendorIndependentBase):
 class TestInterfaceContainerModel(TestVendorIndependentBase):
     TEST_CLASS = InterfaceContainerModel
 
-    def test_create_01(self):
+    def test_create_dict_01(self):
         test_payload = {
             "interfaces": {
                 "Loopback1": {
@@ -259,12 +259,57 @@ class TestInterfaceContainerModel(TestVendorIndependentBase):
         }
         with self.subTest("Test Init"):
             try:
-                test_obj = self.TEST_CLASS(**test_payload)
+                test_obj = self.TEST_CLASS.parse_obj(test_payload)
             except Exception as e:
                 self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
         with self.subTest("OrderedDict"):
-            test_obj = self.TEST_CLASS(**test_payload)
+            test_obj = self.TEST_CLASS.parse_obj(test_payload)
             self.assertIsInstance(test_obj.interfaces, collections.OrderedDict)
+
+    def test_create_list_02(self):
+        test_payload = {
+            "interfaces": [
+                {
+                    "name": "Loopback1",
+                    "l3_port": {
+                        "ipv4": {
+                            "addresses": [
+                                {
+                                    "address": "192.168.1.1/32"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Loopback0",
+                    "l3_port": {
+                        "ipv4": {
+                            "addresses": [
+                                {
+                                    "address": "192.168.1.1/32"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "GigabitEthernet1/0/1.2",
+                    "l2_port": {
+                        "mode": "trunk"
+                    }
+                }
+            ]
+        }
+        with self.subTest("Test Init"):
+            try:
+                test_obj = self.TEST_CLASS.parse_obj(test_payload)
+            except Exception as e:
+                self.fail(f"{self.TEST_CLASS.__name__} raised Exception: {repr(e)}")
+        with self.subTest("OrderedDict"):
+            test_obj = self.TEST_CLASS.parse_obj(test_payload)
+            self.assertIsInstance(test_obj.interfaces, collections.OrderedDict)
+
 
 
 if __name__ == '__main__':

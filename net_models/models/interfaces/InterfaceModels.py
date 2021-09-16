@@ -139,3 +139,15 @@ class InterfaceContainerModel(VendorIndependentBaseModel):
     interfaces: Dict[InterfaceName, InterfaceModel] # Actually collections.OrderedDict, because Python 3.6
 
     _sort_interfaces = validator("interfaces", allow_reuse=True)(sort_interface_dict)
+
+    @root_validator(allow_reuse=True, pre=True)
+    def from_list(cls, values):
+        interfaces = values.get('interfaces')
+        if isinstance(interfaces, dict):
+            pass
+        elif isinstance(interfaces, list):
+            interfaces = {x['name']: x for x in interfaces}
+        else:
+            pass
+        values['interfaces'] = interfaces
+        return values
