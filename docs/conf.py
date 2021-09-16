@@ -23,7 +23,7 @@ copyright = '2021, Miroslav Hudec'
 author = 'Miroslav Hudec'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.9'
+release = '0.1.10'
 
 
 # -- General configuration ---------------------------------------------------
