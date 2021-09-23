@@ -16,7 +16,7 @@ INTERFACE_NAME = constr(regex=BASE_INTERFACE_REGEX.pattern)
 # INTERFACE_NAME = Literal['Ethernet', 'FastEthernet', 'GigabitEthernet', 'TenGigabitEthernet', 'TwentyFiveGigE', 'FortyGigabitEthernet', 'HundredGigE', 'Port-channel', 'Tunnel', 'Vlan', 'BDI', 'Loopback', 'Serial', 'pseudowire']
 GENERIC_OBJECT_NAME = constr(strip_whitespace=True, regex=r"\S+")
 GENERIC_INTERFACE_NAME = constr(strip_whitespace=True, regex=r"\S+")
-LAG_MODE = Literal["active", "pasive", "desirable", "auto", "on"]
+LAG_MODE = Literal["active", "passive", "desirable", "auto", "on"]
 
 VRF_NAME = constr(strip_whitespace=True, regex=r"\S+")
 VLAN_ID = conint(ge=1, le=4094)

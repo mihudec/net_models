@@ -9,3 +9,6 @@ class HostNotFound(NetModelException):
 
 class GroupNotFound(NetModelException):
     pass
+
+class VlanNotFound(NetModelException):
+    pass

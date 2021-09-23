@@ -42,6 +42,7 @@ INTERFACE_TYPE_WEIGHT_MAP = {
     90: ["BDI"],
     80: ["Tunnel"],
     75: ["pseudowire"],
+    40: ['Port-channel']
 
 }
 

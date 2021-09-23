@@ -61,3 +61,4 @@ target/
 .idea/
 venv/
 /.bumpversion.cfg
+tests/resources/~$ExcelLoaderResource-01.xlsx

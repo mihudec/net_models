@@ -41,9 +41,11 @@ class Host(InventoryModel):
             self.config = HostConfig()
         return self.config
 
-    def get_or_create_interface(self, interface_name: str = None, interface: Union[InterfaceModel, dict] = None):
+    def get_or_create_interface(self, interface_name: str = None, interface: Union[InterfaceModel, dict] = None, create_if_missing: bool = False):
         config = self._get_or_create_config()
-        return config._get_or_create_interface(interface_name=interface_name, interface=interface)
+        return config.get_interface(interface_name=interface_name, interface_params=interface, create_if_missing=create_if_missing)
+
+
 
 
 
@@ -60,6 +62,11 @@ class Group(InventoryModel):
     children: Optional[Dict[GENERIC_OBJECT_NAME, 'Group']]
 
     hosts: Optional[Dict[GENERIC_OBJECT_NAME, Union[dict, None]]]
+
+    def _get_or_create_config(self):
+        if self.config is None:
+            self.config = GroupConfig()
+        return self.config
 
     def add_child(self, group_name: GENERIC_OBJECT_NAME, group: 'Group' = None):
         result = None

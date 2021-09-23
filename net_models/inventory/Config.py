@@ -26,7 +26,11 @@ class HostMapping(BaseNetModel):
 
 class VLANHostMapping(VLANModel, HostMapping):
 
-    pass
+    @validator('hosts', allow_reuse=True)
+    def sort_hosts(cls, value):
+        if isinstance(value, list):
+            value = remove_duplicates_and_sort(data=value)
+        return value
 
 
 class BaseConfig(BaseNetModel):
@@ -84,6 +88,37 @@ class GroupConfig(BaseConfig):
             return sorted(value, key=lambda x: x.vlan_id)
         else:
             return value
+
+    def get_or_create_vlan(self, vlan_id: int, create_if_missing: bool = False) -> VLANHostMapping:
+        if self.vlan_definitions is None:
+            if not create_if_missing:
+                raise VlanNotFound(f"VLAN {vlan_id} not found in vlan_definitions and create_if_missing is {create_if_missing}")
+            else:
+                self.vlan_definitions = []
+        vlan = None
+        vlan_candidates = [x for x in self.vlan_definitions if x.vlan_id == vlan_id]
+        if len(vlan_candidates) == 1:
+            vlan = vlan_candidates[0]
+        elif len(vlan_candidates) == 0:
+            if not create_if_missing:
+                raise VlanNotFound(f"VLAN {vlan_id} not found in vlan_definitions and create_if_missing is {create_if_missing}")
+            else:
+                vlan = VLANHostMapping(vlan_id=vlan_id)
+                self.vlan_definitions.append(vlan)
+        else:
+            raise Exception(f"Got multiple results for {vlan_id=}")
+        return vlan
+
+
+
+    def add_host_to_vlan(self, vlan_id: int, host_name: str, create_if_missing: bool = False) -> None:
+        vlan = self.get_or_create_vlan(vlan_id=vlan_id, create_if_missing=create_if_missing)
+        if vlan is not None:
+            if vlan.hosts is None:
+                vlan.hosts = []
+            if host_name not in vlan.hosts:
+                vlan.hosts.append(host_name)
+
 
 class HostConfig(BaseConfig):
 

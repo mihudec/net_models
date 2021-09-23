@@ -35,7 +35,6 @@ class CustomYamlRepresenter(Representer):
     def represent_dict(self, data):
         data_keys = list(data.keys())
         if self.sort_keys:
-            # TODO: Try to uncomment
             # data_keys = sorted(data_keys)
             pass
         if "name" in data_keys:

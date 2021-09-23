@@ -48,7 +48,7 @@ class InterfaceSwitchportModel(VendorIndependentBaseModel):
     negotiation: Optional[bool]
     """
     Wether or not negotiate trunking, for example via DTP. 
-    Setting this field to `False` will result in :code:`switchport nonegotiate`
+    Setting this value to `False` will result in :code:`switchport nonegotiate`
     """
     stp: Optional[InterfaceSpanningTreeConfig]
 
