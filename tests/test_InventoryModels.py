@@ -6,6 +6,24 @@ from net_models.inventory import *
 from tests import TestBaseNetModel
 
 
+class TestGroupConfig(TestBaseNetModel):
+
+    def test_vlan_definitions(self):
+        config = GroupConfig(
+            vlan_definitions=[
+                VLANHostMapping(
+                    vlan_id=10,
+                    name="TestVlan-10",
+                    hosts=[
+                        VlanHost(
+                            name="SW-01"
+                        )
+                    ]
+                )
+            ]
+        )
+        self.assertIsInstance(config, GroupConfig)
+
 class TestGroup(TestBaseNetModel):
 
     def test_get_all_groups(self):

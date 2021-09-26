@@ -103,10 +103,23 @@ class ExcelLoader(BaseLoader):
         if switches_group_config.vlan_definitions is None:
             switches_group_config.vlan_definitions = []
         for index, row in df.iterrows():
-            vlan = VLANModel(**{k:v for k,v in row.items() if k in include_keys and v is not None})
+            vlan = VLANHostMapping(**{k:v for k,v in row.items() if k in include_keys and v is not None})
             if vlan.vlan_id not in [x.vlan_id for x in switches_group_config.vlan_definitions]:
                 switches_group_config.vlan_definitions.append(vlan)
 
+    def load_vlan_host_mapping(self, assign_to: Literal['host', 'group'] = 'group', group_name: str = 'switches'):
+        columns_rename = {
+            "Use": "use",
+            "Host": 'host'
+        }
+        include_keys = set(columns_rename.values()).difference(set(META_KEYS))
+        df = self.load_excel(path=self.input_file, sheet_name="vlan_host_mapping", columns_rename=columns_rename)
+        df = self.use_filter(df=df)
+        # TODO: Finish up
+
+    def load_vlan_interface_mapping(self):
+        # TODO: Finish up
+        pass
 
     def load_physical_links(self, default_lag_mode: LAG_MODE = 'active'):
         self.logger.info("Loading Physical Links")
@@ -119,9 +132,9 @@ class ExcelLoader(BaseLoader):
             link = PhysicalLink(**{k:v for k,v in row.items() if k in include_keys and v is not None})
             # print(link)
             a_host = self.get_host(host_name=link.a_host)
-            a_interface = a_host.get_or_create_interface(interface_name=link.a_interface, create_if_missing=True)
+            a_interface, _ = a_host.get_or_create_interface(interface_name=link.a_interface, create_if_missing=True)
             z_host = self.get_host(host_name=link.z_host)
-            z_interface = z_host.get_or_create_interface(interface_name=link.z_interface, create_if_missing=True)
+            z_interface, _ = z_host.get_or_create_interface(interface_name=link.z_interface, create_if_missing=True)
             a_interface.neighbor = InterfaceNeighbor(host=z_host.name, interface=z_interface.name)
             z_interface.neighbor = InterfaceNeighbor(host=a_host.name, interface=a_interface.name)
 
@@ -144,12 +157,12 @@ class ExcelLoader(BaseLoader):
             a_lag = None
             z_lag = None
             if link.a_lag_group is not None:
-                a_lag = a_host.get_or_create_interface(interface_name=f"Port-channel{link.a_lag_group}", create_if_missing=True)
+                a_lag, _ = a_host.get_or_create_interface(interface_name=f"Port-channel{link.a_lag_group}", create_if_missing=True)
                 lag_mode = link.a_lag_mode if link.a_lag_mode is not None else default_lag_mode
                 a_interface.lag_member = InterfaceLagMemberConfig(group=link.a_lag_group, mode=lag_mode)
 
             if link.z_lag_group is not None:
-                z_lag = z_host.get_or_create_interface(interface_name=f"Port-channel{link.z_lag_group}", create_if_missing=True)
+                z_lag, _ = z_host.get_or_create_interface(interface_name=f"Port-channel{link.z_lag_group}", create_if_missing=True)
                 lag_mode = link.z_lag_mode if link.z_lag_mode is not None else default_lag_mode
                 z_interface.lag_member = InterfaceLagMemberConfig(group=link.z_lag_group, mode=lag_mode)
 

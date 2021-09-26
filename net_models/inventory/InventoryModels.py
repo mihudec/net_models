@@ -36,14 +36,14 @@ class Host(InventoryModel):
     name: GENERIC_OBJECT_NAME
     config: Optional[HostConfig]
 
-    def _get_or_create_config(self):
+    def _get_or_create_config(self) -> HostConfig:
         if self.config is None:
             self.config = HostConfig()
         return self.config
 
     def get_or_create_interface(self, interface_name: str = None, interface: Union[InterfaceModel, dict] = None, create_if_missing: bool = False):
         config = self._get_or_create_config()
-        return config.get_interface(interface_name=interface_name, interface_params=interface, create_if_missing=create_if_missing)
+        return config._get_or_create_interface(interface_name=interface_name, interface=interface)
 
 
 

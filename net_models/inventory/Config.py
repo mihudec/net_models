@@ -19,17 +19,22 @@ class RoutingConfig(BaseNetModel):
     segment_routing: Optional[SegmentRoutingConfig]
 
 
-class HostMapping(BaseNetModel):
 
-    hosts: Optional[List[GENERIC_OBJECT_NAME]]
+class VlanHost(BaseNetModel):
+
+    name: GENERIC_OBJECT_NAME
+    dhcp_snooping: Optional[bool]
+    device_tracking_policy: Optional[GENERIC_OBJECT_NAME]
 
 
-class VLANHostMapping(VLANModel, HostMapping):
+class VLANHostMapping(VLANModel):
+
+    hosts: Optional[List[VlanHost]]
 
     @validator('hosts', allow_reuse=True)
     def sort_hosts(cls, value):
         if isinstance(value, list):
-            value = remove_duplicates_and_sort(data=value)
+            value = sorted(value, key=lambda x: x.name)
         return value
 
 
@@ -116,8 +121,9 @@ class GroupConfig(BaseConfig):
         if vlan is not None:
             if vlan.hosts is None:
                 vlan.hosts = []
-            if host_name not in vlan.hosts:
-                vlan.hosts.append(host_name)
+            if host_name not in [x.name for x in vlan.hosts]:
+                vlan_host = VlanHost(name=host_name)
+                vlan.hosts.append(vlan_host)
 
 
 class HostConfig(BaseConfig):
