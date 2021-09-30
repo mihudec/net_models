@@ -219,6 +219,91 @@ class TestInterfaceModel(TestVendorIndependentBase):
         self.assertEqual(want, have)
 
 
+class TestHsrpAuthentication(TestVendorIndependentBase):
+
+    TEST_CLASS = HsrpAuthentication
+
+    def test_valid(self):
+        with self.subTest(msg='Plaintext'):
+            model = HsrpAuthentication(
+                method='text',
+                key=KeyBase(
+                    value='SecretPassword',
+                    encryption_type=0
+                )
+            )
+        with self.subTest(msg='MD5'):
+            model = HsrpAuthentication(
+                method='md5',
+                key=KeyBase(
+                    value='SecretPassword',
+                    encryption_type=0
+                )
+            )
+        with self.subTest(msg='KeyChain'):
+            model = HsrpAuthentication(
+                method='key-chain',
+                keychain="KC-HSRP"
+            )
+
+
+class TestInterfaceHsrp(TestVendorIndependentBase):
+
+    TEST_CLASS = InterfaceHsrp
+
+    def test_from_dict(self):
+        test_cases = [
+            {
+                "test_name": "Test-01",
+                "data": {
+                    "version": 2,
+                    "groups": [
+                        {
+                            "group_id": 100,
+                            "ipv4": [
+                                {
+                                    "address": "192.168.100.1",
+                                    "secondary": True
+                                },
+                                {
+                                    "address": "10.0.100.1",
+                                    "secondary": False
+                                }
+                            ],
+                            "authentication": {
+                                "method": "key-chain",
+                                "keychain": "KC-HSRP"
+                            },
+                            "timers": {
+                                "hello": 1,
+                                "hold": 3,
+                                "milliseconds": True
+                            }
+                        },
+                        {
+                            "group_id": 99
+                        }
+                    ]
+                }
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(msg=test_case["test_name"]):
+                model = self.TEST_CLASS.parse_obj(test_case['data'])
+                print(model.yaml(exclude_none=True))
+
+    def test_raises_on_version_1(self):
+        with self.assertRaises(expected_exception=ValidationError):
+            model = InterfaceHsrp(
+                version=1,
+                groups=[
+                    InterfaceHsrpGroup(
+                        group_id=1000
+                    )
+                ]
+            )
+
+
 class TestInterfaceContainerModel(TestVendorIndependentBase):
     TEST_CLASS = InterfaceContainerModel
 

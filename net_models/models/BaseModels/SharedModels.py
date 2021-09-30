@@ -41,6 +41,30 @@ class VLANModel(VendorIndependentBaseModel):
     enabled: Optional[bool]
 
 
+class VtpConfig(VendorIndependentBaseModel):
+    version: Optional[Literal[1, 2, 3]]
+    mode: Optional[Literal['server', 'client', 'transparent', 'off']]
+    domain: Optional[GENERIC_OBJECT_NAME]
+    primary: Optional[bool]
+
+    @root_validator(allow_reuse=True)
+    def validate_primary(cls, values):
+        primary = values.get('primary')
+        version = values.get('version')
+        if primary is not None:
+            if version is None:
+                raise AssertionError(f"If 'primary' is set, 'version' cannot be None.")
+            elif isinstance(version, int):
+                if version != 3:
+                    raise AssertionError(f"If 'primary' is set, 'version' must be set to 3.")
+        return values
+
+
+class StpConfig(VendorIndependentBaseModel):
+    protocol: Optional[str]
+    # TODO: Finish up
+
+
 class BridgeDomainModel(VendorIndependentBaseModel):
     bridge_domain_id: BRIDGE_DOMAIN_ID
     enabled: Optional[bool]

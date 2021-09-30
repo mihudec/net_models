@@ -236,7 +236,8 @@ class HostConfig(BaseConfig):
             self._create_interface(interface=interface)
             return interface, True
         else:
-            return candidate, False
+            interface = candidate
+            return interface, False
 
     def _update_interface(self, interface_params: Union[InterfaceModel, dict]):
         raise NotImplementedError

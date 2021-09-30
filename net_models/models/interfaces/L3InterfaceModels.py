@@ -178,6 +178,105 @@ class RoutePortEncapsulation(VendorIndependentBaseModel):
     native: Optional[bool]
 
 
+class InterfaceFhrpBase(VendorIndependentBaseModel):
+
+    protocol: Literal['vrrp', 'hsrp', 'glbp']
+
+
+class InterfaceFhrpGroup(VendorIndependentBaseModel):
+
+    group_id: conint(ge=0, le=4095)
+
+
+class HsrpTimers(VendorIndependentBaseModel):
+
+    hello: conint(ge=1)
+    hold: conint(ge=1)
+    milliseconds: Optional[bool]
+
+    @root_validator(allow_reuse=True)
+    def validate_timers(cls, values):
+        hello = values.get('hello')
+        hold = values.get('hold')
+        if hold <= hello:
+            raise AssertionError(f"Timer for 'hold' must be greater than 'hello'")
+        return values
+
+
+
+class HsrpAuthentication(VendorIndependentBaseModel):
+
+    method: Literal['md5', 'text', 'key-chain']
+    keychain: Optional[GENERIC_OBJECT_NAME]
+    key: Optional[KeyBase]
+
+    @root_validator(allow_reuse=True)
+    def validate_keychain_present(cls, values):
+        method = values.get('method')
+        keychain = values.get('keychain')
+        key = values.get('key')
+        if method == 'key-chain' and keychain is None:
+            raise AssertionError("When method is 'keychain', keychain cannot be None")
+        if method != 'key-chain' and keychain is not None:
+            raise AssertionError("Field keychain can only be set if method == 'key-chain'")
+        if method not in ['text', 'md5'] and key is not None:
+            raise AssertionError("Field key can only be set if 'method' in ['text', 'md5']")
+        return values
+
+
+class HsrpIpv4Address(VendorIndependentBaseModel):
+
+    address: ipaddress.IPv4Address
+    secondary: Optional[bool]
+
+
+class HsrpTrack(VendorIndependentBaseModel):
+
+    track_id: conint(ge=1)
+    action: Literal['shutdown', 'decrement']
+    decrement_value: Optional[conint(ge=1)]
+
+
+class InterfaceHsrpGroup(InterfaceFhrpGroup):
+
+    name: Optional[HSRP_GROUP_NAME]
+    ipv4: Optional[List[HsrpIpv4Address]]
+    priority: Optional[conint(ge=1, le=255)]
+    preemption: Optional[bool]
+    timers: Optional[HsrpTimers]
+    authentication: Optional[HsrpAuthentication]
+    tracks: Optional[List[HsrpTrack]]
+    follow: Optional[HSRP_GROUP_NAME]
+    """Name of HSRP group to follow"""
+
+
+
+class InterfaceHsrp(InterfaceFhrpBase):
+
+    protocol: Literal['hsrp'] = 'hsrp'
+    version: Literal[1, 2]
+    groups: Optional[List[InterfaceHsrpGroup]]
+
+    @root_validator(allow_reuse=True)
+    def validate_group_numbers(cls, values):
+        version = values.get('version')
+        groups = values.get('groups')
+        if isinstance(groups, list):
+            if version == 1:
+                high_group_ids = [x['group_id'] for x in groups if x['group_id'] > 255]
+                if len(high_group_ids):
+                    raise AssertionError(f"With 'version' == 1, maximum of 255 is allowed for group['group_id']")
+        return values
+
+    @root_validator(allow_reuse=True)
+    def sort_groups(cls, values):
+        groups = values.get('groups')
+        if groups is not None:
+            groups = sorted(groups, key=lambda x: x.group_id)
+            values['groups'] = groups
+        return values
+
+
 class InterfaceRouteportModel(VendorIndependentBaseModel):
 
     _modelname = "routeport_model"
@@ -191,6 +290,7 @@ class InterfaceRouteportModel(VendorIndependentBaseModel):
     ospf: Optional[InterfaceOspfConfig]
     isis: Optional[InterfaceIsisConfig]
     bfd: Optional[InterfaceBfdConfig]
+    hsrp: Optional[InterfaceHsrp]
 
     def add_ipv4_address(self, address: Union[InterfaceIPv4Address, ipaddress.IPv4Interface]):
         if self.ipv4 is None:
