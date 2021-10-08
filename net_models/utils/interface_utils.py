@@ -32,7 +32,8 @@ INTERFACE_NAMES = {
     "BDI": ["BDI"],
     "Loopback": ["Lo"],
     "Serial": ["Se"],
-    "pseudowire": ["pw"]
+    "pseudowire": ["pw"],
+    "CEM": ["CEM"]
 
 }
 

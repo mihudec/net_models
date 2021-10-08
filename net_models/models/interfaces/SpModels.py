@@ -134,6 +134,7 @@ class ServiceInstanceRewrite(VendorIndependentBaseModel):
 class ServiceInstance(VendorIndependentBaseModel):
 
     si_id: conint(ge=1)
+    evc: Optional[GENERIC_OBJECT_NAME]
     description: Optional[str]
     encapsulation: Optional[InterfaceEncapsulation]
     evc_name: Optional[GENERIC_OBJECT_NAME]

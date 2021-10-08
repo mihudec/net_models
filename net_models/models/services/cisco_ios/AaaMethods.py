@@ -120,7 +120,6 @@ class IosAaaConfig(IosAaaBase):
     accounting: Optional[IosAaaAccounting]
 
 
-
 class IosAaaLineCommands(BaseNetModel):
 
     name: GENERIC_OBJECT_NAME
