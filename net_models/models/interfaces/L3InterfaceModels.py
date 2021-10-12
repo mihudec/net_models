@@ -256,6 +256,7 @@ class InterfaceHsrp(InterfaceFhrpBase):
     protocol: Literal['hsrp'] = 'hsrp'
     version: Literal[1, 2]
     groups: Optional[List[InterfaceHsrpGroup]]
+    extra_config: Optional[List[str]]
 
     @root_validator(allow_reuse=True)
     def validate_group_numbers(cls, values):

@@ -82,10 +82,21 @@ class LoggingServer(ServerPropertiesBase):
         return validators.required_together(values=values, required=["port", "protocol"])
 
 
+class LoggingLevels(VendorIndependentBaseModel):
+
+    history: Optional[Union[str, int]]
+    trap: Optional[Union[str, int]]
+
+
+
 
 class LoggingConfig(VendorIndependentBaseModel):
 
     servers: Optional[List[LoggingServer]]
+    sources: Optional[List[LoggingSource]]
+    discriminators: Optional[List[LoggingDiscriminator]]
+    buffer_size: Optional[conint(ge=0)]
+    traps: Optional[List[str]]
 
     @root_validator(allow_reuse=True)
     def _validate_servers_unique(cls, values):

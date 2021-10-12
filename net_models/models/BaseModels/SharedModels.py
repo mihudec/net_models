@@ -1,6 +1,8 @@
 # Standard Libraries
 # Third party packages
-from pydantic import root_validator
+import ipaddress
+
+from pydantic import root_validator, conint, constr
 from pydantic.typing import Union, Optional, List, Literal, List
 # Local package
 from net_models.fields import (
@@ -8,10 +10,26 @@ from net_models.fields import (
     ROUTE_TARGET, ROUTE_DISTINGUISHER, AFI, SAFI
 )
 # Local module
-from .BaseNetModels import VendorIndependentBaseModel
+from .BaseNetModels import VendorIndependentBaseModel, BaseNetModel
 
 
-__all__ = ['KeyBase', 'KeyChain', 'AuthBase', 'VLANModel', 'RouteTarget', 'VRFAddressFamily', 'VRFModel']
+__all__ = [
+    'KeyBase',
+    'KeyChain',
+    'AuthBase',
+    'VLANModel',
+    'RouteTarget',
+    'VRFAddressFamily',
+    'VRFModel',
+    'AclBase',
+    'AclBaseEntry',
+    'AclStandard',
+    'AclExtended',
+    'AclStandardIPv4',
+    'AclStandardIPv4Entry',
+    'AclStandardIPv6',
+    'AclStandardIPv6Entry'
+]
 
 
 class KeyBase(VendorIndependentBaseModel):
@@ -93,3 +111,68 @@ class VRFModel(VendorIndependentBaseModel):
     address_families: Optional[List[VRFAddressFamily]]
     description: Optional[str]
 
+
+
+class AclBaseEntry(BaseNetModel):
+    
+    seq_no: Optional[conint(ge=1)]
+    remark: Optional[str]
+    action: Literal['permit', 'deny']
+
+
+class AclBase(BaseNetModel):
+
+    name: Union[int, GENERIC_OBJECT_NAME]
+    entries: Optional[List[AclBaseEntry]]
+    acl_type: Literal['standard', 'extended']
+    acl_version: Literal['ipv4', 'ipv6']
+
+
+class AclStandard(AclBase):
+
+    acl_type: Literal['standard'] = 'standard'
+
+
+class AclExtended(AclBase):
+
+    acl_type: Literal['extended'] = 'extended'
+
+
+class AclStandardIPv4Entry(AclBaseEntry):
+
+    src_address: Union[ipaddress.IPv4Address, ipaddress.IPv4Network, Literal['any']]
+    src_wildcard: Optional[Union[constr(regex=r"(?:\d{1,3}\.){3}(?:\d{1,3})")]]
+
+    root_validator(allow_reuse=True)
+    def wildcard_required(cls, values):
+        src_wildcard = values.get('src_wildcard')
+        if isinstance(values.get('src_address'), ipaddress.IPv4Network):
+            if src_wildcard is not None:
+                msg = f"If 'src_address' is specified with netmask, 'src_wildcard' must be None"
+                raise AssertionError(msg)
+        if isinstance(values.get('src_address'), ipaddress.IPv4Address):
+            if src_wildcard is None:
+                msg = f"If 'src_address' is specified as without netmask, 'src_wildcard' must be set"
+                raise AssertionError(msg)
+        if values.get('src_address') == 'any':
+            if src_wildcard is not None:
+                msg = f"If 'src_address' is any, 'src_wildcard' must be None"
+                raise AssertionError(msg)
+        return values
+
+
+class AclStandardIPv6Entry(AclBaseEntry):
+
+    pass
+
+
+class AclStandardIPv4(AclStandard):
+
+    acl_version: Literal['ipv4'] = 'ipv4'
+    entries: List[AclStandardIPv4Entry]
+
+
+class AclStandardIPv6(AclStandard):
+
+    acl_version: Literal['ipv6'] = 'ipv6'
+    entries: List[AclStandardIPv4Entry]

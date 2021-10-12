@@ -2,7 +2,7 @@ from net_models.models import BaseNetModel
 from net_models.fields import GENERIC_OBJECT_NAME, VRF_NAME
 from net_models.models.services.cisco_ios.AaaMethods import IosLineAaaConfig
 from pydantic.types import conlist, conint
-from pydantic.typing import Optional, Literal, List
+from pydantic.typing import Optional, Literal, List, Union
 
 
 __all__ = [
@@ -17,6 +17,12 @@ class IosLineTransport(BaseNetModel):
     output: Optional[Literal['all', 'none', 'ssh', 'telnet']]
     preferred: Optional[Literal['none', 'ssh', 'telnet']]
 
+
+class IosLineLogging(BaseNetModel):
+
+    synchronous: Optional[bool]
+    level: Optional[Union[Literal['all'], conint(ge=0, le=7)]]
+    limit: Optional[int]
 
 class IosLineAccessClass(BaseNetModel):
 

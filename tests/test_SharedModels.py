@@ -1,13 +1,6 @@
 from pydantic import ValidationError
 
-from net_models.models import (
-    KeyBase,
-    KeyChain,
-    VLANModel,
-    RouteTarget,
-    VRFAddressFamily,
-    VRFModel
-)
+from net_models.models.BaseModels.SharedModels import *
 from tests.BaseTestClass import TestBaseNetModel, TestVendorIndependentBase
 
 
@@ -149,6 +142,38 @@ class TestVRFModel(TestVendorIndependentBase):
         for test_case in test_cases:
             with self.subTest(msg=test_case["test_name"]):
                 test_obj = self.TEST_CLASS(**test_case["data"])
+
+
+
+class TestAclStandardIPv4(TestVendorIndependentBase):
+
+    TEST_CLASS = AclStandardIPv4
+
+    def test_01(self):
+        test_cases = [
+            {
+                "test_name": "Test-01",
+                "data": {
+                    "name": 1,
+                    "entries": [
+                        {
+                            "action": "permit",
+                            "src_address": "192.168.0.0/24"
+                        },
+                        {
+                            "action": "deny",
+                            "src_address": "10.0.0.0",
+                            "src_wildcard": "0.0.0.255"
+                        }
+                    ]
+                },
+                "result": ()
+            }
+        ]
+        for test_case in test_cases:
+            with self.subTest(msg=test_case["test_name"]):
+                test_obj = self.TEST_CLASS(**test_case["data"])
+                print(test_obj.yaml(exclude_none=True))
 
 if __name__ == '__main__':
     unittest.main()

@@ -4,6 +4,7 @@ from pydantic.typing import Optional, Dict, List, Literal, Tuple
 from net_models.exceptions import *
 from net_models.fields import *
 from net_models.models.BaseModels import BaseNetModel, VRFModel, VLANModel
+from net_models.models.BaseModels.SharedModels import *
 from net_models.models.interfaces import *
 from net_models.models.routing import *
 from net_models.models.services import *
@@ -54,6 +55,8 @@ class BaseConfig(BaseNetModel):
     network_clock: Optional[NetworkClockConfig]
     snmp: Optional[SnmpConfig]
     logging: Optional[LoggingConfig]
+    management_lines: Optional[List[IosLineConfig]]
+    access_lists: Optional[List[AclStandardIPv4]]
 
     @validator('vlan_definitions', allow_reuse=True)
     def sort_vlan_definitions(cls, value):
