@@ -33,10 +33,7 @@ class CustomYamlRepresenter(Representer):
         return self.represent_scalar(u'tag:yaml.org,2002:null', u'')
 
     def represent_dict(self, data):
-        data_keys = list(data.keys())
-        if self.sort_keys:
-            # data_keys = sorted(data_keys)
-            pass
+        data_keys = sorted(list(data.keys()))
         if "name" in data_keys:
             data_keys.insert(0, data_keys.pop(data_keys.index("name")))
         if "tags" in data_keys:
