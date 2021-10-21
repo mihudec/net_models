@@ -5,9 +5,9 @@ from net_models.models.interfaces import *
 
 
 from net_models.inventory import Host, Group, Inventory
-from net_models.loaders import BaseLoader, ExcelLoader, DirectoryLoader, AnsibleInventoryDumper
+from net_models.loaders import BaseLoader, ExcelLoader, DirectoryLoader, AnsibleInventoryDumper, NornirInventoryDumper
 
-VERBOSITY = 5
+VERBOSITY = 4
 
 class TestBaseLoader(unittest.TestCase):
 
@@ -95,9 +95,9 @@ class TestBaseLoader(unittest.TestCase):
 
         with self.subTest(msg="Get non-existing group with parent_name, with creation"):
             have = loader.get_group(group_name="Level-3B", parent_name="Level-2A")
-            print(loader.inventory.yaml(exclude_none=True))
+            # print(loader.inventory.yaml(exclude_none=True))
             want = Group(name="Level-3B")
-            print(want, have)
+            # print(want, have)
             self.assertEqual(want, have)
 
 
@@ -135,29 +135,30 @@ class TestAnsibleInventoryDumper(unittest.TestCase):
 
     RESOURCE_PATH = pathlib.Path(__file__).resolve().parent.joinpath("resources").joinpath("inventory")
 
-    def test_dump_sample_01(self):
+    def test_01_dump_sample_01(self):
 
         inventory_path = self.RESOURCE_PATH.joinpath("sample-inventory-01")
+        test_inventory_path = inventory_path.parent.joinpath("test")
         loader = DirectoryLoader(inventory_path=inventory_path, verbosity=VERBOSITY)
         loader.load()
         inventory = loader.inventory.clone()
         dumper = AnsibleInventoryDumper(inventory=inventory, directory=inventory_path)
         dumper.remove_all_backups()
-        dumper.dump_inventory(path=inventory_path.parent.joinpath("test"), separate_host_sections=True)
+        dumper.dump_inventory(path=test_inventory_path, separate_host_sections=True)
         # Cleanup
-        # shutil.rmtree(inventory_path.parent.joinpath("test"))
+        # shutil.rmtree(test_inventory_path)
 
-    def test_circle_sample_01(self):
+    def test_02_circle_sample_01(self):
         """
         Load sample inventory, dump it to different folder and load it again. Then compare them.
         """
         inventory_path = self.RESOURCE_PATH.joinpath("sample-inventory-01")
+        test_inventory_path = inventory_path.parent.joinpath("test")
         # Load the initial inventory
         loader1 = DirectoryLoader(inventory_path=inventory_path, verbosity=VERBOSITY)
         loader1.load()
         inventory1 = loader1.inventory.clone()
         # Dump the loaded inventory
-        test_inventory_path = inventory_path.parent.joinpath("test")
         dumper = AnsibleInventoryDumper(inventory=inventory1, directory=inventory_path)
         dumper.backup_inventory()
         dumper.dump_inventory(path=test_inventory_path, separate_host_sections=True)
@@ -166,11 +167,28 @@ class TestAnsibleInventoryDumper(unittest.TestCase):
         inventory2 = loader2.inventory.clone()
 
         # Cleanup
-        # shutil.rmtree(test_inventory_path)
+        shutil.rmtree(test_inventory_path)
         dumper.remove_all_backups()
 
         self.assertEqual(inventory1.yaml(exclude_none=True), inventory2.yaml(exclude_none=True))
 
+class TestNornirInventoryDumper(unittest.TestCase):
+
+    RESOURCE_PATH = pathlib.Path(__file__).resolve().parent.joinpath("resources").joinpath("inventory")
+
+    def test_dump_sample_01(self):
+
+        inventory_path = self.RESOURCE_PATH.joinpath("sample-inventory-01")
+        test_inventory_path = inventory_path.parent.joinpath("test-nr")
+        loader = DirectoryLoader(inventory_path=inventory_path, verbosity=VERBOSITY)
+        loader.load()
+        inventory = loader.inventory.clone()
+
+        dumper = NornirInventoryDumper(inventory=inventory, directory=inventory_path)
+        dumper.remove_all_backups()
+        dumper.dump_inventory(path=test_inventory_path)
+        # Cleanup
+        shutil.rmtree(test_inventory_path)
 
 
 if __name__ == '__main__':

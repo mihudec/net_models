@@ -36,7 +36,6 @@ class BaseNetModel(BaseModel):
         return json.loads(self.json(exclude_none=exclude_none, **kwargs))
 
     def yaml(self, indent: int = 2, exclude_none: bool = False, **kwargs):
-        data_dict = self.serial_dict(exclude_none=exclude_none, **kwargs)
         return yaml.dump(data=self.dict(exclude_none=exclude_none, **kwargs), Dumper=CustomYamlDumper, indent=indent)
 
     def clone(self):

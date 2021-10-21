@@ -48,8 +48,8 @@ class TestJinja2String(unittest.TestCase):
     def test_model_dump(self):
 
         model = InterfaceServicePolicy(input=self.TESTED_CLASS("{{ PM_TEMPLATE_01 }}"))
-        print(type(model.input))
-        print(model.yaml())
+        # print(type(model.input))
+        # print(model.yaml())
         self.assertIsInstance(model.input, self.TESTED_CLASS)
 
 if __name__ == '__main__':

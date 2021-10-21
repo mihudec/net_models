@@ -8,20 +8,20 @@ from pydantic.typing import List
 from net_models.utils import get_logger
 from net_models.utils.CustomYamlDumper import CustomYamlDumper
 from net_models.inventory import Inventory
+from net_models.inventory.NornirInventoryModels import NornirInventory, to_nornir_model
 
-class BaseInventoryDumper(object):
+class InventoryDumper(object):
 
     def __init__(self, inventory: Inventory, verbosity: int = 4):
         self.logger = get_logger(name='InventoryDumper', verbosity=verbosity)
         self.inventory = inventory
 
 
-class AnsibleInventoryDumper(BaseInventoryDumper):
+class DirectoryInventoryDumper(InventoryDumper):
 
     def __init__(self, inventory: Inventory, directory: pathlib.Path):
         super().__init__(inventory=inventory)
         self.directory = pathlib.Path(directory).resolve()
-        self.indent = 2
 
     def backup_inventory(self):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -34,6 +34,17 @@ class AnsibleInventoryDumper(BaseInventoryDumper):
         for backup_directory in backup_directories:
             self.logger.info(f"Deleting backup of inventory: {backup_directory}")
             shutil.rmtree(backup_directory)
+
+    def dump_inventory(self, path: pathlib.Path = None):
+        raise NotImplementedError
+
+
+
+class AnsibleInventoryDumper(DirectoryInventoryDumper):
+
+    def __init__(self, inventory: Inventory, directory: pathlib.Path):
+        super().__init__(inventory=inventory, directory=directory)
+        self.indent = 2
 
     def dump_inventory(self, path: pathlib.Path = None,
                        separate_host_sections: bool = False,
@@ -117,5 +128,40 @@ class AnsibleInventoryDumper(BaseInventoryDumper):
             if 'config' in host.keys():
                 host.update(host['config'])
                 del host['config']
-        print(yaml.dump(data=inventory_dict, Dumper=CustomYamlDumper, indent=self.indent))
+        # print(yaml.dump(data=inventory_dict, Dumper=CustomYamlDumper, indent=self.indent))
 
+
+
+class NornirInventoryDumper(DirectoryInventoryDumper):
+
+    DEFAULT_HOSTS_FILE = 'hosts.yml'
+    DEFAULT_GROUPS_FILE = 'groups.yml'
+
+    def __init__(self, inventory: NornirInventory, directory: pathlib.Path):
+        super().__init__(inventory=inventory, directory=directory)
+        self.indent = 2
+        if not isinstance(self.inventory, NornirInventory):
+            self.logger.info(msg=f"Got unexpected type of inventory, expected NornirInventory, got {type(self.inventory)}.")
+            self.logger.info(msg=f"Trying to convert inventory.")
+            self.inventory = to_nornir_model(model=self.inventory)
+
+    def dump_inventory(self, path: pathlib.Path = None):
+
+        if path is None:
+            path = self.directory
+        else:
+            path = pathlib.Path(path).resolve()
+            path.mkdir(exist_ok=True, parents=True)
+
+        hosts_file_path = path.joinpath(self.DEFAULT_HOSTS_FILE)
+        groups_file_path = path.joinpath(self.DEFAULT_GROUPS_FILE)
+
+        hosts_dict = {x.name: x.dict(exclude_none=True) for x in self.inventory.hosts.values()}
+        groups_dict = {x.name: x.dict(exclude_none=True) for x in self.inventory.groups.values()}
+
+        with hosts_file_path.open(mode='w') as f:
+            self.logger.info(msg=f"Writing hosts file to {hosts_file_path}")
+            yaml.dump(data=hosts_dict, stream=f, Dumper=CustomYamlDumper, indent=self.indent)
+        with groups_file_path.open(mode='w') as f:
+            self.logger.info(msg=f"Writing hosts file to {groups_file_path}")
+            yaml.dump(data=groups_dict, stream=f, Dumper=CustomYamlDumper, indent=self.indent)

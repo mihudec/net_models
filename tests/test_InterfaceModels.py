@@ -290,7 +290,7 @@ class TestInterfaceHsrp(TestVendorIndependentBase):
         for test_case in test_cases:
             with self.subTest(msg=test_case["test_name"]):
                 model = self.TEST_CLASS.parse_obj(test_case['data'])
-                print(model.yaml(exclude_none=True))
+                # print(model.yaml(exclude_none=True))
 
     def test_raises_on_version_1(self):
         with self.assertRaises(expected_exception=ValidationError):

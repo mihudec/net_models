@@ -1,0 +1,65 @@
+groups:
+  access:
+    name: access
+    groups:
+      - switches
+  all:
+    name: all
+  core:
+    name: core
+    groups:
+      - switches
+  network:
+    name: network
+    groups:
+      - all
+  routers:
+    name: routers
+    groups:
+      - network
+  switches:
+    name: switches
+    data:
+      vlan_definitions:
+        - name: VLAN10
+          vlan_id: 10
+          hosts: []
+    groups:
+      - network
+hosts:
+  ASW-01:
+    name: ASW-01
+    data:
+      interfaces:
+        Vlan1:
+          name: Vlan1
+          tags:
+            - l3
+            - virtual
+          l3_port:
+            ipv4:
+              addresses:
+                - address: 192.0.2.10/24
+          service_policy:
+            input: "{{ PM_TEMPLATE_01 }}"
+    groups:
+      - access
+  ASW-02:
+    name: ASW-02
+    groups:
+      - access
+  CSW-01:
+    name: CSW-01
+    data:
+      interfaces:
+        Vlan100:
+          name: Vlan100
+          tags:
+            - virtual
+    groups:
+      - core
+  CSW-02:
+    name: CSW-02
+    groups:
+      - core
+

@@ -1,5 +1,0 @@
-interfaces:
-  Vlan100:
-    name: Vlan100
-    tags:
-      - virtual

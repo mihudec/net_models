@@ -173,7 +173,7 @@ class TestAclStandardIPv4(TestVendorIndependentBase):
         for test_case in test_cases:
             with self.subTest(msg=test_case["test_name"]):
                 test_obj = self.TEST_CLASS(**test_case["data"])
-                print(test_obj.yaml(exclude_none=True))
+                # print(test_obj.yaml(exclude_none=True))
 
 if __name__ == '__main__':
     unittest.main()

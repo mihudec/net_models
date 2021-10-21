@@ -140,7 +140,7 @@ class TestSortInterfaceDict(TestValidatorBase):
             }
         }
         model_data = {k: InterfaceModel.parse_obj(v) for k, v in data.items()}
-        print(model_data)
+        #print(model_data)
         sorted_data = sort_interface_dict(interfaces=model_data)
         with self.subTest(msg="Test Keys are sorted"):
             self.assertListEqual(list(sorted_data.keys()), ["Loopback1", "Loopback2"])

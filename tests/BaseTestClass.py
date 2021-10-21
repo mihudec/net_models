@@ -2,11 +2,11 @@ import sys
 import pathlib
 import unittest
 import yaml
-from pprint import pprint
 from net_models.models.BaseModels import BaseNetModel, VendorIndependentBaseModel
 from net_models.utils import get_logger
 
 class TestBaseNetModel(unittest.TestCase):
+
     LOGGER = get_logger(name="NetCm-Tests", verbosity=5)
     TEST_CLASS = BaseNetModel
 
@@ -18,6 +18,9 @@ class TestBaseNetModel(unittest.TestCase):
 
     def test_has_validators(self):
         self.assertTrue(hasattr(self.TEST_CLASS, "__validators__"))
+
+    def load_yaml(self, path: pathlib.Path):
+        return yaml.safe_load(path.read_text())
 
 
 class TestVendorIndependentBase(TestBaseNetModel):
@@ -32,9 +35,6 @@ class TestVendorIndependentBase(TestBaseNetModel):
     def get_resource_yaml(self):
         resource_files = [x for x in self.RESOURCE_DIR.joinpath("data").iterdir() if x.is_file and x.suffix in [".yml"] and x.stem.startswith(self.__class__.__name__)]
         return resource_files
-
-    def load_yaml(self, path: pathlib.Path):
-        return yaml.safe_load(path.read_text())
 
     def test_load_yaml(self):
         resource_files = self.get_resource_yaml()
