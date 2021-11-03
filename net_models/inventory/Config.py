@@ -1,3 +1,4 @@
+import dataclasses
 
 from pydantic import Extra
 from pydantic.typing import Optional, Dict, List, Literal, Tuple

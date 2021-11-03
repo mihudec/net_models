@@ -100,9 +100,25 @@ class TestNormalizeInterfaceName(TestValidatorBase):
                     "interface_name": "ethernet0/1"
                 },
                 "result": "Ethernet0/1"
+            },
+            {
+                "test_name": "Test-Vlan-01",
+                "data": {
+                    "interface_name": "Vl100"
+                },
+                "result": "Vlan100"
             }
         ]
         super().common_testcase(test_cases=test_cases, test_func=normalize_interface_name)
+
+
+    def test_normalize_name_2(self):
+
+        name = 'gigabitEtHerneT1/0/1'
+        want = 'GigabitEthernet1/0/1'
+        have = normalize_interface_name(interface_name=name)
+        print(f"{want=}, {have=}")
+        self.assertEqual(want, have)
 
 
 class TestRequiredTogether(TestValidatorBase):

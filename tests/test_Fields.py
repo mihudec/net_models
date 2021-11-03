@@ -2,7 +2,7 @@ import unittest
 
 import yaml
 
-from net_models.fields import DoubleQoutedString, Jinja2String
+from net_models.fields import DoubleQoutedString, Jinja2String, IosInterfaceName, BaseInterfaceName
 from net_models.utils.CustomYamlDumper import CustomYamlDumper
 from net_models.models.interfaces import InterfaceServicePolicy
 
@@ -51,6 +51,22 @@ class TestJinja2String(unittest.TestCase):
         # print(type(model.input))
         # print(model.yaml())
         self.assertIsInstance(model.input, self.TESTED_CLASS)
+
+class TestIosInterfaceName(unittest.TestCase):
+
+    def test_init(self):
+        instance = IosInterfaceName('Gi1/0/1')
+        with self.subTest(msg="Is instance of BaseInterfaceName"):
+            self.assertIsInstance(instance, BaseInterfaceName)
+        with self.subTest(msg="Is instance of IosInterfaceName"):
+            self.assertIsInstance(instance, IosInterfaceName)
+        with self.subTest(msg="Can be __eq__ with plain string"):
+            self.assertEqual('GigabitEthernet1/0/1', instance)
+        with self.subTest(msg="Can be JSON serialized"):
+            pass
+        with self.subTest(msg="Can be YAML serialized"):
+            yaml.dump(data={})
+
 
 if __name__ == '__main__':
     unittest.main()
