@@ -1,7 +1,7 @@
 import pathlib
 from setuptools import setup, find_packages
 
-VERSION = "0.1.13"
+VERSION = "0.2.0"
 
 def load_requirements():
     requirements = []
