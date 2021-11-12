@@ -107,7 +107,7 @@ class ExcelLoader(BaseLoader):
             if vlan.vlan_id not in [x.vlan_id for x in switches_group_config.vlan_definitions]:
                 switches_group_config.vlan_definitions.append(vlan)
 
-    def load_vlan_host_mapping(self, assign_to: Literal['host', 'group'] = 'group', group_name: str = 'switches'):
+    def load_vlan_host_mapping(self, assign_to: Literal['host', 'group'] = 'group', group_name: str = 'switches', skip_missing_vlans: bool = True):
         columns_rename = {
             "Use": "use",
             "Host": 'host'
@@ -115,7 +115,42 @@ class ExcelLoader(BaseLoader):
         include_keys = set(columns_rename.values()).difference(set(META_KEYS))
         df = self.load_excel(path=self.input_file, sheet_name="vlan_host_mapping", columns_rename=columns_rename)
         df = self.use_filter(df=df)
-        # TODO: Finish up
+
+        vlan_ids = [x for x in df.columns if isinstance(x, int)]
+
+        # This will probably not happen as pandas will not load duplicate columns
+        if len(vlan_ids) != len(set(vlan_ids)):
+            duplicate_vlans = []
+            for vlan_id in set(vlan_ids):
+                if vlan_ids.count(vlan_id) > 1:
+                    duplicate_vlans.append(vlan_id)
+            raise DuplicateVlans(f"Found duplicate Vlans in vlan_host_mapping dataframe. {duplicate_vlans=}")
+
+
+        print(df)
+        self.logger.info(msg=f"Loading Vlan Host mappings for {len(vlan_ids)} VLANs")
+        self.logger.debug(msg=f"{vlan_ids=}")
+        switches_group = self.get_group(group_name="switches")
+        switches_group_config = switches_group.config
+
+        # For each vlan_id get all hosts where True
+        for vlan_id in vlan_ids:
+            criteria = df[vlan_id] == True
+            # print(criteria)
+            host_names = list(df.loc[criteria, 'host'])
+            vlan = None
+            try:
+                vlan = switches_group_config.get_or_create_vlan(vlan_id=vlan_id, create_if_missing=False)
+            except VlanNotFound:
+                if skip_missing_vlans:
+                    pass
+                else:
+                    raise
+            if vlan is not None:
+                for host_name in host_names:
+                    vlan.add_host(host_name=host_name)
+
+
 
     def load_vlan_interface_mapping(self):
         # TODO: Finish up
@@ -180,7 +215,9 @@ class ExcelLoader(BaseLoader):
         if 'ospf' not in self.templates.keys():
             self.templates['ospf'] = {}
         for index, row in df.iterrows():
-            self.templates['ospf'][row['template_name']] = self.row_to_model(row=row, model=InterfaceOspfConfig)
+            ospf_model = self.row_to_model(row=row, model=InterfaceOspfConfig)
+            print(ospf_model)
+            self.templates['ospf'][row['template_name']] = ospf_model
 
     def load_bfd_templates(self):
 
@@ -228,13 +265,14 @@ class ExcelLoader(BaseLoader):
 
             if row.get('ospf_template') is not None:
                 ospf_template = self.templates['ospf'].get(row.get('ospf_template'))
+                if ospf_template is None:
+                    self.logger.error(msg=f"Missing OSPF template {row.get('ospf_template')}")
                 a_interface.l3_port.ospf = ospf_template.clone()
                 z_interface.l3_port.ospf = ospf_template.clone()
             if row.get('bfd_template') is not None:
                 ospf_template = self.templates['ospf'].get(row.get('ospf_template'))
                 a_interface.l3_port.bfd = InterfaceBfdConfig(template=row.get('bfd_template'))
                 z_interface.l3_port.bfd = InterfaceBfdConfig(template=row.get('bfd_template'))
-
 
 
 

@@ -118,6 +118,17 @@ class TestExcelLoader(unittest.TestCase):
 
         el.finish()
 
+    def test_delete_mhmp(self):
+        path = pathlib.Path(r"C:\Users\mhudec\CloudStation\Work\ALEF\MHMP\MHMP_Net_Inventory.xlsx")
+        el = ExcelLoader(input_file=path)
+        el.load_vlan_definitions()
+        el.load_vlan_host_mapping()
+        el.load_physical_links()
+        el.load_ospf_templates()
+        el.load_l3_links()
+        el.finish()
+        print(el.inventory.yaml(exclude_none=True))
+
 
 class TestDirectoryLoader(unittest.TestCase):
 

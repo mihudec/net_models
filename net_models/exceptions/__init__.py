@@ -12,3 +12,9 @@ class GroupNotFound(NetModelException):
 
 class VlanNotFound(NetModelException):
     pass
+
+class DuplicateVlans(NetModelException):
+    pass
+
+class DuplicateHosts(NetModelException):
+    pass

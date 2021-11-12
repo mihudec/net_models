@@ -33,7 +33,8 @@ INTERFACE_NAMES = {
     "Loopback": ["Lo"],
     "Serial": ["Se"],
     "pseudowire": ["pw"],
-    "CEM": ["CEM"]
+    "CEM": ["CEM"],
+    "xe-": ["xe-"]
 
 }
 

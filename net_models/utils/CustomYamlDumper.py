@@ -20,7 +20,7 @@ import ipaddress
 from pydantic.typing import Union, Type
 
 
-from net_models.fields import DoubleQoutedString, Jinja2String, BaseInterfaceName
+from net_models.fields import DoubleQoutedString, Jinja2String, BaseInterfaceName, IosInterfaceName, JuniperInterfaceName
 
 
 class CustomYamlRepresenter(Representer):
@@ -64,7 +64,7 @@ class CustomYamlRepresenter(Representer):
     def represent_ip_network(self, value: Union[ipaddress.IPv4Network, ipaddress.IPv6Network]):
         return self.represent_scalar(tag=u'tag:yaml.org,2002:str', value=str(value), style=u'')
 
-    def represent_interface_name(self, value: Type[BaseInterfaceName]):
+    def represent_interface_name(self, value: BaseInterfaceName):
         return self.represent_scalar(tag=u'tag:yaml.org,2002:str', value=str(value), style=u'')
 
 CustomYamlRepresenter.add_representer(type(None), CustomYamlRepresenter.represent_none)
@@ -79,6 +79,9 @@ CustomYamlRepresenter.add_representer(ipaddress.IPv6Address, CustomYamlRepresent
 CustomYamlRepresenter.add_representer(ipaddress.IPv4Network, CustomYamlRepresenter.represent_ip_network)
 CustomYamlRepresenter.add_representer(ipaddress.IPv6Network, CustomYamlRepresenter.represent_ip_network)
 CustomYamlRepresenter.add_representer(BaseInterfaceName, CustomYamlRepresenter.represent_interface_name)
+CustomYamlRepresenter.add_representer(IosInterfaceName, CustomYamlRepresenter.represent_interface_name)
+CustomYamlRepresenter.add_representer(JuniperInterfaceName, CustomYamlRepresenter.represent_interface_name)
+
 
 class CustomYamlDumper(Emitter, Serializer, CustomYamlRepresenter, Resolver):
     def __init__(self, stream,

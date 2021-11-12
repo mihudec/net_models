@@ -4,6 +4,7 @@ from pydantic import Extra
 from pydantic.typing import Optional, Dict, List, Literal, Tuple
 from net_models.exceptions import *
 from net_models.fields import *
+from net_models.validators import validate_fields_unique
 from net_models.models.BaseModels import BaseNetModel, VRFModel, VLANModel
 from net_models.models.BaseModels.SharedModels import *
 from net_models.models.interfaces import *
@@ -33,11 +34,40 @@ class VLANHostMapping(VLANModel):
 
     hosts: Optional[List[VlanHost]]
 
+
+    @validator('hosts', allow_reuse=True)
+    def validate_hosts_unique(cls, value):
+        if isinstance(value, list):
+            validate_fields_unique(obj_list=value, fields=['name'])
+        return value
+
     @validator('hosts', allow_reuse=True)
     def sort_hosts(cls, value):
         if isinstance(value, list):
             value = sorted(value, key=lambda x: x.name)
         return value
+
+    def add_host(self, host_name):
+        if not isinstance(self.hosts, list):
+            self.hosts = []
+        candidates = [x for x in self.hosts if x.name == host_name]
+        if len(candidates) == 0:
+            self.hosts.append(VlanHost(name=host_name))
+        elif len(candidates) == 1:
+            pass
+        else:
+            raise DuplicateHosts(f"Found duplicate host in {self.__class__.__name__} {host_name}")
+
+    def remove_host(self, host_name):
+        if not isinstance(self.hosts, list):
+            return
+        candidates = [x for x in self.hosts if x.name == host_name]
+        if len(candidates) == 0:
+            pass
+        elif len(candidates) == 1:
+            self.hosts.remove(candidates[0])
+        else:
+            raise DuplicateHosts(f"Found duplicate host in {self.__class__.__name__} {host_name}")
 
 
 class BaseConfig(BaseNetModel):

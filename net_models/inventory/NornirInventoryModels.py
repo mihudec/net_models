@@ -67,6 +67,14 @@ def to_nornir_model(model: Union[Host, Group, Inventory]):
             name=model.name,
             data=model.config
         )
+        extra_keys = set(model.__fields_set__).difference(set(model.__fields__.keys()))
+        if len(extra_keys):
+            print(extra_keys)
+            if nr_model.data is None:
+                nr_model.data = GroupConfig()
+        for k,v in model.dict().items():
+            if k in extra_keys:
+                setattr(nr_model.data, k, v)
     elif isinstance(model, Inventory):
         nr_model = NornirInventory(
             hosts={k:to_nornir_model(v) for k,v in model.hosts.items()},
@@ -78,6 +86,7 @@ def to_nornir_model(model: Union[Host, Group, Inventory]):
             if group.children is not None:
                 for child_group_name, child_group in group.children.items():
                     nr_model.groups[child_group_name].add_group(group_name)
+
             if group.hosts is not None:
                 for host_name, host in group.hosts.items():
                     nr_model.hosts[host_name].add_group(group_name=group_name)
