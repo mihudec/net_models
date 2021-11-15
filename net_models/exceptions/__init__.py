@@ -18,3 +18,6 @@ class DuplicateVlans(NetModelException):
 
 class DuplicateHosts(NetModelException):
     pass
+
+class InvalidInterfaceName(NetModelException):
+    pass

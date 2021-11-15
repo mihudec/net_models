@@ -119,7 +119,7 @@ class BaseLoader(object):
 
     def get_interface(self, host_name: str, interface_name: InterfaceName, create_if_missing: bool = True) -> Union[InterfaceModel, None]:
         if not isinstance(interface_name, InterfaceName):
-            interface_name = InterfaceName.validate_name(interface_name)
+            interface_name = InterfaceName.validate(interface_name)
         # Host must already exist
         host = self.get_host(host_name=host_name, create_if_missing=False)
         interface = None
@@ -166,7 +166,7 @@ class BaseLoader(object):
         if params is None:
             params = {}
         if not isinstance(interface_name, InterfaceName):
-            interface_name = InterfaceName.validate_name(interface_name)
+            interface_name = InterfaceName.validate(interface_name)
         try:
             host = self.inventory.hosts.get(host_name)
             if host.config is None:

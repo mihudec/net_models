@@ -20,8 +20,8 @@ import ipaddress
 from pydantic.typing import Union, Type
 
 
-from net_models.fields import DoubleQoutedString, Jinja2String, BaseInterfaceName, IosInterfaceName, JuniperInterfaceName
-
+from net_models.fields import DoubleQoutedString, Jinja2String
+from net_models.fields.InterfaceNames import *
 
 class CustomYamlRepresenter(Representer):
 
@@ -78,7 +78,7 @@ CustomYamlRepresenter.add_representer(ipaddress.IPv4Address, CustomYamlRepresent
 CustomYamlRepresenter.add_representer(ipaddress.IPv6Address, CustomYamlRepresenter.represent_ip_address)
 CustomYamlRepresenter.add_representer(ipaddress.IPv4Network, CustomYamlRepresenter.represent_ip_network)
 CustomYamlRepresenter.add_representer(ipaddress.IPv6Network, CustomYamlRepresenter.represent_ip_network)
-CustomYamlRepresenter.add_representer(BaseInterfaceName, CustomYamlRepresenter.represent_interface_name)
+CustomYamlRepresenter.add_representer(GenericInterfaceName, CustomYamlRepresenter.represent_interface_name)
 CustomYamlRepresenter.add_representer(IosInterfaceName, CustomYamlRepresenter.represent_interface_name)
 CustomYamlRepresenter.add_representer(JuniperInterfaceName, CustomYamlRepresenter.represent_interface_name)
 
