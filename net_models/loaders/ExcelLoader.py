@@ -241,6 +241,12 @@ class ExcelLoader(BaseLoader):
                 if interface.l3_port is None:
                     interface.l3_port = InterfaceRouteportModel()
 
+            # Use interface descriptions from links
+            if a_interface.description is None and link.a_description is not None:
+                a_interface.description = link.a_description
+            if z_interface.description is None and link.z_description is not None:
+                z_interface.description = link.z_description
+
             GLOBAL_VRFS = [None, 'global']
 
             if link.a_vrf not in GLOBAL_VRFS:
