@@ -107,6 +107,23 @@ class ExcelLoader(BaseLoader):
             if vlan.vlan_id not in [x.vlan_id for x in switches_group_config.vlan_definitions]:
                 switches_group_config.vlan_definitions.append(vlan)
 
+    def load_hosts(self):
+        columns_rename = {k:k for k in ['use', 'name', 'platform', 'mgmt_host', 'tags']}
+        include_keys = set(columns_rename.values()).difference(set(META_KEYS))
+        df = self.load_excel(path=self.input_file, sheet_name="hosts", columns_rename=columns_rename)
+        df = self.use_filter(df=df)
+
+        for index, row in df.iterrows():
+            new_host = Host(**{k:v for k,v in row.items() if k in include_keys and v is not None})
+            host = self.inventory.get_host(host_name=new_host.name, create_if_missing=False)
+            if host is None:
+                # Host doesn't exist
+                self.inventory.hosts[new_host.name] = new_host.clone()
+                print(self.inventory.hosts[new_host.name])
+            else:
+                # TODO: Update Existing Host
+                pass
+
     def load_vlan_host_mapping(self, assign_to: Literal['host', 'group'] = 'group', group_name: str = 'switches', skip_missing_vlans: bool = True):
         columns_rename = {
             "Use": "use",

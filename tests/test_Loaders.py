@@ -7,7 +7,7 @@ from net_models.models.interfaces import *
 from net_models.inventory import Host, Group, Inventory
 from net_models.loaders import BaseLoader, ExcelLoader, DirectoryLoader, AnsibleInventoryDumper, NornirInventoryDumper
 
-VERBOSITY = 4
+VERBOSITY = 5
 
 class TestBaseLoader(unittest.TestCase):
 
@@ -109,6 +109,7 @@ class TestExcelLoader(unittest.TestCase):
         path = self.RESOURCE_PATH.joinpath("ExcelLoaderResource-01.xlsx")
         el = ExcelLoader(input_file=path)
         # el.load_vlan_definitions()
+        el.load_hosts()
         el.load_physical_links()
         el.load_ospf_templates()
         el.load_l3_links()
@@ -161,7 +162,7 @@ class TestAnsibleInventoryDumper(unittest.TestCase):
         loader1.load()
         inventory1 = loader1.inventory.clone()
         # Dump the loaded inventory
-        dumper = AnsibleInventoryDumper(inventory=inventory1, directory=inventory_path)
+        dumper = AnsibleInventoryDumper(inventory=inventory1, directory=inventory_path, verbosity=VERBOSITY)
         dumper.backup_inventory()
         dumper.dump_inventory(path=test_inventory_path, separate_host_sections=True)
         loader2 = DirectoryLoader(inventory_path=test_inventory_path, verbosity=VERBOSITY)
@@ -169,10 +170,10 @@ class TestAnsibleInventoryDumper(unittest.TestCase):
         inventory2 = loader2.inventory.clone()
 
         # Cleanup
-        shutil.rmtree(test_inventory_path)
+        # shutil.rmtree(test_inventory_path)
         dumper.remove_all_backups()
 
-        self.assertEqual(inventory1.yaml(exclude_none=True), inventory2.yaml(exclude_none=True))
+        self.assertEqual(inventory1, inventory2)
 
 class TestNornirInventoryDumper(unittest.TestCase):
 

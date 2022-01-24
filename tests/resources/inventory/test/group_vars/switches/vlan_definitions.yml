@@ -1,0 +1,4 @@
+vlan_definitions:
+  - name: VLAN10
+    vlan_id: 10
+    hosts: []

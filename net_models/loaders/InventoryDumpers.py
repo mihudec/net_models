@@ -19,8 +19,8 @@ class InventoryDumper(object):
 
 class DirectoryInventoryDumper(InventoryDumper):
 
-    def __init__(self, inventory: Inventory, directory: pathlib.Path):
-        super().__init__(inventory=inventory)
+    def __init__(self, inventory: Inventory, directory: pathlib.Path, verbosity: int = 4):
+        super().__init__(inventory=inventory, verbosity=verbosity)
         self.directory = pathlib.Path(directory).resolve()
 
     def backup_inventory(self):
@@ -42,13 +42,15 @@ class DirectoryInventoryDumper(InventoryDumper):
 
 class AnsibleInventoryDumper(DirectoryInventoryDumper):
 
-    def __init__(self, inventory: Inventory, directory: pathlib.Path):
-        super().__init__(inventory=inventory, directory=directory)
+    def __init__(self, inventory: Inventory, directory: pathlib.Path, verbosity: int = 4):
+        super().__init__(inventory=inventory, directory=directory, verbosity=verbosity)
         self.indent = 2
 
     def dump_inventory(self, path: pathlib.Path = None,
                        separate_host_sections: bool = False,
-                       common_host_sections: List[str] = ['name']):
+                       common_host_sections: List[str] = ['name', 'platform'],
+                       common_group_sections: List[str] = ['name', 'platform']
+                       ):
         if path is None:
             path = self.directory
         else:
@@ -73,11 +75,12 @@ class AnsibleInventoryDumper(DirectoryInventoryDumper):
                 del host['config']
             if len(host.keys()):
                 if separate_host_sections:
-                    common_host_sections = ['name']
+                    self.logger.debug(msg=f"Dumping Separate host_vars for host {host_name}")
                     host_dir = host_vars.joinpath(host_name)
                     host_dir.mkdir(exist_ok=True)
                     self.dump_separate_sections(data=host, path=host_dir, common_sections=common_host_sections)
                 else:
+                    self.logger.debug(msg=f"Dumping host_vars for host {host_name}")
                     with host_vars.joinpath(f"{host_name}.yml").open(mode='w') as f:
                         yaml.dump(data=host, stream=f, Dumper=CustomYamlDumper, indent=self.indent)
 
@@ -96,11 +99,12 @@ class AnsibleInventoryDumper(DirectoryInventoryDumper):
                 del group['config']
             if len(group.keys()):
                 if separate_host_sections:
-                    common_group_sections = ['name']
+                    self.logger.debug(msg=f"Dumping Separate host_vars for group {group_name}")
                     group_dir = group_vars.joinpath(group_name)
                     group_dir.mkdir(exist_ok=True)
                     self.dump_separate_sections(data=group, path=group_dir, common_sections=common_group_sections)
                 else:
+                    self.logger.debug(msg=f"Dumping host_vars for group {group_name}")
                     with group_vars.joinpath(f"{group_name}.yml").open(mode='w') as f:
                         yaml.dump(data=group, stream=f, Dumper=CustomYamlDumper, indent=self.indent)
         
@@ -112,7 +116,7 @@ class AnsibleInventoryDumper(DirectoryInventoryDumper):
 
         if len(present_common_sections):
             common_data = {section_key:data[section_key] for section_key in present_common_sections}
-            with common_host_file.open(mode='w') as f:
+            with common_file.open(mode='w') as f:
                 yaml.dump(data=common_data, stream=f, Dumper=CustomYamlDumper, indent=self.indent)
 
         if len(present_separate_sections):

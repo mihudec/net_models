@@ -35,6 +35,18 @@ class Host(InventoryModel):
 
     name: GENERIC_OBJECT_NAME
     config: Optional[HostConfig]
+    platform: Optional[constr(strip_whitespace=True, to_lower=True)]
+    tags: Optional[List[constr(strip_whitespace=True, to_lower=True)]]
+
+    @validator('tags', pre=True, allow_reuse=True)
+    def _validate_tags(cls, value):
+        if value is None:
+            return value
+        elif isinstance(value, list):
+            return value
+        elif isinstance(value, str):
+            value = [x.strip() for x in value.split(',') if len(x)]
+        return value
 
     def _get_or_create_config(self) -> HostConfig:
         if self.config is None:
@@ -59,9 +71,21 @@ class Group(InventoryModel):
 
     name: Optional[GENERIC_OBJECT_NAME]
     config: Optional[GroupConfig]
+    platform: Optional[constr(strip_whitespace=True, to_lower=True)]
+    tags: Optional[List[constr(strip_whitespace=True, to_lower=True)]]
     children: Optional[Dict[GENERIC_OBJECT_NAME, 'Group']]
 
     hosts: Optional[Dict[GENERIC_OBJECT_NAME, Union[dict, None]]]
+
+    @validator('tags', pre=True, allow_reuse=True)
+    def _validate_tags(cls, value):
+        if value is None:
+            return value
+        elif isinstance(value, list):
+            return value
+        elif isinstance(value, str):
+            value = [x.strip() for x in value.split(',') if len(x)]
+        return value
 
     def _get_or_create_config(self):
         if self.config is None:
