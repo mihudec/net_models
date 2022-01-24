@@ -169,6 +169,7 @@ class InterfaceIsisConfig(VendorIndependentBaseModel):
     circuit_type: Optional[str]
     authentication: Optional[IsisInterfaceAuthentication]
     metric: Optional[List[IsisMetricField]]
+    tag: Optional[constr(strip_whitespace=True, regex=r'^\d+$')]
 
 
 class RoutePortEncapsulation(VendorIndependentBaseModel):

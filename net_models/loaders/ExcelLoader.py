@@ -119,7 +119,6 @@ class ExcelLoader(BaseLoader):
             if host is None:
                 # Host doesn't exist
                 self.inventory.hosts[new_host.name] = new_host.clone()
-                print(self.inventory.hosts[new_host.name])
             else:
                 # TODO: Update Existing Host
                 pass

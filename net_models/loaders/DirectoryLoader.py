@@ -70,8 +70,6 @@ class DirectoryLoader(BaseLoader):
             directories = [x for x in host_vars_dir.iterdir() if x.is_dir()]
             self.logger.debug(msg=f"Found {len(directories)} directories in  host_vars")
             files = self.get_yml_files(path=host_vars_dir)
-            # print(directories)
-            # print(files)
             for directory in directories:
                 if directory.name in self.inventory.hosts.keys():
                     host = self.get_host(host_name=directory.name, create_if_missing=False)
