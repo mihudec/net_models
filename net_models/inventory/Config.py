@@ -206,7 +206,9 @@ class HostConfig(BaseConfig):
 
 
     def _get_interface(self, interface_name: str):
-        interface_name = normalize_interface_name(interface_name=interface_name)
+        # interface_name = normalize_interface_name(interface_name=interface_name)
+        if not isinstance(interface_name, InterfaceName):
+            interface_name = InterfaceName(interface_name)
         if self.interfaces is None:
             return None
         if interface_name not in self.interfaces.keys():
