@@ -174,13 +174,11 @@ class ExcelLoader(BaseLoader):
             z_interface.neighbor = InterfaceNeighbor(host=a_host.name, interface=a_interface.name)
 
             # Tags Section
-            if 'tags' in row.keys():
-                if row['tags'] is not None:
-                    new_tags = row['tags'].split(',')
-                    for interface in [a_interface, z_interface]:
-                        for new_tag in new_tags:
-                            if new_tag not in interface.tags:
-                                interface.tags.append(new_tag)
+            if len(link.tags):
+                for interface in [a_interface, z_interface]:
+                    for tag in link.tags:
+                        if tag not in interface.tags:
+                            interface.tags.append(tag)
 
             # CDP Section
             if 'cdp_enabled' in row.keys():
@@ -278,13 +276,11 @@ class ExcelLoader(BaseLoader):
                 z_interface.l3_port.add_ipv4_address(ipaddress.IPv4Interface(f"{usable_ips[-1]}/{link.ipv4_network.prefixlen}"))
 
             # Tags Section
-            if 'tags' in row.keys():
-                if row['tags'] is not None:
-                    new_tags = row['tags'].split(',')
-                    for interface in [a_interface, z_interface]:
-                        for new_tag in new_tags:
-                            if new_tag not in interface.tags:
-                                interface.tags.append(new_tag)
+            if len(link.tags):
+                for interface in [a_interface, z_interface]:
+                    for tag in link.tags:
+                        if tag not in interface.tags:
+                            interface.tags.append(tag)
 
             if row.get('ospf_template') is not None:
                 ospf_template = self.templates['ospf'].get(row.get('ospf_template'))

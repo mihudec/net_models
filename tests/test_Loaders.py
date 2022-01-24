@@ -117,6 +117,7 @@ class TestExcelLoader(unittest.TestCase):
         el.load_bgp_neighbors()
 
         el.finish()
+        print(el.inventory.yaml(exclude_none=True))
 
 
 

@@ -122,6 +122,13 @@ class Link(InventoryModel):
     z_interface: InterfaceName
     tags: List[constr(strip_whitespace=True, to_lower=True)] = []
 
+    @validator('tags', pre=True, allow_reuse=True)
+    def _validate_tags(cls, value):
+        if value is None:
+            value = []
+        elif isinstance(value, str):
+            value = [x.strip() for x in value.split(',') if len(x)]
+        return value
 
 class DescriptionLink(Link):
 
