@@ -158,7 +158,7 @@ class ExcelLoader(BaseLoader):
 
     def load_physical_links(self, default_lag_mode: LAG_MODE = 'active'):
         self.logger.info("Loading Physical Links")
-        columns_rename = {k:k for k in ['use', 'a_host', 'a_interface', 'a_description', 'a_lag_group', 'a_lag_mode', 'z_host', 'z_interface', 'z_description', 'z_lag_group', 'z_lag_mode']}
+        columns_rename = {k:k for k in ['use', 'a_host', 'a_interface', 'a_description', 'a_lag_group', 'a_lag_mode', 'z_host', 'z_interface', 'z_description', 'z_lag_group', 'z_lag_mode', 'tags']}
         include_keys = set(columns_rename.values()).difference(set(META_KEYS))
         df = self.load_excel(path=self.input_file, sheet_name="physical_links", columns_rename=columns_rename)
         df = self.use_filter(df)
@@ -172,6 +172,15 @@ class ExcelLoader(BaseLoader):
             z_interface, _ = z_host.get_or_create_interface(interface_name=link.z_interface, create_if_missing=True)
             a_interface.neighbor = InterfaceNeighbor(host=z_host.name, interface=z_interface.name)
             z_interface.neighbor = InterfaceNeighbor(host=a_host.name, interface=a_interface.name)
+
+            # Tags Section
+            if 'tags' in row.keys():
+                if row['tags'] is not None:
+                    new_tags = row['tags'].split(',')
+                    for interface in [a_interface, z_interface]:
+                        for new_tag in new_tags:
+                            if new_tag not in interface.tags:
+                                interface.tags.append(new_tag)
 
             # CDP Section
             if 'cdp_enabled' in row.keys():
@@ -226,7 +235,7 @@ class ExcelLoader(BaseLoader):
 
     def load_l3_links(self):
         self.logger.info("Loading L3 Links")
-        columns_rename = {k:k for k in ['use', 'a_host', 'a_interface', 'a_description', 'a_vrf', 'a_ipv4_address', 'z_host', 'z_interface', 'z_description', 'z_vrf', 'z_ipv4_address', 'ipv4_network', 'ospf_template', 'bfd_template']}
+        columns_rename = {k:k for k in ['use', 'a_host', 'a_interface', 'a_description', 'a_vrf', 'a_ipv4_address', 'z_host', 'z_interface', 'z_description', 'z_vrf', 'z_ipv4_address', 'ipv4_network', 'ospf_template', 'bfd_template', 'tags']}
         include_keys = set(columns_rename.values()).difference(set(META_KEYS))
         df = self.load_excel(path=self.input_file, sheet_name="l3_links", columns_rename=columns_rename)
         df = self.use_filter(df)
@@ -268,6 +277,14 @@ class ExcelLoader(BaseLoader):
                 a_interface.l3_port.add_ipv4_address(ipaddress.IPv4Interface(f"{usable_ips[0]}/{link.ipv4_network.prefixlen}"))
                 z_interface.l3_port.add_ipv4_address(ipaddress.IPv4Interface(f"{usable_ips[-1]}/{link.ipv4_network.prefixlen}"))
 
+            # Tags Section
+            if 'tags' in row.keys():
+                if row['tags'] is not None:
+                    new_tags = row['tags'].split(',')
+                    for interface in [a_interface, z_interface]:
+                        for new_tag in new_tags:
+                            if new_tag not in interface.tags:
+                                interface.tags.append(new_tag)
 
             if row.get('ospf_template') is not None:
                 ospf_template = self.templates['ospf'].get(row.get('ospf_template'))

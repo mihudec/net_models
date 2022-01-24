@@ -120,6 +120,7 @@ class Link(InventoryModel):
     z_host: GENERIC_OBJECT_NAME
     a_interface: InterfaceName
     z_interface: InterfaceName
+    tags: List[constr(strip_whitespace=True, to_lower=True)] = []
 
 
 class DescriptionLink(Link):
